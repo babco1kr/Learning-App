@@ -1,7 +1,6 @@
 import React from "react";
-import "./style.css";
 
-function Login() {
+function SignUp () {
     return (
         <div>
             <form>
@@ -13,10 +12,11 @@ function Login() {
                     Password:
                     <input type = "password" name = "password" id = "password"></input>
                 </label>
-                <button type = "submit">Login</button>
+                <button type = "submit">SignUp</button>
+                <a href = "/">Login</a>
             </form>
         </div>
     )
 }
 
-export default Login;
+export default SignUp;
