@@ -7,6 +7,10 @@ module.exports = function (sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        school: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
     return User;
