@@ -1,9 +1,11 @@
 import React from "react";
+import SchoolSelect from "../schoolSelect/schoolSelect";
 
 function TeacherLogin() {
     return (
         <div>
             <form>
+                <SchoolSelect />
                 <label>
                     Username:
                     <input type = "text" name = "username" id = "userName"></input>
