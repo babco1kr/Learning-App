@@ -1,5 +1,6 @@
 import React from "react";
 import SchoolSelect from "../schoolSelect/schoolSelect";
+import { Link } from "react-router-dom";
 
 function TeacherLogin() {
     return (
@@ -15,8 +16,12 @@ function TeacherLogin() {
                     <input type = "password" name = "password" id = "password"></input>
                 </label>
                 <button type = "submit">Login</button>
-                <a href = "/">Student</a>
-                <a href = "/signup">Sign Up</a>
+                <Link to={"/"}>
+                <button>Student</button>
+                </Link>
+                <Link to={"/signup"}>
+                <button>Sign Up</button>
+                </Link>
             </form>
         </div>
     )
