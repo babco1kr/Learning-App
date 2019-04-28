@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import SchoolSelect from "../schoolSelect/schoolSelect";
+import SchoolSelect from "../components/schoolSelect/schoolSelect";
+import { FormBtn } from "../components/Form";
+import API from "../utils/API";
 import { Link } from "react-router-dom";
 
 class SignUp extends Component {
@@ -27,6 +29,20 @@ class SignUp extends Component {
         });
     };
 
+    handleFormSubmit = event => {
+        event.preventDefault();
+        if (this.state.name && this.state.password) {
+            // Go to utils/API.js and run saveUser. 
+          API.saveUser({
+            name: this.state.name,
+            password: this.state.password,
+            school: 1
+          })
+            .then(res => console.log("User Saved!"))
+            .catch(err => console.log(err));
+        }
+      };
+
     render() {
     return (
         <div>
@@ -40,10 +56,17 @@ class SignUp extends Component {
                     Password:
                     <input value = {this.state.password} onChange = {this.handleInputChange} type = "password" name = "password" id = "password"></input>
                 </label>
-                <button type = "submit">SignUp</button>
+                {/* Submit button w/ props passed through */}
+                <FormBtn
+                disabled={!(this.state.name && this.state.password)}
+                onClick={this.handleFormSubmit}
+              >
+                Sign Up
+              </FormBtn>
+                {/* <button type = "submit">SignUp</button>
                 <Link to={"/"}>
                 <button>Student</button>
-                </Link>
+                </Link> */}
             </form>
         </div>
     )
