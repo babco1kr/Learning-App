@@ -2,7 +2,13 @@ import React from "react";
 import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { Link } from "react-router-dom";
 
+import Auth from '../Auth/Auth';
+
+const auth = new Auth();
+
+
 function TeacherLogin() {
+    auth.login();
     return (
         <div>
             <form>

@@ -2,6 +2,8 @@ import React from "react";
 import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { Link } from "react-router-dom";
 
+
+
 function TeacherLogin() {
     return (
         <div>
