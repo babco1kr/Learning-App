@@ -1,5 +1,5 @@
 import React from "react";
-import SchoolSelect from "../schoolSelect/schoolSelect";
+import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { Link } from "react-router-dom";
 
 function TeacherLogin() {
