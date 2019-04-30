@@ -1,5 +1,6 @@
 const db = require("../models");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     create: function(req, res) {
@@ -18,22 +19,32 @@ module.exports = {
       },
 
       lookUp: function(req, res) {
-
+        let currentUser;
         // res.json(req.body);
         db.User.findAll({
           where: {
             name: req.body.name
           }
-        }).then(function (result) {
-          res.json(result);
-        })
+        }).then(user => {
+          currentUser = user[0].dataValues;
+          // console.log(user[0].dataValues.password);
+         return bcrypt.compare(req.body.password, user[0].dataValues.password); 
+      }).then(results => {
+        // console.log(results);
+        if(!results) {
+          return res.status(401).json({
+            message: "Incorrect Login Credentials"
+          })
+        }
 
-        // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
-            
-        // })
-
-
-      }
+        // const token = jwt.sign({
+        //   id: currentUser.id,
+        //   name: currentUser.name,
+        //   school: currentUser.school
+        // });
+        // console.log(token);
+      })
+    }
 
 
 };
