@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import TeacherLogin from "./components/pages/teacherlogin";
-import StudentLogin from "./components/pages/studentlogin";
-import SignUp from "./components/pages/signup";
+import TeacherLogin from "./pages/teacherlogin";
+import StudentLogin from "./pages/studentlogin";
+import SignUp from "./pages/signup";
 import "./App.css";
 
 class App extends Component {
