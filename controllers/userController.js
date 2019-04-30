@@ -19,14 +19,14 @@ module.exports = {
 
       lookUp: function(req, res) {
 
-        console.log(req.body);
-        // db.User.findAll({
-        //   where: {
-        //     name: req.body.name
-        //   }
-        // }).then(function (res) {
-        //   console.log(res);
-        // })
+        // res.json(req.body);
+        db.User.findAll({
+          where: {
+            name: req.body.name
+          }
+        }).then(function (result) {
+          res.json(result);
+        })
 
         // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
             

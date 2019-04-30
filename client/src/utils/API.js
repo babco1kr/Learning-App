@@ -8,7 +8,11 @@ export default {
 
     checkUser: function(userData) {
       console.log(userData);
-      return axios.get("/api/user", userData);
-    }
+      return axios.post("/api/userlookup", userData);
+    },
+
+  //   checkUser: async ({ name, password, school}) => {
+  //     return await axios.get("/api/user", { name, password, school});;
+  // }
 
   };
