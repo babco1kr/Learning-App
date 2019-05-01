@@ -11,8 +11,9 @@ export default {
       return axios.post("/api/userlookup", userData);
     },
 
-  //   checkUser: async ({ name, password, school}) => {
-  //     return await axios.get("/api/user", { name, password, school});;
-  // }
+    login: function(token) {
+      return axios.post("/api/login/test", token)
+    }
+
 
   };

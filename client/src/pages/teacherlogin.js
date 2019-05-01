@@ -29,7 +29,14 @@ class TeacherLogin extends Component {
             password: this.state.password,
             school: 1
           })
-            .then(res => console.log("user created"))
+            // .then(res => console.log("user confirmed"))
+            .then(res => {
+              console.log(res);
+              API.login(res)
+            })
+            .then(res => {
+              console.log(res);
+            })
             .catch(err => console.log(err));
         }
       };
