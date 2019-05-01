@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FormBtn } from "../components/Form";
 import API from "../utils/API";
 import Nav from "../components/Nav/nav";
+import ls from 'local-storage'
 
 
 
@@ -21,6 +22,19 @@ class TeacherLogin extends Component {
         });
     };
 
+    setToken() {
+      // Saves user token to localStorage
+      fetch("/user/data", {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + ls.get("token")
+        }
+      })
+      .then(res => res.json())
+      .then(data => { console.log(data) })
+      .catch(err => { console.log(err) })
+  };
+
     handleFormSubmit = event => {
         event.preventDefault();
         if (this.state.name && this.state.password) {
@@ -32,11 +46,10 @@ class TeacherLogin extends Component {
           })
             // .then(res => console.log("user confirmed"))
             .then(res => {
-              console.log(res);
-              API.login(res)
-            })
-            .then(res => {
-              console.log(res);
+              // console.log(res)
+              ls.set("token", res.data.token);
+              this.setToken();
+              // API.login(res);
             })
             .catch(err => console.log(err));
         }
