@@ -5,5 +5,6 @@ const userLookupRoutes = require("./userlookup.js");
 // sends to routes/api/user.js
 router.use("/user", userRoutes);
 router.use("/userlookup", userLookupRoutes);
+router.use("/login", userLookupRoutes)
 
 module.exports = router;

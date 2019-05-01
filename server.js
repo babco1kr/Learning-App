@@ -3,6 +3,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const routes = require("./routes");
+const cookieParser = require('cookie-parser');
 
 var db = require("./models");
 
@@ -16,6 +17,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Add routes, both API and view
 app.use(routes);
+
+//middleware for jwt
+app.use(cookieParser());
 
 // Define API routes here
 require("./routes/apiRoutes.js")(app);
