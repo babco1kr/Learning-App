@@ -1,21 +1,51 @@
 const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require("./api");
-const withAuth = require("../middleware/middleware");
+const jwt = require("jsonwebtoken");
 
 // API Routes. Sends to routes/api/index.js
 router.use("/api", apiRoutes);
 
-// router.get('/', function (req, res, next) {
-//   res.render('index', { title: 'Auth0 Webapp sample Nodejs' });
-// });
 
 
-// temporary place to put a route that invokes the middleware.
-// Checks jwt
-// router.get('/secret', withAuth, function(req, res) {
-//   res.send('The password is potato');
-// });
+//Check to make sure header is not undefined, if so, return Forbidden (403)
+const checkToken = (req, res, next) => {
+  console.log(req.headers);
+  const header = req.headers['authorization'];
+
+  if(typeof header !== 'undefined') {
+    const bearer = header.split(' ');
+    const token = bearer[1];
+  
+    req.token = token;
+    next();
+  } else {
+    //If header is undefined return Forbidden (403)
+    res.sendStatus(403)
+  }
+  }
+
+
+router.get("/user/data", checkToken, (req, res) => {
+  console.log("working");
+  //verify the JWT token generated for the user
+  jwt.verify(req.token, `${process.env.JWT_SECRET}`, (err, authorizedData) => {
+      if(err){
+          //If error send Forbidden (403)
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      } else {
+          //If token is successfully verified, we can send the autorized data 
+          res.json({
+              message: 'Successful log in',
+              authorizedData
+          });
+          console.log('SUCCESS: Connected to protected route');
+      }
+  })
+});
+
+
 
 // If no API routes are hit, send the React app
 router.use(function(req, res) {

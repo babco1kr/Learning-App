@@ -53,6 +53,11 @@ module.exports = {
 
   getProfile: function(req, res) {
     //req.body.data.token gets you the token out of the req.
+  
+
+
+
+    
     let decoded = jwt.verify(req.body.data.token, `${process.env.JWT_SECRET}`)
     console.log(decoded);
 
@@ -75,17 +80,24 @@ module.exports = {
       res.send("error: " + err);
     });
 
+
+
+    const checkToken = (req, res, next) => {
+      const header = req.headers['authorization'];
+  
+      if(typeof header !== 'undefined') {
+          const bearer = header.split(' ');
+          const token = bearer[1];
+  
+          req.token = token;
+          next();
+      } else {
+          //If header is undefined return Forbidden (403)
+          res.sendStatus(403)
+      }
+
   }
 
-  
-  
-        // const token = jwt.sign({
-        //   id: currentUser.id,
-        //   name: currentUser.name,
-        //   school: currentUser.school
-        // });
-        // console.log(token);
 
-
-
-};
+  }
+}
