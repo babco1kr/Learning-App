@@ -3,6 +3,7 @@ import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { Link } from "react-router-dom";
 import { FormBtn } from "../components/Form";
 import API from "../utils/API";
+import Nav from "../components/Nav/nav";
 
 
 
@@ -37,6 +38,8 @@ class TeacherLogin extends Component {
     render() {
     return (
         <div>
+          <Nav />
+          <div className = "container">
             <form>
                 <SchoolSelect />
                 <label>
@@ -47,6 +50,7 @@ class TeacherLogin extends Component {
                     Password:
                     <input value = {this.state.password} onChange = {this.handleInputChange} type = "password" name = "password" id = "password"></input>
                 </label>
+                <div className = "center-align">
                 <FormBtn
                 disabled={!(this.state.name && this.state.password)}
                 onClick={this.handleFormSubmit}
@@ -54,12 +58,14 @@ class TeacherLogin extends Component {
                 Submit
               </FormBtn>
                 <Link to={"/"}>
-                <button>Student</button>
+                <button className = "waves-effect waves-light btn-large" >Student</button>
                 </Link>
                 <Link to={"/signup"}>
-                <button>Sign Up</button>
+                <button className = "waves-effect waves-light btn-large" >Sign Up</button>
                 </Link>
+                </div>
             </form>
+            </div>
         </div>
     );
     }

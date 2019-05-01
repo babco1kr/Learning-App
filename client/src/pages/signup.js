@@ -3,6 +3,7 @@ import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { FormBtn } from "../components/Form";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
+import Nav from "../components/Nav/nav";
 
 class SignUp extends Component {
 
@@ -46,6 +47,8 @@ class SignUp extends Component {
     render() {
     return (
         <div>
+          <Nav />
+          <div className = "container">
             <form>
                 <SchoolSelect />
                 <label>
@@ -57,17 +60,20 @@ class SignUp extends Component {
                     <input value = {this.state.password} onChange = {this.handleInputChange} type = "password" name = "password" id = "password"></input>
                 </label>
                 {/* Submit button w/ props passed through */}
+                <div className = "center-align">
                 <FormBtn
                 disabled={!(this.state.name && this.state.password)}
                 onClick={this.handleFormSubmit}
               >
                 Sign Up
               </FormBtn>
-                {/* <button type = "submit">SignUp</button>
+                <button className = "waves-effect waves-light btn-large" type = "submit">SignUp</button>
                 <Link to={"/"}>
-                <button>Student</button>
-                </Link> */}
+                <button className = "waves-effect waves-light btn-large">Student</button>
+                </Link>
+                </div>
             </form>
+            </div>
         </div>
     )
 }
