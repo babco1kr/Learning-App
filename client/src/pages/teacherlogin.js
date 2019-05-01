@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Switch, Route, Redirect } from 'react-router-dom';
 import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { Link } from "react-router-dom";
 import { FormBtn } from "../components/Form";
@@ -48,7 +49,9 @@ class TeacherLogin extends Component {
             .then(res => {
               // console.log(res)
               ls.set("token", res.data.token);
-              this.setToken();
+              this.props.history.push("/teacherhome");
+              // return <Redirect to="/teacherhome" />;
+              // this.setToken();
               // API.login(res);
             })
             .catch(err => console.log(err));
@@ -71,12 +74,14 @@ class TeacherLogin extends Component {
                     <input value = {this.state.password} onChange = {this.handleInputChange} type = "password" name = "password" id = "password"></input>
                 </label>
                 <div className = "center-align">
+             
                 <FormBtn
                 disabled={!(this.state.name && this.state.password)}
                 onClick={this.handleFormSubmit}
               >
                 Submit
               </FormBtn>
+       
                 <Link to={"/"}>
                 <button className = "waves-effect waves-light btn-large" >Student</button>
                 </Link>
