@@ -48,7 +48,8 @@ class Addstudent extends Component {
             API.addStudent({
                 studentNumber: this.state.studentID,
                 name: this.state.studentName,
-                UserId: 1
+                UserId: ls.get("teacherID"),
+                school: ls.get("school")
             }).then(res => {
                 console.log("Working");
                 this.setState({ studentID: "" });

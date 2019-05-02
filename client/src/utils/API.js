@@ -14,7 +14,7 @@ export default {
 
     checkStudent: function(input) {
       console.log(input);
-      return axios.get("/api/student/" + input);
+      return axios.post("/api/student/", input);
 
     },
     login: function() {

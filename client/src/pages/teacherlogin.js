@@ -55,8 +55,10 @@ class TeacherLogin extends Component {
           })
             // .then(res => console.log("user confirmed"))
             .then(res => {
-              // console.log(res)
+              console.log(res)
               ls.set("token", res.data.token);
+              ls.set("teacherID", res.data.teacherId);
+              ls.set("school", res.data.schoolId);
               this.props.history.push("/teacherhome");
               // return <Redirect to="/teacherhome" />;
               // this.setToken();

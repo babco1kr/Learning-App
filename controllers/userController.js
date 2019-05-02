@@ -28,6 +28,7 @@ module.exports = {
           }
         }).then(user => {
           currentUser = user[0].dataValues;
+          console.log(currentUser);
           // console.log(user[0].dataValues.password);
          return bcrypt.compare(req.body.password, user[0].dataValues.password); 
       }).then(results => {
@@ -37,11 +38,13 @@ module.exports = {
             message: "Incorrect Login Credentials"
           })
         }
-        const token = jwt.sign({name: currentUser.name, userId: currentUser._id}, `${process.env.JWT_SECRET}`, {expiresIn: '1h'});
-        console.log(token);
+        const token = jwt.sign({name: currentUser.name, teacherId: currentUser.id}, `${process.env.JWT_SECRET}`, {expiresIn: '1h'});
+        // console.log(token);
         res.status(200).json({
           token: token,
           name: currentUser.name,
+          teacherId: currentUser.id,
+          schoolId: currentUser.school,
           expiresIn: 3600
         })
       })
