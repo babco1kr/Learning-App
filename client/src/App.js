@@ -4,6 +4,7 @@ import TeacherLogin from "./pages/teacherlogin";
 import StudentLogin from "./pages/studentlogin";
 import TeacherHome from "./pages/teacherhome";
 import Addstudent from "./pages/addstudent";
+import StudentHome from "./pages/studenthome";
 import SignUp from "./pages/signup";
 import "./App.css";
 
@@ -18,6 +19,7 @@ class App extends Component {
           <Route exact path ="/signup" component = {SignUp} />
           <Route exact path ="/teacherhome" component = {TeacherHome} />
           <Route exact path ="/addstudent" component = {Addstudent} />
+          <Route exact path ="/studenthome" component = {StudentHome} />
         </Switch>
       </div>
       </Router>
