@@ -9,6 +9,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        school: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         timeOnline: {
             type: DataTypes.DECIMAL,
             // allowNull: false,

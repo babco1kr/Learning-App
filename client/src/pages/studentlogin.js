@@ -10,6 +10,7 @@ class StudentLogin extends Component {
 
     state = {
         studentNumber: "",
+        schoolNumber: ""
     }
 
     handleInputChange = event => {
@@ -20,12 +21,12 @@ class StudentLogin extends Component {
     };
 
 
-  handleSchoolChange = event => {
-    this.setState({
-      schoolNumber: event,
+    handleSchoolChange = event => {
+        this.setState({
+            schoolNumber: event,
 
-    });
-  };
+        });
+    };
 
     setToken() {
         // Saves user token to localStorage
@@ -44,7 +45,10 @@ class StudentLogin extends Component {
         event.preventDefault();
         if (this.state.studentNumber) {
             // Go to utils/API.js and run 
-            API.checkStudent(this.state.studentNumber)
+            API.checkStudent({
+                studentNumber: this.state.studentNumber,
+                school: this.state.schoolNumber.value}
+                )
                 // .then(res => console.log("user confirmed"))
                 .then(res => {
                     if (res.data.length === 0) {
@@ -65,11 +69,11 @@ class StudentLogin extends Component {
                 <Nav />
                 <div className="container">
                     <form>
-                    <SchoolSelect 
-                value={this.state.schoolNumber}
-                name="schoolNumber"
-                handleInputChange={this.handleSchoolChange.bind(this)}
-                />
+                        <SchoolSelect
+                            value={this.state.schoolNumber}
+                            name="schoolNumber"
+                            handleInputChange={this.handleSchoolChange.bind(this)}
+                        />
                         <label>
                             Student ID:
                     <input value={this.state.name} onChange={this.handleInputChange} type="text" name="studentNumber" id="studentNumber"></input>

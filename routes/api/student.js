@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const studentController = require("../../controllers/studentController");
 
-router.route("/:id")
+router.route("/")
     //sends to controllers/userController.js
-  .get(studentController.login)
+  .post(studentController.login)
 
 module.exports = router;

@@ -4,7 +4,8 @@ module.exports = {
     login: function (req, res) {
         db.Student.findAll({
             where: {
-                studentNumber: req.params.id
+                studentNumber: req.body.studentNumber,
+                school: req.body.school
             }
         })
             .then(results => res.json(results))
