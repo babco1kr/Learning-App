@@ -12,16 +12,11 @@ export default {
     },
 
     login: function() {
-      // fetch('/user/data', {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': 'Bearer' + localstorage.getItem('token')
-      //   }
-      // })
-      // .then(res => res.json())
-      // .then(data => { console.log(data) })
-      // .catch(err => { console.log(err) })
       return axios.get("/user/data")
+    },
+
+    addStudent: function(studentData) {
+      return axios.post("/api/teacher", studentData);
     }
 
 
