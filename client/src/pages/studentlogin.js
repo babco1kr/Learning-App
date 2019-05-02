@@ -43,8 +43,8 @@ class StudentLogin extends Component {
                         console.log("login failed")
                     }
                     else {
-                        // ls.set("stuNum", res.data);
-                        // this.props.history.push("/studenthome");
+                        ls.set("stuNum", res.data[0].studentNumber);
+                        this.props.history.push("/studenthome");
                     }
                 })
                 .catch(err => console.log(err));
