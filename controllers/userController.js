@@ -23,7 +23,8 @@ module.exports = {
         // res.json(req.body);
         db.User.findAll({
           where: {
-            name: req.body.name
+            name: req.body.name,
+            school: req.body.school
           }
         }).then(user => {
           currentUser = user[0].dataValues;

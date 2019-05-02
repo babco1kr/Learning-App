@@ -19,6 +19,14 @@ class StudentLogin extends Component {
         });
     };
 
+
+  handleSchoolChange = event => {
+    this.setState({
+      schoolNumber: event,
+
+    });
+  };
+
     setToken() {
         // Saves user token to localStorage
         fetch("/user/data", {
@@ -57,7 +65,11 @@ class StudentLogin extends Component {
                 <Nav />
                 <div className="container">
                     <form>
-                        <SchoolSelect />
+                    <SchoolSelect 
+                value={this.state.schoolNumber}
+                name="schoolNumber"
+                handleInputChange={this.handleSchoolChange.bind(this)}
+                />
                         <label>
                             Student ID:
                     <input value={this.state.name} onChange={this.handleInputChange} type="text" name="studentNumber" id="studentNumber"></input>

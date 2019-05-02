@@ -13,7 +13,8 @@ class TeacherLogin extends Component {
 
     state = {
         name: "",
-        password: ""
+        password: "",
+        schoolNumber: ""
     }
 
     handleInputChange = event => {
@@ -21,6 +22,13 @@ class TeacherLogin extends Component {
         this.setState({
           [name]: value
         });
+    };
+
+    handleSchoolChange = event => {
+      this.setState({
+        schoolNumber: event,
+  
+      });
     };
 
     setToken() {
@@ -43,7 +51,7 @@ class TeacherLogin extends Component {
           API.checkUser({
             name: this.state.name,
             password: this.state.password,
-            school: 1
+            school: this.state.schoolNumber.value
           })
             // .then(res => console.log("user confirmed"))
             .then(res => {
@@ -64,7 +72,11 @@ class TeacherLogin extends Component {
           <Nav />
           <div className = "container">
             <form>
-                <SchoolSelect />
+            <SchoolSelect 
+                value={this.state.schoolNumber}
+                name="schoolNumber"
+                handleInputChange={this.handleSchoolChange.bind(this)}
+                />
                 <label>
                     Username:
                     <input value = {this.state.name} onChange = {this.handleInputChange} type = "text" name = "name" id = "userName"></input>

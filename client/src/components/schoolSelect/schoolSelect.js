@@ -1,10 +1,16 @@
 import React from "react";
+import { Select } from 'react-materialize';
 
-function SchoolSelect() {
+import ReactMaterialSelect from 'react-material-select'
+import 'react-material-select/lib/css/reactMaterialSelect.css'
+
+function SchoolSelect(props) {
     return (
-        <select>
-            <option value="1">Reedy Creek Elementary</option>
-        </select>
+        <ReactMaterialSelect name="schoolNumber" label="Please Choose A School" onChange={props.handleInputChange.bind(this)}>
+            <option dataValue="1">Reedy Creek Elementary</option>
+            <option dataValue="2">School 2</option>
+        </ReactMaterialSelect>
+
     )
 }
 
