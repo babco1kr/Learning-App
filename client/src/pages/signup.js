@@ -12,17 +12,6 @@ class SignUp extends Component {
         password: ""
     }
 
-    login = () => {
-        let object = {
-            name: this.state.name,
-            password: this.state.password
-        };
-
-        // post("/register", object).then(
-        //     console.log("Ok")
-        // )
-    }
-
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -67,7 +56,9 @@ class SignUp extends Component {
               >
                 Sign Up
               </FormBtn>
-                <button className = "waves-effect waves-light btn-large" type = "submit">SignUp</button>
+              <Link to={"/teacherlogin"}>
+                <button className = "waves-effect waves-light btn-large" type = "submit">Admin</button>
+                </Link>
                 <Link to={"/"}>
                 <button className = "waves-effect waves-light btn-large">Student</button>
                 </Link>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import ls from 'local-storage'
+import { Link } from "react-router-dom";
+import ls from 'local-storage';
 
 import Nav from "../components/Nav/nav";
 
@@ -24,8 +25,9 @@ class TeacherHome extends Component {
                 if (res.status === 200) {
                     this.setState({ loading: false })
                 } else {
-                    const error = new Error(res.error);
-                    throw error;
+                    this.props.history.push("/teacherlogin");
+                    // const error = new Error(res.error);
+                    // throw error;
                 }
             })
             .then(data => { console.log(data) })
@@ -33,18 +35,14 @@ class TeacherHome extends Component {
     };
 
     render() {
-        const { loading } = this.state;
-        if (loading) {
-            return (
-                <div>
-                    nope
-                </div>
-            )
-        }
         return (
             <div>
                 <Nav />
-                Welcome!
+                <div className = "container">
+                <Link to={"/addstudent"}>
+                <button className = "waves-effect waves-light btn-large">Add Student</button>
+                </Link>
+                </div>
             </div>
         )
     }
