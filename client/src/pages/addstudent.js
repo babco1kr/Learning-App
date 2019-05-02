@@ -51,8 +51,8 @@ class Addstudent extends Component {
                 UserId: 1
             }).then(res => {
                 console.log("Working");
-                this.setState.studentID("");
-                this.setState.studentName("");
+                this.setState({ studentID: "" });
+                this.setState({ studenName: "" });
             })
         }
         }

@@ -16,6 +16,7 @@ export default {
       console.log(input);
       return axios.get("/api/student/" + input);
 
+    },
     login: function() {
       return axios.get("/user/data")
     },
