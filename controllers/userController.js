@@ -12,7 +12,7 @@ module.exports = {
 
                 db.User
                 .create(req.body)
-                .then(res => res.json(res))
+                .then(results => res.json(results))
                 .catch(err => res.status(422).json(err));
             });
         });
