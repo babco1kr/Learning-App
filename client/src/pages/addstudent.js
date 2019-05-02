@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ls from 'local-storage';
 import Nav from "../components/Nav/nav";
+import API from "../utils/API";
 
 class Addstudent extends Component {
     state = {
@@ -34,17 +35,26 @@ class Addstudent extends Component {
                     this.setState({ loading: false })
                 } else {
                     this.props.history.push("/teacherlogin");
-                    // const error = new Error(res.error);
-                    // throw error;
                 }
             })
-            .then(data => { console.log(data) })
+            // .then(data => { console.log(data) })
             .catch(err => { console.log(err) })
     };
 
     handleFormSubmit = event => {
         event.preventDefault();
         // Need to add user to student table
+        if (this.state.studentID && this.state.studentName) {
+            API.addStudent({
+                studentNumber: this.state.studentID,
+                name: this.state.studentName,
+                UserId: 1
+            }).then(res => {
+                console.log("Working");
+                this.setState.studentID("");
+                this.setState.studentName("");
+            })
+        }
         }
       
 
@@ -65,13 +75,13 @@ class Addstudent extends Component {
                                 <div className = "col s5">
                                 <label>
                                 Student ID:
-                                <input value = {this.state.studentID} onChange = {this.handleInputChange} type = "text" name = "name" id = "userName"></input>
+                                <input value = {this.state.studentID} onChange = {this.handleInputChange} type = "text" name = "studentID" id = "studentID"></input>
                                 </label>
                                 </div>
                                 <div className = "col s5">
                                 <label>
                                 Student Name:
-                                <input value = {this.state.studentName} onChange = {this.handleInputChange} type = "text" name = "name" id = "userName"></input>
+                                <input value = {this.state.studentName} onChange = {this.handleInputChange} type = "text" name = "studentName" id = "studentName"></input>
                                 </label>
                                 </div>
                                 <div className = "col s2">

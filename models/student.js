@@ -11,8 +11,8 @@ module.exports = function (sequelize, DataTypes) {
         },
         timeOnline: {
             type: DataTypes.DECIMAL,
-            allowNull: false,
-            default: 0.00
+            // allowNull: false,
+            default: 0
         }
     });
     Student.associate = function(models) {
