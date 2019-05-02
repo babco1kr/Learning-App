@@ -65,13 +65,13 @@ class Addstudent extends Component {
                                 <div className = "col s5">
                                 <label>
                                 Student ID:
-                                <input value = {this.state.studentID} onChange = {this.handleInputChange} type = "text" name = "name" id = "userName"></input>
+                                <input value = {this.state.studentID} onChange = {this.handleInputChange} type = "text" name = "studentID" id = "studentID"></input>
                                 </label>
                                 </div>
                                 <div className = "col s5">
                                 <label>
                                 Student Name:
-                                <input value = {this.state.studentName} onChange = {this.handleInputChange} type = "text" name = "name" id = "userName"></input>
+                                <input value = {this.state.studentName} onChange = {this.handleInputChange} type = "text" name = "studentName" id = "studentName"></input>
                                 </label>
                                 </div>
                                 <div className = "col s2">

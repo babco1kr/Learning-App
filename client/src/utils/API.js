@@ -11,17 +11,9 @@ export default {
       return axios.post("/api/userlookup", userData);
     },
 
-    login: function() {
-      // fetch('/user/data', {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': 'Bearer' + localstorage.getItem('token')
-      //   }
-      // })
-      // .then(res => res.json())
-      // .then(data => { console.log(data) })
-      // .catch(err => { console.log(err) })
-      return axios.get("/user/data")
+    checkStudent: function(input) {
+      console.log(input);
+      return axios.get("/api/student/" + input);
     }
 
 
