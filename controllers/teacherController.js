@@ -73,13 +73,19 @@ module.exports = {
     },
 
     deleteStudent: function(req, res) {
-        db.Student.destroy({
+        db.Score.destroy({
             where: {
-                id: req.body.id
+                StudentId: req.body.id
             }
-        }).then(data => {
-            res.json(data);
-        }).catch(err => res.status(422).json(err));
+        }).then(results => {
+            db.Student.destroy({
+                where: {
+                    id: req.body.id
+                }
+            }).then(data => {
+                res.json(data);
+            }).catch(err => res.status(422).json(err));
+        })
     },
 
     deleteUnit: function(req, res) {

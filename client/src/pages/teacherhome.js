@@ -29,7 +29,8 @@ class TeacherHome extends Component {
                     // const error = new Error(res.error);
                     // throw error;
                 }
-            }).then(res => res.json())
+            })
+            // .then(res => res.json())
             .catch(err => { console.log(err) })
     };
 
@@ -40,6 +41,9 @@ class TeacherHome extends Component {
                 <div className = "container">
                 <Link to={"/addstudent"}>
                 <button className = "waves-effect waves-light btn-large">Add Student</button>
+                </Link>
+                <Link to={"/units"}>
+                <button className = "waves-effect waves-light btn-large">Units</button>
                 </Link>
                 </div>
             </div>

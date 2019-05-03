@@ -7,8 +7,8 @@ import Nav from "../components/Nav/nav";
 
 import M from "materialize-css";
 
-import ReactMaterialSelect from 'react-material-select'
-import 'react-material-select/lib/css/reactMaterialSelect.css'
+// import ReactMaterialSelect from 'react-material-select'
+import 'react-material-select/lib/css/reactMaterialSelect.css';
 
 
 
