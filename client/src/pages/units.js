@@ -92,6 +92,17 @@ class Units extends Component {
         }
     }
 
+    changeActive = id => {
+        API.updateActive({
+            unitId: id,
+            teacherID: ls.get("teacherID"),
+            school: ls.get("school")
+        }).then( res => {
+            console.log("status changed");
+            this.getUnits();
+        })
+    }
+
     render() {
         return (
             <div>
@@ -124,8 +135,10 @@ class Units extends Component {
                                     {this.state.units.map(unit => (
                                         <UnitButton
                                             key={unit.id}
+                                            id={unit.id}
                                             name={unit.name}
                                             active={unit.active}
+                                            changeActive={this.changeActive}
                                         />
                                     ))}
                                 </div>

@@ -9,7 +9,7 @@ function UnitButton(props) {
             <button className = "waves-effect waves-light btn-large">{props.name}</button>
             </div>
             <div className = "col s3">
-            <button className = "waves-effect waves-light btn-large">SetActive</button>
+            <button className = "waves-effect waves-light btn-large" onClick={() => props.changeActive(props.id)}>SetActive</button>
             </div>
             <div className = "col s2">
             <button className = "waves-effect waves-light btn-large">X</button>
@@ -23,7 +23,7 @@ function UnitButton(props) {
             <button className = "waves-effect waves-light btn-large">{props.name}</button>
             </div>
             <div className = "col s3">
-            <button className = "waves-effect waves-light btn-large">SetInactive</button>
+            <button className = "waves-effect waves-light btn-large" onClick={() => props.changeActive(props.id)}>SetInactive</button>
             </div>
             <div className = "col s2">
             <button className = "waves-effect waves-light btn-large">X</button>
