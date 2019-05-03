@@ -10,7 +10,29 @@ import moment from 'moment';
 class StudentHome extends Component {
 
     state = {
+        loading: true
     }
+    componentDidMount() {
+        this.studentLoginCheck()
+    }
+
+    studentLoginCheck = () => {
+
+       API.checkStudent({
+            studentNumber: ls.get("stuNum"),
+            school: ls.get("school")
+       })
+        .then(res => {
+            console.log(res.results);
+            if (res.results) {
+                this.setState({loading: false})
+            } else {
+                this.props.history.push("/")
+            }
+        })
+        .catch(err => {console.log(err)})
+    };
+
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -35,19 +57,24 @@ class StudentHome extends Component {
     };
 
     render() {
-        return (
-            <div>
-                <Nav />
-                <div className="container">
-                    
-                <FormBtn
-                        onClick={this.handleFormSubmit}
-                    >
-                       START
-              </FormBtn>
+        if (!this.state.loading) {
+            return null
+        }
+        else {
+            return (
+                <div>
+                    <Nav />
+                    <div className="container">
+                        
+                    <FormBtn
+                            onClick={this.handleFormSubmit}
+                        >
+                           START
+                  </FormBtn>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 
