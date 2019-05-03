@@ -83,12 +83,18 @@ module.exports = {
     },
 
     deleteUnit: function(req, res) {
-        db.Unit.destroy({
+        db.Spelling.destroy({
             where: {
-                id: req.body.id
+                UnitId: req.body.id
             }
-        }).then(data => {
-            res.json(data);
-        }).catch(err => res.status(422).json(err));
+        }).then(results => {
+            db.Unit.destroy({
+                where: {
+                    id: req.body.id
+                }
+            }).then(data => {
+                res.json(data);
+            }).catch(err => res.status(422).json(err));
+        })
     }
 }
