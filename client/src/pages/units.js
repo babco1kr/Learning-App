@@ -56,8 +56,8 @@ class Units extends Component {
             }).then(res =>{
                 console.log("Unit Added");
                 this.setState({unit: 1});
-                this.setState({question: ""});
-                this.setState({imageLink: ""});
+                this.setState({subject: 0});
+                this.setState({name: ""});
             })
         }
     }
@@ -72,9 +72,9 @@ class Units extends Component {
                 school: ls.get("school"),
                 UnitId: this.state.unit
             }).then(res =>{
-                console.log("Unit Added");
-                this.setState({name: ""});
-                this.setState({subject: 0});
+                console.log("Question Added");
+                this.setState({imageLink: ""});
+                this.setState({question: ""});
             })
         }
     }
