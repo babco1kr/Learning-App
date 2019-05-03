@@ -55,6 +55,10 @@ export default {
 
     updateActive: function(status) {
       return axios.post("/api/teacher/changestatus", status);
+    },
+
+    deleteStudent: function(student) {
+      return axios.post("/api/teacher/removestudent", student);
     }
 
 
