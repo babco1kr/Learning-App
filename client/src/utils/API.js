@@ -59,6 +59,10 @@ export default {
 
     deleteStudent: function(student) {
       return axios.post("/api/teacher/removestudent", student);
+    },
+
+    deleteUnit: function(unit) {
+      return axios.post("/api/teacher/removeunit", unit);
     }
 
 

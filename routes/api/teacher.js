@@ -23,5 +23,8 @@ router.route("/changestatus")
 
 router.route("/removestudent")
   .post(teacherController.deleteStudent);
+
+router.route("/removeunit")
+  .post(teacherController.deleteUnit);
   
 module.exports = router;
