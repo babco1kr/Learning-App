@@ -8,11 +8,13 @@ class Addstudent extends Component {
     state = {
         loading: true,
         studentID: "",
-        studentName: "" 
+        studentName: "",
+        students: []
     }
 
     componentDidMount() {
-        this.setToken()
+        this.setToken();
+        this.findStudents();
     }
 
     handleInputChange = event => {
@@ -40,6 +42,15 @@ class Addstudent extends Component {
             // .then(data => { console.log(data) })
             .catch(err => { console.log(err) })
     };
+
+    findStudents() {
+        API.findStudents({
+            UserId: ls.get("teacherID"),
+            school: ls.get("school")
+        }).then(res => {
+            console.log("Find students working");
+        })
+    }
 
     handleFormSubmit = event => {
         event.preventDefault();
