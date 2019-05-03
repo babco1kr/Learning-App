@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import ls from 'local-storage';
 import Nav from "../components/Nav/nav";
 import API from "../utils/API";
