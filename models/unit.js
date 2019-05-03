@@ -15,6 +15,10 @@ module.exports = function (sequelize, DataTypes) {
         subject: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     });
     Unit.associate = function(models) {
