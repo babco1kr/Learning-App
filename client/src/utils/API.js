@@ -41,6 +41,10 @@ export default {
 
     addSpelling: function(question) {
       return axios.post("/api/teacher/addSpelling", question);
+    },
+
+    findUnits: function(unitInfo) {
+      return axios.post("/api/teacher/getUnits", unitInfo);
     }
 
 

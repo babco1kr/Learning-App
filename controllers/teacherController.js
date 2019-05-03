@@ -25,5 +25,17 @@ module.exports = {
         db.Spelling.create(req.body)
         .then(results => res.json(results))
         .catch(err => res.status(422).json(err));
+    },
+
+    findUnits: function(req, res) {
+        console.log(req.body);
+        db.Unit.findAll({
+            where: {
+                teacherID: req.body.teacherID,
+                school: req.body.school
+            }
+        }).then(results => {
+            res.json(results)
+        }).catch(err => res.status(422).json(err));
     }
 }

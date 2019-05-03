@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ls from 'local-storage';
 import Nav from "../components/Nav/nav";
 import API from "../utils/API";
+import UnitButton from "../components/UnitButton";
 
 class Units extends Component {
     state = {
@@ -17,14 +18,25 @@ class Units extends Component {
 
     componentDidMount() {
         this.setToken();
+        this.getUnits();
     }
 
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
     };
+
+    getUnits() {
+        API.findUnits({
+            teacherID: ls.get("teacherID"),
+            school: ls.get("school")
+        }).then(res => {
+            this.setState({ units: res.data });
+            // console.log(res.data);
+        })
+    }
 
     setToken() {
         // Saves user token to localStorage
@@ -53,11 +65,12 @@ class Units extends Component {
                 subject: this.state.subject,
                 teacherID: ls.get("teacherID"),
                 school: ls.get("school")
-            }).then(res =>{
+            }).then(res => {
                 console.log("Unit Added");
-                this.setState({unit: 1});
-                this.setState({subject: 0});
-                this.setState({name: ""});
+                this.setState({ unit: 1 });
+                this.setState({ subject: 1 });
+                this.setState({ name: "" });
+                this.getUnits();
             })
         }
     }
@@ -71,10 +84,10 @@ class Units extends Component {
                 teacherID: ls.get("teacherID"),
                 school: ls.get("school"),
                 UnitId: this.state.unit
-            }).then(res =>{
+            }).then(res => {
                 console.log("Question Added");
-                this.setState({imageLink: ""});
-                this.setState({question: ""});
+                this.setState({ imageLink: "" });
+                this.setState({ question: "" });
             })
         }
     }
@@ -83,54 +96,65 @@ class Units extends Component {
         return (
             <div>
                 <Nav />
-                    <div className = "container">
-                    <div className = "row">
-                        <div className = "center-align col s6">
+                <div className="container">
+                    <div className="row">
+                        <div className="center-align col s6">
                             <h3>Units</h3>
                             <hr></hr>
-                            <div className ="row">
-                                <div className = "col s5">
-                                <label>
-                                Unit Name:
-                                <input value = {this.state.name} onChange = {this.handleInputChange} type = "text" name = "name" id = "unitName"></input>
-                                </label>
+                            <div className="row">
+                                <div className="col s5">
+                                    <label>
+                                        Unit Name:
+                                <input value={this.state.name} onChange={this.handleInputChange} type="text" name="name" id="unitName"></input>
+                                    </label>
                                 </div>
-                                <div className = "col s5">
-                                <label>
-                                Subject:
-                                <input value = {this.state.subject} onChange = {this.handleInputChange} type="checkbox" className="filled-in" checked="checked" />
-                                <span>Spelling</span>
-                                </label>
+                                <div className="col s5">
+                                    <label>
+                                        Subject:
+                                <input value={this.state.subject} onChange={this.handleInputChange} type="checkbox" className="filled-in" checked="checked" />
+                                        <span>Spelling</span>
+                                    </label>
                                 </div>
-                                <div className = "col s2">
-                                <button className = "waves-effect waves-light btn-large" type = "submit" onClick={this.handleUnitSubmit}>Add</button>
+                                <div className="col s2">
+                                    <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleUnitSubmit}>Add</button>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="row">
+                                    {this.state.units.map(unit => (
+                                        <UnitButton
+                                            key={unit.id}
+                                            name={unit.name}
+                                            active={unit.active}
+                                        />
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                        <div className = "center-align col s6">
+                        <div className="center-align col s6">
                             <h3>Questions</h3>
                             <hr></hr>
-                            <div className ="row">
-                                <div className = "col s2">
-                                <label>
-                                Unit Number:
-                                <input value = {this.state.unit} onChange = {this.handleInputChange} type = "text" name = "unit" id = "question"></input>
-                                </label>
+                            <div className="row">
+                                <div className="col s2">
+                                    <label>
+                                        Unit Number:
+                                <input value={this.state.unit} onChange={this.handleInputChange} type="text" name="unit" id="question"></input>
+                                    </label>
                                 </div>
-                                <div className = "col s3">
-                                <label>
-                                Spelling Word:
-                                <input value = {this.state.question} onChange = {this.handleInputChange} type = "text" name = "question" id = "question"></input>
-                                </label>
+                                <div className="col s3">
+                                    <label>
+                                        Spelling Word:
+                                <input value={this.state.question} onChange={this.handleInputChange} type="text" name="question" id="question"></input>
+                                    </label>
                                 </div>
-                                <div className = "col s5">
-                                <label>
-                                Image Link:
-                                <input value = {this.state.image} onChange = {this.handleInputChange} type = "text" name = "imageLink" id = "imageLink"></input>
-                                </label>
+                                <div className="col s5">
+                                    <label>
+                                        Image Link:
+                                <input value={this.state.image} onChange={this.handleInputChange} type="text" name="imageLink" id="imageLink"></input>
+                                    </label>
                                 </div>
-                                <div className = "col s2">
-                                <button className = "waves-effect waves-light btn-large" type = "submit" onClick={this.handleQuestionSubmit}>Add</button>
+                                <div className="col s2">
+                                    <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleQuestionSubmit}>Add</button>
                                 </div>
                             </div>
                         </div>

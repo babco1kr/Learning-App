@@ -16,5 +16,7 @@ router.route("/addUnit")
 router.route("/addSpelling")
   .post(teacherController.addSpelling)
 
+router.route("/getUnits")
+  .post(teacherController.findUnits);
 
 module.exports = router;
