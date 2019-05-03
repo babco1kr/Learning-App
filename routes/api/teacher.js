@@ -10,5 +10,11 @@ router.route("/lookup")
     //sends to controllers/teacherController.js
   .post(teacherController.findStudents);
 
+router.route("/addUnit")
+  .post(teacherController.addUnit);
+
+router.route("/addSpelling")
+  .post(teacherController.addSpelling)
+
 
 module.exports = router;

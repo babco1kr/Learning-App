@@ -34,4 +34,16 @@ export default {
       return axios.post("/api/student/start", input);
     },
 
+
+    addUnit: function(unitInfo) {
+      return axios.post("/api/teacher/addUnit", unitInfo);
+    },
+
+    addSpelling: function(question) {
+      return axios.post("/api/teacher/addSpelling", question);
+    }
+
+
+
+
   };
