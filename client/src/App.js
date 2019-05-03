@@ -6,6 +6,7 @@ import TeacherHome from "./pages/teacherhome";
 import Addstudent from "./pages/addstudent";
 import StudentHome from "./pages/studenthome";
 import SignUp from "./pages/signup";
+import Units from "./pages/units";
 import "./App.css";
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
           <Route exact path ="/teacherhome" component = {TeacherHome} />
           <Route exact path ="/addstudent" component = {Addstudent} />
           <Route exact path ="/studenthome" component = {StudentHome} />
+          <Route exact path ="/units" component = {Units} />
         </Switch>
       </div>
       </Router>

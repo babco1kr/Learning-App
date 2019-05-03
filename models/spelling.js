@@ -10,6 +10,10 @@ module.exports = function (sequelize, DataTypes) {
         teacherID: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        school: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
     Spelling.associate = function(models) {
