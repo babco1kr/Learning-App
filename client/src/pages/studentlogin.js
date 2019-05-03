@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import Nav from "../components/Nav/nav";
 import API from "../utils/API";
-import ls from 'local-storage'
+import ls from 'local-storage';
 
 class StudentLogin extends Component {
 
@@ -85,7 +85,7 @@ class StudentLogin extends Component {
                                 onClick={this.handleFormSubmit}
                             >
                                 Submit
-              </FormBtn>
+                            </FormBtn>
 
                             <Link to={"/signup"}>
                                 <button className="waves-effect waves-light btn-large" >Sign Up</button>

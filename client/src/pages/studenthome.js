@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 // import SchoolSelect from "../components/schoolSelect/schoolSelect";
-// import { FormBtn } from "../components/Form";
-// import API from "../utils/API";
+import { FormBtn } from "../components/Form";
 // import { Link } from "react-router-dom";
+import API from "../utils/API";
 import Nav from "../components/Nav/nav";
+import ls from 'local-storage';
+import moment from 'moment';
 
 class StudentHome extends Component {
 
@@ -13,20 +15,40 @@ class StudentHome extends Component {
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
     };
 
+    handleFormSubmit = event => {
+        event.preventDefault();
+            // Go to utils/API.js and run 
+            API.logStart({
+                studentNumber: ls.get("stuNum"),
+                school: ls.get("school"),
+                startTime: moment().format()}
+                )
+                .then(res => {
+                    console.log("start time saved")
+                    this.props.history.push("/studenthome");  
+                })
+                .catch(err => console.log(err));
+    };
+
     render() {
-    return (
-        <div>
-          <Nav />
-          <div className = "container">
-                hey
+        return (
+            <div>
+                <Nav />
+                <div className="container">
+                    
+                <FormBtn
+                        onClick={this.handleFormSubmit}
+                    >
+                       START
+              </FormBtn>
+                </div>
             </div>
-        </div>
-    )
-}
+        )
+    }
 }
 
 export default StudentHome;
