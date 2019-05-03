@@ -41,7 +41,7 @@ module.exports = {
         })
             .then(results => {
                 console.log(results);
-                if (results.length === 0) {
+                if (!results) {
                     res.status(404).json(err)
                 } else {
                     res.status(200).json(results)
