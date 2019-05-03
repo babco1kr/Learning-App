@@ -29,8 +29,7 @@ class TeacherHome extends Component {
                     // const error = new Error(res.error);
                     // throw error;
                 }
-            })
-            .then(data => { console.log(data) })
+            }).then(res => res.json())
             .catch(err => { console.log(err) })
     };
 

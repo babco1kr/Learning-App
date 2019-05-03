@@ -32,14 +32,12 @@ module.exports = {
           // console.log(user[0].dataValues.password);
          return bcrypt.compare(req.body.password, user[0].dataValues.password); 
       }).then(results => {
-        // console.log(results);
         if(!results) {
           return res.status(401).json({
             message: "Incorrect Login Credentials"
           })
         }
         const token = jwt.sign({name: currentUser.name, teacherId: currentUser.id}, `${process.env.JWT_SECRET}`, {expiresIn: '1h'});
-        // console.log(token);
         res.status(200).json({
           token: token,
           name: currentUser.name,
@@ -57,13 +55,7 @@ module.exports = {
 
   getProfile: function(req, res) {
     //req.body.data.token gets you the token out of the req.
-  
-
-
-
-    
     let decoded = jwt.verify(req.body.data.token, `${process.env.JWT_SECRET}`)
-    console.log(decoded);
 
     db.User.findAll({
       where: {
@@ -74,7 +66,6 @@ module.exports = {
       if (user) {
         let currentUser = user[0].dataValues;
         //shows that it's been decoded
-        console.log(currentUser);
         res.json(currentUser);
       } else {
         res.send("User does not exist");

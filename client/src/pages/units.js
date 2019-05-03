@@ -34,7 +34,6 @@ class Units extends Component {
             school: ls.get("school")
         }).then(res => {
             this.setState({ units: res.data });
-            // console.log(res.data);
         })
     }
 
@@ -53,7 +52,6 @@ class Units extends Component {
                     this.props.history.push("/teacherlogin");
                 }
             })
-            // .then(data => { console.log(data) })
             .catch(err => { console.log(err) })
     };
 
@@ -85,7 +83,6 @@ class Units extends Component {
                 school: ls.get("school"),
                 UnitId: this.state.unit
             }).then(res => {
-                console.log("Question Added");
                 this.setState({ imageLink: "" });
                 this.setState({ question: "" });
             })
@@ -98,7 +95,6 @@ class Units extends Component {
             teacherID: ls.get("teacherID"),
             school: ls.get("school")
         }).then( res => {
-            console.log("status changed");
             this.getUnits();
         })
     }

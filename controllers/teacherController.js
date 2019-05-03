@@ -45,7 +45,6 @@ module.exports = {
     },
 
     updateActive: function(req, res) {
-        // console.log(req.body);
         let newState;
         db.Unit.findAll({
             where: {
@@ -54,7 +53,6 @@ module.exports = {
                 school: req.body.school
             }
         }).then(results => {
-            // console.log(results[0].dataValues.active);
             if (results[0].dataValues.active) {
                 newState = false;
             } else {
