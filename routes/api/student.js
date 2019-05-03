@@ -9,4 +9,8 @@ router.route("/start")
   .post(studentController.logStart)
 
 
+router.route("/lookup")
+.post(studentController.lookup)
+
+
 module.exports = router;

@@ -17,6 +17,12 @@ export default {
       return axios.post("/api/student/", input);
     },
 
+
+    checkStudentLogin: function(input) {
+      console.log(input);
+      return axios.post("/api/student/lookup", input);
+    },
+
     login: function() {
       return axios.get("/user/data")
     },

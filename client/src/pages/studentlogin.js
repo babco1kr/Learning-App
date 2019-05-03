@@ -56,7 +56,8 @@ class StudentLogin extends Component {
                     }
                     else {
                         ls.set("stuNum", res.data[0].studentNumber);
-                        this.props.history.push("/studenthome");
+                        ls.set("school", res.data[0].school);
+                      this.props.history.push("/studenthome");
                     }
                 })
                 .catch(err => console.log(err));
