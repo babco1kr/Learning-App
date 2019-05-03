@@ -6,7 +6,7 @@ function StudentList(props) {
         <tr>
             <td>{props.studentNumber}</td>
             <td>{props.name}</td>
-            <td><button>X</button></td>
+            <td><button onClick={() => props.removeStudent(props.id)}>X</button></td>
         </tr>
     )
 }

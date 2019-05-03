@@ -21,4 +21,7 @@ router.route("/getUnits")
 router.route("/changestatus")
   .post(teacherController.updateActive);
 
+router.route("/removestudent")
+  .post(teacherController.deleteStudent);
+  
 module.exports = router;
