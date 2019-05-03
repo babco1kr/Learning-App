@@ -52,7 +52,6 @@ class StudentHome extends Component {
                 startTime: moment().format()}
                 )
                 .then(res => {
-                    console.log("start time saved")
                     this.props.history.push("/studenthome");  
                 })
                 .catch(err => console.log(err));

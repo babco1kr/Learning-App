@@ -63,7 +63,6 @@ class Addstudent extends Component {
                 UserId: ls.get("teacherID"),
                 school: ls.get("school")
             }).then(res => {
-                console.log("Working");
                 this.setState({ studentID: "" });
                 this.setState({ studentName: "" });
                 this.findStudents();

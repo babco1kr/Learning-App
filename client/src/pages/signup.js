@@ -49,7 +49,6 @@ class SignUp extends Component {
         school: this.state.schoolNumber.value
       })
         .then(res => {
-          console.log("user created")
           this.props.history.push("/teacherlogin");
         })
         .catch(err => console.log(err));

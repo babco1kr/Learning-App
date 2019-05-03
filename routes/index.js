@@ -10,7 +10,6 @@ router.use("/api", apiRoutes);
 
 //Check to make sure header is not undefined, if so, return Forbidden (403)
 const checkToken = (req, res, next) => {
-  console.log(req.headers);
   const header = req.headers['authorization'];
 
   if(typeof header !== 'undefined') {
