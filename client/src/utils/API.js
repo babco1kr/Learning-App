@@ -17,14 +17,19 @@ export default {
       return axios.post("/api/student/", input);
 
     },
+
     login: function() {
       return axios.get("/user/data")
     },
 
     addStudent: function(studentData) {
       return axios.post("/api/teacher", studentData);
+    },
 
+    logStart: function(input) {
+      return axios.post("/api/student/start", input);
     }
+
 
 
   };

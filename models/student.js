@@ -13,10 +13,15 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        timeOnline: {
-            type: DataTypes.DECIMAL,
+        startTime: {
+            type: DataTypes.STRING,
             // allowNull: false,
-            default: 0
+            default: null
+        },
+        endTime: {
+            type: DataTypes.STRING,
+            // allowNull: false,
+            default: null
         }
     });
     Student.associate = function(models) {
