@@ -15,7 +15,6 @@ export default {
     checkStudent: function(input) {
       console.log(input);
       return axios.post("/api/student/", input);
-
     },
 
     login: function() {
@@ -24,6 +23,10 @@ export default {
 
     addStudent: function(studentData) {
       return axios.post("/api/teacher", studentData);
+    },
+
+    findStudents: function(teacherInfo) {
+      return axios.post("/api/teacherlookup", teacherInfo)
     },
 
     logStart: function(input) {
