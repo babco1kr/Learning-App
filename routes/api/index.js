@@ -7,7 +7,6 @@ const teacherRoutes = require("./teacher");
 
 // sends to routes/api/user.js
 router.use("/user", userRoutes);
-router.use("/userlookup", userLookupRoutes);
 
 router.use("/login", userLookupRoutes);
 router.use("/student", studentRoutes);
