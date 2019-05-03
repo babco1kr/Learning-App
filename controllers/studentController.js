@@ -8,7 +8,7 @@ module.exports = {
                 school: req.body.school
             }
         })
-            .then(results => res.json(results))
+            .then(results => res.status(200).json(results))
             .catch(err => res.status(422).json(err));
     },
 
@@ -29,5 +29,5 @@ module.exports = {
                 }
             })
             .catch(err => res.status(422).json(err));
-    }
+    },
 }

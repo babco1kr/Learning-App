@@ -25,7 +25,7 @@ export default {
       return axios.post("/api/teacher", studentData);
     },
 
-    //
+  
     findStudents: function(teacherInfo) {
       return axios.post("/api/teacher/lookup", teacherInfo)
     },
@@ -34,6 +34,7 @@ export default {
       return axios.post("/api/student/start", input);
     },
 
+
     addUnit: function(unitInfo) {
       return axios.post("/api/teacher/addUnit", unitInfo);
     },
@@ -41,6 +42,7 @@ export default {
     addSpelling: function(question) {
       return axios.post("/api/teacher/addSpelling", question);
     }
+
 
 
 
