@@ -8,7 +8,7 @@ export default {
 
     checkUser: function(userData) {
       console.log(userData);
-      return axios.post("/api/userlookup", userData);
+      return axios.post("/api/user/lookup", userData);
     },
 
 
