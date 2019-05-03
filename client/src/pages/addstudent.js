@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import ls from 'local-storage';
 import Nav from "../components/Nav/nav";
 import API from "../utils/API";
+import StudentList from "../components/StudentList";
 
 class Addstudent extends Component {
     state = {
@@ -48,7 +49,7 @@ class Addstudent extends Component {
             UserId: ls.get("teacherID"),
             school: ls.get("school")
         }).then(res => {
-            console.log("Find students working");
+            this.setState({ students: res.data });
         })
     }
 
@@ -64,7 +65,8 @@ class Addstudent extends Component {
             }).then(res => {
                 console.log("Working");
                 this.setState({ studentID: "" });
-                this.setState({ studenName: "" });
+                this.setState({ studentName: "" });
+                this.findStudents();
             })
         }
         }
@@ -79,6 +81,25 @@ class Addstudent extends Component {
                         <div className = "center-align col s6">
                             <h3>Current Students</h3>
                             <hr></hr>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Student Number</th>
+                                        <th>Student Name</th>
+                                        <th>Remove Student</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.students.map(student => (
+                                        <StudentList 
+                                        key={student.id}
+                                        id={student.id}
+                                        studentNumber={student.studentNumber}
+                                        name={student.name}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                         <div className = "center-align col s6">
                             <h3>Add Student</h3>

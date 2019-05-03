@@ -9,8 +9,13 @@ module.exports = {
     },
 
     findStudents: function(req, res) {
-        console.log("THIS IS: " + req.body);
-        res.json(req.body);
+        db.Student.findAll({
+            where: {
+                UserId: req.body.UserId,
+                school: req.body.school
+            }
+        }).then(results => {res.json(results)})
+        .catch(err => res.status(422).json(err));
     },
 
     addUnit: function(req, res) {
