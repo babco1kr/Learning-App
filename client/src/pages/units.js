@@ -99,6 +99,14 @@ class Units extends Component {
         })
     }
 
+    removeUnit = id => {
+        API.deleteUnit({
+            id: id
+        }).then(res => {
+            this.getUnits();
+        })
+    }
+
     render() {
         return (
             <div>
@@ -135,6 +143,7 @@ class Units extends Component {
                                             name={unit.name}
                                             active={unit.active}
                                             changeActive={this.changeActive}
+                                            removeUnit={this.removeUnit}
                                         />
                                     ))}
                                 </div>

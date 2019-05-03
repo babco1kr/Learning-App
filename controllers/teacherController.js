@@ -80,5 +80,15 @@ module.exports = {
         }).then(data => {
             res.json(data);
         }).catch(err => res.status(422).json(err));
+    },
+
+    deleteUnit: function(req, res) {
+        db.Unit.destroy({
+            where: {
+                id: req.body.id
+            }
+        }).then(data => {
+            res.json(data);
+        }).catch(err => res.status(422).json(err));
     }
 }

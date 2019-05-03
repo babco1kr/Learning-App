@@ -73,10 +73,7 @@ class Addstudent extends Component {
     removeStudent = id => {
         API.deleteStudent({
             id: id
-            // UserId: ls.get("teacherID"),
-            // school: ls.get("school")
         }).then(res => {
-            console.log("Student Removed");
             this.findStudents();
         })
     }
