@@ -25,8 +25,8 @@ class StudentHome extends Component {
             school: ls.get("school")
        })
         .then(res => {
-            console.log(res.status);
-            if (res.status === 200) {
+            console.log(res);
+            if (res.data.length !== 0) {
                 this.setState({loading: false})
             } else {
                 this.props.history.push("/")
