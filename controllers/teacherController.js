@@ -37,5 +37,35 @@ module.exports = {
         }).then(results => {
             res.json(results)
         }).catch(err => res.status(422).json(err));
+    },
+
+    updateActive: function(req, res) {
+        // console.log(req.body);
+        let newState;
+        db.Unit.findAll({
+            where: {
+                id: req.body.unitId,
+                teacherID: req.body.teacherID,
+                school: req.body.school
+            }
+        }).then(results => {
+            // console.log(results[0].dataValues.active);
+            if (results[0].dataValues.active) {
+                newState = false;
+            } else {
+                newState = true;
+            }
+            db.Unit.update({
+                active: newState
+            }, {
+                where: {
+                    id: req.body.unitId,
+                    teacherID: req.body.teacherID,
+                    school: req.body.school 
+                }
+            }).then(data => {
+                res.json(data)
+            }).catch(err => res.status(422).json(err));
+        })
     }
 }

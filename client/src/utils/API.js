@@ -45,6 +45,10 @@ export default {
 
     findUnits: function(unitInfo) {
       return axios.post("/api/teacher/getUnits", unitInfo);
+    },
+
+    updateActive: function(status) {
+      return axios.post("/api/teacher/changestatus", status);
     }
 
 

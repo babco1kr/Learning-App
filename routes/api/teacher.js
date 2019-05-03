@@ -19,4 +19,7 @@ router.route("/addSpelling")
 router.route("/getUnits")
   .post(teacherController.findUnits);
 
+router.route("/changestatus")
+  .post(teacherController.updateActive);
+
 module.exports = router;
