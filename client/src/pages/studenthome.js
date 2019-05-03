@@ -12,19 +12,21 @@ class StudentHome extends Component {
     state = {
         loading: true
     }
+
     componentDidMount() {
+
         this.studentLoginCheck()
     }
 
     studentLoginCheck = () => {
 
-       API.checkStudent({
+       API.checkStudentLogin({
             studentNumber: ls.get("stuNum"),
             school: ls.get("school")
        })
         .then(res => {
-            console.log(res.results);
-            if (res.results) {
+            console.log(res.status);
+            if (res.status === 200) {
                 this.setState({loading: false})
             } else {
                 this.props.history.push("/")
@@ -57,7 +59,7 @@ class StudentHome extends Component {
     };
 
     render() {
-        if (!this.state.loading) {
+        if (this.state.loading) {
             return null
         }
         else {
