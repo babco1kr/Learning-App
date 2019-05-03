@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const teacherController = require("../../controllers/teacherController");
 
-router.route("/")
+router.route("/lookup")
     //sends to controllers/teacherController.js
   .post(teacherController.findStudents);
 

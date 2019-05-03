@@ -25,8 +25,9 @@ export default {
       return axios.post("/api/teacher", studentData);
     },
 
+    //
     findStudents: function(teacherInfo) {
-      return axios.post("/api/teacherlookup", teacherInfo)
+      return axios.post("/api/teacher/lookup", teacherInfo)
     },
 
     logStart: function(input) {
