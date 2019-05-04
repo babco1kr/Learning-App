@@ -4,31 +4,31 @@ import "./style.css";
 function UnitButton(props) {
     if (!props.active) {
     return (
-        <div className = "row">
-            <div className = "col s7">
-            <button className = "waves-effect waves-light btn-large" onClick={() => props.selectUnit(props.id)}>{props.name}</button>
-            </div>
-            <div className = "col s3">
-            <button className = "waves-effect waves-light btn-large" onClick={() => props.changeActive(props.id)}>SetActive</button>
-            </div>
-            <div className = "col s2">
-            <button className = "waves-effect waves-light btn-large" onClick={() => props.removeUnit(props.id)}>X</button>
-            </div>
-        </div>
+        <tr>
+            <td>
+            <button className = "btn" onClick={() => props.selectUnit(props.id)}>{props.name}</button>
+           </td>
+           <td>
+            <button className = "waves-effect waves-light btn red" onClick={() => props.changeActive(props.id)}>InActive</button>
+            </td>
+            <td>
+            <button className = "btn" onClick={() => props.removeUnit(props.id)}>X</button>
+            </td>
+        </tr>
     )
     } else {
         return (
-        <div className = "row">
-            <div className = "col s7">
-            <button className = "waves-effect waves-light btn-large" onClick={() => props.selectUnit(props.id)}>{props.name}</button>
-            </div>
-            <div className = "col s3">
-            <button className = "waves-effect waves-light btn-large" onClick={() => props.changeActive(props.id)}>SetInactive</button>
-            </div>
-            <div className = "col s2">
-            <button className = "waves-effect waves-light btn-large"onClick={() => props.removeUnit(props.id)}>X</button>
-            </div>
-        </div>
+            <tr>
+            <td>
+            <button className = "btn" onClick={() => props.selectUnit(props.id)}>{props.name}</button>
+            </td>
+            <td>
+            <button className = "waves-effect waves-light btn blue" onClick={() => props.changeActive(props.id)}>Active</button>
+            </td>
+            <td>
+            <button className = "btn"onClick={() => props.removeUnit(props.id)}>X</button>
+            </td>
+        </tr>
         )
     }
 }

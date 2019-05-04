@@ -7,7 +7,7 @@ function SpellingList(props) {
             <td>{props.id}</td>
             <td>{props.question}</td>
             <td>{props.pictureLink}</td>
-            <td><button onClick={() => props.removeQuestion(props.id)}>X</button></td>
+            <td><button className = "btn-small red" onClick={() => props.removeQuestion(props.id)}>X</button></td>
         </tr>
     )
 }
