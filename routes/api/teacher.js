@@ -26,5 +26,11 @@ router.route("/removestudent")
 
 router.route("/removeunit")
   .post(teacherController.deleteUnit);
+
+router.route("/findquestions")
+  .post(teacherController.findQuestions);
+
+router.route("/removequestion")
+  .post(teacherController.deleteQuestion);
   
 module.exports = router;
