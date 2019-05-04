@@ -12,5 +12,8 @@ router.route("/start")
 router.route("/lookup")
 .post(studentController.lookup)
 
+router.route("/getquestions")
+.post(studentController.getQuestions)
+
 
 module.exports = router;

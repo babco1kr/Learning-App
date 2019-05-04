@@ -2,7 +2,7 @@ const db = require("../models");
 
 module.exports = {
     login: function (req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         db.Student.findAll({
             where: {
                 studentNumber: req.body.studentNumber,
@@ -40,13 +40,63 @@ module.exports = {
             }
         })
             .then(results => {
-                console.log(results);
+                // console.log(results);
                 if (!results) {
                     res.status(404).json(err)
                 } else {
                     res.status(200).json(results)
                 }
             
+            })
+            .catch(err => res.status(422).json(err));
+    },
+
+    getQuestions: function(req, res) {
+        console.log("working");
+
+        // get teacherId pertaining to the student
+        db.Student.findAll({
+            where: {
+                studentNumber: req.body.studentNumber,
+                school: req.body.school
+            }
+        })
+            .then(results => {
+                var teacherId = results[0].dataValues.UserId;
+
+                // get which unit is active
+                db.Unit.findAll({
+                    where: {
+                        teacherID: teacherId,
+                        school: req.body.school,
+                        active: true,
+                    }
+                })
+                    .then(resultsTwo => {
+                        let unitId = resultsTwo[0].dataValues.id;
+
+                        // get active questions
+                        db.Spelling.findAll({
+                            where: {
+                                teacherID: teacherId,
+                                school: req.body.school,
+                                UnitId: unitId,
+                            }
+                        })
+                            .then(resultsThree => {
+                                let arr = [];
+                                for (let i = 0; i < resultsThree.length; i++) {
+                                    let word = resultsThree[i].dataValues.question;
+                                    let image = resultsThree[i].dataValues.pictureLink;
+                                    let number = i + 1;
+                                    let questionGroup = {number, word, image};
+                                    arr.push(questionGroup);
+                                }
+                                console.log(arr);
+                                res.status(200).json(arr)
+                            })
+                            .catch(err => res.status(422).json(err));
+                    })
             })
             .catch(err => res.status(422).json(err));
     }

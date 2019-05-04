@@ -52,7 +52,7 @@ class StudentHome extends Component {
                 startTime: moment().format()}
                 )
                 .then(res => {
-                    this.props.history.push("/studenthome");  
+                    this.props.history.push("/question");  
                 })
                 .catch(err => console.log(err));
     };

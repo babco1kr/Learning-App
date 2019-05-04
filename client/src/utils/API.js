@@ -7,19 +7,16 @@ export default {
     },
 
     checkUser: function(userData) {
-      console.log(userData);
       return axios.post("/api/user/lookup", userData);
     },
 
 
     checkStudent: function(input) {
-      console.log(input);
       return axios.post("/api/student/", input);
     },
 
 
     checkStudentLogin: function(input) {
-      console.log(input);
       return axios.post("/api/student/lookup", input);
     },
 
@@ -71,6 +68,10 @@ export default {
 
     deleteQuestion: function(question) {
       return axios.post("/api/teacher/removequestion", question);
+    },
+
+    getQuestions: function(question) {
+      return axios.post("/api/student/getquestions", question);
     }
 
 
