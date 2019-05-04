@@ -148,17 +148,10 @@ class Units extends Component {
                             <h3>Units</h3>
                             <hr></hr>
                             <div className="row">
-                                <div className="col s5">
+                                <div className="col s10">
                                     <label>
                                         Unit Name:
                                 <input value={this.state.name} onChange={this.handleInputChange} type="text" name="name" id="unitName"></input>
-                                    </label>
-                                </div>
-                                <div className="col s5">
-                                    <label>
-                                        Subject:
-                                <input value={this.state.subject} onChange={this.handleInputChange} type="checkbox" className="filled-in" checked="checked" />
-                                        <span>Spelling</span>
                                     </label>
                                 </div>
                                 <div className="col s2">
@@ -166,7 +159,15 @@ class Units extends Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="row">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Unit Name</th>
+                                        <th>Active</th>
+                                        <th>Remove Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     {this.state.units.map(unit => (
                                         <UnitButton
                                             key={unit.id}
@@ -178,7 +179,8 @@ class Units extends Component {
                                             selectUnit={this.selectUnit}
                                         />
                                     ))}
-                                </div>
+                                    </tbody>
+                            </table>
                             </div>
                         </div>
                         <div className="center-align col s6">
