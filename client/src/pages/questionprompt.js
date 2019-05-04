@@ -12,12 +12,13 @@ class QuestionPrompt extends Component {
     state = {
         loading: true,
         questions: [],
-        count: 0, 
+        count: 0,
+        url: "./audio/" + ls.get("school") + "." + ls.get("stuNum") + ".mp3" 
     }
 
     componentDidMount() {
         this.getQuestions();
-        // this.studentLoginCheck();
+        console.log(this.state.url);
     }
 
     // studentLoginCheck = () => {
@@ -42,14 +43,14 @@ class QuestionPrompt extends Component {
             studentNumber: ls.get("stuNum"),
             school: ls.get("school")
         })
-        .then (res => {
-            if (res.data.length !== 0) {
-                this.setState({ questions: res.data });
-                this.setState({loading: false});
-            } else {
-                this.props.history.push("/");
-            }
-        })
+            .then(res => {
+                if (res.data.length !== 0) {
+                    this.setState({ questions: res.data });
+                    this.setState({ loading: false });
+                } else {
+                    this.props.history.push("/");
+                }
+            })
 
     }
 
@@ -61,11 +62,21 @@ class QuestionPrompt extends Component {
         });
     };
 
+    playAudio = () => {
+        let audio = this.state.url;
+        audio.play();
+    }
+
     handleFormSubmit = event => {
         event.preventDefault();
-            API.sayWord({
-                word: this.state.questions[this.state.count].word
-            })
+        API.sayWord({
+            word: this.state.questions[this.state.count].word,
+            studentNumber: ls.get("stuNum"),
+            school: ls.get("school")
+        })
+            .then(
+                this.playAudio()
+            )
     };
 
     render() {
@@ -75,18 +86,22 @@ class QuestionPrompt extends Component {
         else {
             return (
                 <div>
+                    <audio>
+                        <source src={this.state.url} type="audio/mpeg" >
+                        </source>
+                    </audio>
                     <Nav />
                     <div className="container">
-                        
-                    <Prompt
-                        question = {this.state.questions[this.state.count].word}
-                        image = {this.state.questions[this.state.count].image}
-                    >
-                    </Prompt>
-                    <FormBtn
+
+                        <Prompt
+                            question={this.state.questions[this.state.count].word}
+                            image={this.state.questions[this.state.count].image}
+                        >
+                        </Prompt>
+                        <FormBtn
                             onClick={this.handleFormSubmit}
                         >
-                           SAY WORD
+                            SAY WORD
                   </FormBtn>
                     </div>
                 </div>
