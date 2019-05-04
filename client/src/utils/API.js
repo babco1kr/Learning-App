@@ -63,6 +63,14 @@ export default {
 
     deleteUnit: function(unit) {
       return axios.post("/api/teacher/removeunit", unit);
+    },
+
+    findQuestions: function(questions) {
+      return axios.post("/api/teacher/findquestions", questions);
+    },
+
+    deleteQuestion: function(question) {
+      return axios.post("/api/teacher/removequestion", question);
     }
 
 

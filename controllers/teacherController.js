@@ -102,5 +102,25 @@ module.exports = {
                 res.json(data);
             }).catch(err => res.status(422).json(err));
         })
+    },
+
+    findQuestions: function(req, res) {
+        db.Spelling.findAll({
+            where: {
+                UnitId: req.body.UnitId
+            }
+        }).then(data => {
+            res.json(data)
+        })
+    },
+
+    deleteQuestion: function(req, res) {
+        db.Spelling.destroy({
+            where: {
+                id: req.body.id
+            }
+        }).then(results => {
+            res.json(results);
+        })
     }
 }

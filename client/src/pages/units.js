@@ -4,6 +4,7 @@ import ls from 'local-storage';
 import Nav from "../components/Nav/nav";
 import API from "../utils/API";
 import UnitButton from "../components/UnitButton";
+import SpellingList from "../components/SpellingList";
 
 class Units extends Component {
     state = {
@@ -12,8 +13,9 @@ class Units extends Component {
         subject: 1,
         units: [],
         question: "",
-        unit: 1,
-        imageLink: ""
+        unit: 0,
+        imageLink: "",
+        questions: []
     }
 
     componentDidMount() {
@@ -65,7 +67,7 @@ class Units extends Component {
                 school: ls.get("school")
             }).then(res => {
                 console.log("Unit Added");
-                this.setState({ unit: 1 });
+                this.setState({ unit: "" });
                 this.setState({ subject: 1 });
                 this.setState({ name: "" });
                 this.getUnits();
@@ -85,6 +87,7 @@ class Units extends Component {
             }).then(res => {
                 this.setState({ imageLink: "" });
                 this.setState({ question: "" });
+                this.getQuestions();
             })
         }
     }
@@ -94,7 +97,7 @@ class Units extends Component {
             unitId: id,
             teacherID: ls.get("teacherID"),
             school: ls.get("school")
-        }).then( res => {
+        }).then(res => {
             this.getUnits();
         })
     }
@@ -104,6 +107,34 @@ class Units extends Component {
             id: id
         }).then(res => {
             this.getUnits();
+        })
+    }
+
+    selectUnit = id => {
+        console.log("ID: " + id)
+
+        API.findQuestions({
+            UnitId: id
+        }).then(res => {
+            this.setState({ questions: res.data });
+            this.setState({ unit: id })
+        })
+        this.setState({ unit: id })
+    }
+
+    getQuestions() {
+        API.findQuestions({
+            UnitId: this.state.unit
+        }).then(res => {
+            this.setState({ questions: res.data });
+        })
+    }
+
+    removeQuestion = id => {
+        API.deleteQuestion({
+            id: id
+        }).then(res => {
+            this.getQuestions();
         })
     }
 
@@ -144,36 +175,54 @@ class Units extends Component {
                                             active={unit.active}
                                             changeActive={this.changeActive}
                                             removeUnit={this.removeUnit}
+                                            selectUnit={this.selectUnit}
                                         />
                                     ))}
                                 </div>
                             </div>
                         </div>
                         <div className="center-align col s6">
-                            <h3>Questions</h3>
-                            <hr></hr>
                             <div className="row">
-                                <div className="col s2">
-                                    <label>
-                                        Unit Number:
-                                <input value={this.state.unit} onChange={this.handleInputChange} type="text" name="unit" id="question"></input>
-                                    </label>
+                                <h3>Questions</h3>
+                                <hr></hr>
+                                <div className="row">
+                                    <div className="col s5">
+                                        <label>
+                                            Spelling Word:
+                                        <input value={this.state.question} onChange={this.handleInputChange} type="text" name="question" id="question"></input>
+                                        </label>
+                                    </div>
+                                    <div className="col s5">
+                                        <label>
+                                            Image Link:
+                                        <input value={this.state.imageLink} onChange={this.handleInputChange} type="text" name="imageLink" id="imageLink"></input>
+                                        </label>
+                                    </div>
+                                    <div className="col s2">
+                                        <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleQuestionSubmit}>Add</button>
+                                    </div>
                                 </div>
-                                <div className="col s3">
-                                    <label>
-                                        Spelling Word:
-                                <input value={this.state.question} onChange={this.handleInputChange} type="text" name="question" id="question"></input>
-                                    </label>
-                                </div>
-                                <div className="col s5">
-                                    <label>
-                                        Image Link:
-                                <input value={this.state.image} onChange={this.handleInputChange} type="text" name="imageLink" id="imageLink"></input>
-                                    </label>
-                                </div>
-                                <div className="col s2">
-                                    <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleQuestionSubmit}>Add</button>
-                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Word</th>
+                                            <th>Picture</th>
+                                            <th>Remove Question</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.questions.map(question => (
+                                            <SpellingList
+                                                key={question.id}
+                                                id={question.id}
+                                                question={question.question}
+                                                pictureLink={question.pictureLink}
+                                                removeQuestion={this.removeQuestion}
+                                            />
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ function UnitButton(props) {
     return (
         <div className = "row">
             <div className = "col s7">
-            <button className = "waves-effect waves-light btn-large">{props.name}</button>
+            <button className = "waves-effect waves-light btn-large" onClick={() => props.selectUnit(props.id)}>{props.name}</button>
             </div>
             <div className = "col s3">
             <button className = "waves-effect waves-light btn-large" onClick={() => props.changeActive(props.id)}>SetActive</button>
@@ -20,7 +20,7 @@ function UnitButton(props) {
         return (
         <div className = "row">
             <div className = "col s7">
-            <button className = "waves-effect waves-light btn-large">{props.name}</button>
+            <button className = "waves-effect waves-light btn-large" onClick={() => props.selectUnit(props.id)}>{props.name}</button>
             </div>
             <div className = "col s3">
             <button className = "waves-effect waves-light btn-large" onClick={() => props.changeActive(props.id)}>SetInactive</button>
