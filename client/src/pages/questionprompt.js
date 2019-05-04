@@ -6,6 +6,9 @@ import Prompt from "../components/Prompt"
 import API from "../utils/API";
 import Nav from "../components/Nav/nav";
 import ls from 'local-storage';
+import soundfile from "../audio/audio.mp3";
+import ReactPlayer from 'react-player'
+
 
 class QuestionPrompt extends Component {
 
@@ -13,12 +16,12 @@ class QuestionPrompt extends Component {
         loading: true,
         questions: [],
         count: 0,
-        url: "./audio/" + ls.get("school") + "." + ls.get("stuNum") + ".mp3" 
+        clicked: false,
+        playing: false,
     }
 
     componentDidMount() {
         this.getQuestions();
-        console.log(this.state.url);
     }
 
     // studentLoginCheck = () => {
@@ -51,6 +54,13 @@ class QuestionPrompt extends Component {
                     this.props.history.push("/");
                 }
             })
+            .then(() => {
+                API.sayWord({
+                    word: this.state.questions[this.state.count].word,
+                    studentNumber: ls.get("stuNum"),
+                    school: ls.get("school")
+                })
+            })
 
     }
 
@@ -62,22 +72,31 @@ class QuestionPrompt extends Component {
         });
     };
 
-    playAudio = () => {
-        let audio = this.state.url;
-        audio.play();
-    }
+    // playAudio = () => {
+    //     console.log("audio trying to play");
+    //     this.myRef = React.createRef();
+    //     return (
+    //         <ReactPlayer url={this.state.url} playing />
+    //     )
+    // }
 
     handleFormSubmit = event => {
         event.preventDefault();
-        API.sayWord({
-            word: this.state.questions[this.state.count].word,
-            studentNumber: ls.get("stuNum"),
-            school: ls.get("school")
-        })
-            .then(
-                this.playAudio()
-            )
+        this.setState({ playing: false })
+        console.log(this.state.playing);
+        if (this.state.clicked === false) {
+            this.setState({ clicked: true });
+            this.setState({ playing: true });
+        }
+        else {
+            this.player.seekTo(0);
+            this.setState({ playing: true })
+        }
     };
+
+    ref = player => {
+        this.player = player
+    }
 
     render() {
         if (this.state.loading) {
@@ -86,13 +105,13 @@ class QuestionPrompt extends Component {
         else {
             return (
                 <div>
-                    <audio>
-                        <source src={this.state.url} type="audio/mpeg" >
-                        </source>
-                    </audio>
                     <Nav />
                     <div className="container">
-
+                        <ReactPlayer
+                            ref={this.ref}
+                            url={soundfile}
+                            height={"10px"}
+                            playing={this.state.playing} />
                         <Prompt
                             question={this.state.questions[this.state.count].word}
                             image={this.state.questions[this.state.count].image}

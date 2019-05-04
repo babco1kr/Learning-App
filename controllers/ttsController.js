@@ -24,7 +24,8 @@ module.exports = {
           
           textToSpeech.synthesize(synthesizeParams)
             .then(audio => {
-              audio.pipe(fs.createWriteStream("./audio/" + req.body.school + "." + req.body.studentNumber + ".mp3"));
+              audio.pipe(fs.createWriteStream("./client/src/audio/audio.mp3"));
+              res.send("audio file generated");
             })
             .catch(err => {
               console.log('error:', err);
