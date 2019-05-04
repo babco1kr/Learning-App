@@ -7,6 +7,9 @@ const cookieParser = require('cookie-parser');
 
 var db = require("./models");
 
+require('dotenv').config()
+
+
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

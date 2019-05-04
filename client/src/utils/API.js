@@ -72,7 +72,11 @@ export default {
 
     getQuestions: function(question) {
       return axios.post("/api/student/getquestions", question);
-    }
+    },
+
+    sayWord: function(question) {
+      return axios.post("/api/texttospeech", question);
+    },
 
 
 
