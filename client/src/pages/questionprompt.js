@@ -61,7 +61,6 @@ class QuestionPrompt extends Component {
                     school: ls.get("school")
                 })
             })
-
     }
 
 
