@@ -73,14 +73,21 @@ module.exports = {
                     }
                 })
                     .then(resultsTwo => {
-                        let unitId = resultsTwo[0].dataValues.id;
+                        let unitId = [];
+                        for (let j = 0; j < resultsTwo.length; j++) {
+                            unitId.push(resultsTwo[j].dataValues.id)
+
+                        }
+                        // let unitId = resultsTwo[0].dataValues.id;
+                        console.log(unitId);
 
                         // get active questions
                         db.Spelling.findAll({
                             where: {
                                 teacherID: teacherId,
                                 school: req.body.school,
-                                UnitId: unitId,
+                                UnitId: unitId
+                    
                             }
                         })
                             .then(resultsThree => {
@@ -88,6 +95,9 @@ module.exports = {
                                 for (let i = 0; i < resultsThree.length; i++) {
                                     let word = resultsThree[i].dataValues.question;
                                     let image = resultsThree[i].dataValues.pictureLink;
+                                        if (!image) {
+                                            image = "https://upload.wikimedia.org/wikipedia/en/4/48/Blank.JPG"
+                                        }
                                     let number = i + 1;
                                     let questionGroup = {number, word, image};
                                     arr.push(questionGroup);
