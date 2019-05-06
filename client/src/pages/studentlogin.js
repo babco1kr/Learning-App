@@ -50,10 +50,12 @@ class StudentLogin extends Component {
                 )
                 // .then(res => console.log("user confirmed"))
                 .then(res => {
+                    console.log(res.data[0]);
                     if (res.data.length === 0) {
                         console.log("login failed")
                     }
                     else {
+                        ls.set("intStuNum", res.data[0].id);
                         ls.set("stuNum", res.data[0].studentNumber);
                         ls.set("school", res.data[0].school);
                       this.props.history.push("/studenthome");

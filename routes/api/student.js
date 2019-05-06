@@ -6,14 +6,17 @@ router.route("/")
   .post(studentController.login);
 
 router.route("/start")
-  .post(studentController.logStart)
+  .post(studentController.logStart);
 
 
 router.route("/lookup")
-.post(studentController.lookup)
+.post(studentController.lookup);
 
 router.route("/getquestions")
-.post(studentController.getQuestions)
+.post(studentController.getQuestions);
+
+router.route("/loganswer")
+.post(studentController.logAnswer);
 
 
 module.exports = router;
