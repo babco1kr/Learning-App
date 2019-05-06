@@ -7,3 +7,15 @@ export function FormBtn(props) {
       </button>
     );
   }
+
+  export function FloatBtn(props) {
+    return (
+      <span onClick={() => props.handleLetterSubmit(props.letter)}>
+      <button className = "btn-floating btn-large waves-effect waves-light red">
+                  
+        {props.children}
+
+      </button>
+      </span>
+    );
+  }

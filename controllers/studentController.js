@@ -91,6 +91,7 @@ module.exports = {
                             }
                         })
                             .then(resultsThree => {
+                                // console.log(resultsThree);
                                 let arr = [];
                                 for (let i = 0; i < resultsThree.length; i++) {
                                     let word = resultsThree[i].dataValues.question;
@@ -98,8 +99,10 @@ module.exports = {
                                         if (!image) {
                                             image = "https://upload.wikimedia.org/wikipedia/en/4/48/Blank.JPG"
                                         }
-                                    let number = i + 1;
-                                    let questionGroup = {number, word, image};
+                                    let questionId = resultsThree[i].dataValues.id;
+                                    let teacherId = resultsThree[i].dataValues.teacherID;
+                                    let unitId = resultsThree[i].dataValues.UnitId;
+                                    let questionGroup = {questionId, word, image, teacherId, unitId};
                                     arr.push(questionGroup);
                                 }
                                 console.log(arr);
@@ -109,5 +112,15 @@ module.exports = {
                     })
             })
             .catch(err => res.status(422).json(err));
-    }
+    },
+
+    logAnswer: function(req, res) {
+        console.log(req.body);
+        db.Score.create(req.body)
+        .then(results => res.json(results))
+        .catch(err =>res.status(422).json(err));
+    },
+
+
+
 }
