@@ -122,5 +122,17 @@ module.exports = {
         }).then(results => {
             res.json(results);
         })
+    },
+
+    activeUnit: function(req, res) {
+        db.Unit.findAll({
+            where: {
+                teacherID: req.body.UserId,
+                school: req.body.school,
+                active: true
+            }
+        }).then(results => {
+            res.json(results);
+        })
     }
 }

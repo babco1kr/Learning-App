@@ -32,5 +32,8 @@ router.route("/findquestions")
 
 router.route("/removequestion")
   .post(teacherController.deleteQuestion);
+
+router.route("/activeunit")
+  .post(teacherController.activeUnit);
   
 module.exports = router;
