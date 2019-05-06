@@ -8,6 +8,7 @@ import StudentHome from "./pages/studenthome";
 import SignUp from "./pages/signup";
 import Units from "./pages/units";
 import QuestionPrompt from "./pages/questionprompt";
+import Results from "./pages/results";
 import "./App.css";
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route exact path ="/studenthome" component = {StudentHome} />
           <Route exact path ="/units" component = {Units} />
           <Route exact path ="/question" component = {QuestionPrompt} />
+          <Route exact path ="/results" component = {Results} />
         </Switch>
       </div>
       </Router>

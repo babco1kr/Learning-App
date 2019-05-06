@@ -82,7 +82,9 @@ export default {
       return axios.post("/api/student/loganswer", input);
     },
 
-
+    getActiveUnit: function(teacher) {
+      return axios.post("/api/teacher/activeunit", teacher);
+    }
 
 
   };
