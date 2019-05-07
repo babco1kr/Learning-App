@@ -19,3 +19,16 @@ export function FormBtn(props) {
       </span>
     );
   }
+
+  export function AnswerBtn(props) {
+    return (
+      <span onClick={() => props.handleLetterSubmit(props.letter, props.id)}>
+      <button className = {props.letter === "__" ? "btn-flat disabled": "btn-flat"}>
+              
+        {props.children}
+
+      </button>
+      </span>
+    );
+
+  }

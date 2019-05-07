@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import SchoolSelect from "../components/schoolSelect/schoolSelect";
-import { FormBtn, FloatBtn } from "../components/Form";
+import { FormBtn, FloatBtn, AnswerBtn } from "../components/Form";
 // import { Link } from "react-router-dom";
 import Prompt from "../components/Prompt"
 import API from "../utils/API";
@@ -71,6 +71,7 @@ class QuestionPrompt extends Component {
                 this.setState({ letters: arr });
                 console.log(this.state.letters);
 
+                
 
 
 
@@ -79,6 +80,23 @@ class QuestionPrompt extends Component {
                     blanks.push(" _ ");
                 }
                 this.setState({ response: blanks });
+
+
+                let runningBlanks = [];
+
+                for (let d = 0; d < this.state.letters.length; d++) {
+                    let object = {
+                        id: "blank",
+                        character: "__"
+                    };
+                    runningBlanks.push(object);
+                }
+                this.setState({guessBank: runningBlanks});
+
+
+
+
+
 
                 function func(a, b) {
                     return 0.5 - Math.random();
@@ -98,7 +116,72 @@ class QuestionPrompt extends Component {
                 }
                 this.setState({letterBank: running});
 
-                let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word.toLowerCase() +"--_us_1.mp3"
+                let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
+                console.log(wordPronounce);
+                let one = wordPronounce[0];
+                console.log(one);
+
+                let three = [];
+                if (wordPronounce.length >= 3) {
+                    for (let q = 0; q < 3; q++) {
+                        three.push(wordPronounce[q])
+                    }
+                    three = three.join("");
+                }
+                else if (wordPronounce.length === 2) {
+                    for (let q=0; q < 2; q++) {
+                        three.push(wordPronounce[q])
+                    }
+                    three.push("_");
+                    three = three.join("");
+                }
+                else if (wordPronounce.length === 1) {
+                    for (let q=0; q < 1; q++) {
+                        three.push(wordPronounce[q])
+                    }
+                    three.push("__");
+                    three = three.join("");
+                }
+                console.log(three);
+
+                let five = [];
+                if (wordPronounce.length >= 5) {
+                    for (let q=0; q < 5; q++) {
+                        five.push(wordPronounce[q])
+                    }
+                    five = five.join("");
+                }
+                else if (wordPronounce.length === 4) {
+                    for (let q=0; q < 4; q++) {
+                        five.push(wordPronounce[q])
+                    }
+                    five.push("_");
+                    five = five.join("");
+                }
+                else if (wordPronounce.length === 3) {
+                    for (let q=0; q < 3; q++) {
+                        five.push(wordPronounce[q])
+                    }
+                    five.push("__");
+                    five = five.join("");
+                }
+                else if (wordPronounce.length === 2) {
+                    for (let q=0; q < 2; q++) {
+                        five.push(wordPronounce[q])
+                    }
+                    five.push("___");
+                    five = five.join("");
+                }
+                else if (wordPronounce.length === 1) {
+                    for (let q=0; q < 1; q++) {
+                        five.push(wordPronounce[q])
+                    }
+                    five.push("____");
+                    five = five.join("");
+                }
+                console.log(five);
+
+                let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/"+ one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
                 this.setState({ pronunciation: pronounceURL })
 
                 // API.sayWord({
@@ -122,14 +205,6 @@ class QuestionPrompt extends Component {
             [name]: value
         });
     };
-
-    // playAudio = () => {
-    //     console.log("audio trying to play");
-    //     this.myRef = React.createRef();
-    //     return (
-    //         <ReactPlayer url={this.state.url} playing />
-    //     )
-    // }
 
     handleFormSubmit = event => {
         event.preventDefault();
@@ -244,7 +319,73 @@ class QuestionPrompt extends Component {
             }
             this.setState({letterBank: running});
 
-            let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word.toLowerCase() +"--_us_1.mp3"
+            let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
+            let one = wordPronounce[0];
+            console.log(one);
+
+            let three = [];
+            if (wordPronounce.length >= 3) {
+                for (let q=0; q < 3; q++) {
+                    three.push(wordPronounce[q])
+                }
+                three = three.join("");
+            }
+            else if (wordPronounce.length === 2) {
+                for (let q=0; q < 2; q++) {
+                    three.push(wordPronounce[q])
+                }
+                three.push("_");
+                three = three.join("");
+            }
+            else if (wordPronounce.length === 1) {
+                for (let q=0; q < 1; q++) {
+                    three.push(wordPronounce[q])
+                }
+                three.push("__");
+                three = three.join("");
+            }
+            console.log(three);
+
+            let five = [];
+            if (wordPronounce.length >= 5) {
+                for (let q=0; q < 5; q++) {
+                    five.push(wordPronounce[q])
+                }
+                five = five.join("");
+            }
+            else if (wordPronounce.length === 4) {
+                for (let q=0; q < 4; q++) {
+                    five.push(wordPronounce[q])
+                }
+                five.push("_");
+                five = five.join("");
+            }
+            else if (wordPronounce.length === 3) {
+                for (let q=0; q < 3; q++) {
+                    five.push(wordPronounce[q])
+                }
+                five.push("__");
+                five = five.join("");
+            }
+            else if (wordPronounce.length === 2) {
+                for (let q=0; q < 2; q++) {
+                    five.push(wordPronounce[q])
+                }
+                five.push("___");
+                five = five.join("");
+            }
+            else if (wordPronounce.length === 1) {
+                for (let q=0; q < 1; q++) {
+                    five.push(wordPronounce[q])
+                }
+                five.push("____");
+                five = five.join("");
+            }
+            console.log(five);
+
+            let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/"+ one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
+            // let pronounceURL = "http://packs.shtooka.net/eng-wcp-us/mp3/En-us-"+ this.state.questions[this.state.count].word.toLowerCase()+ ".mp3";
+            // let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word.toLowerCase() +"--_us_1.mp3"
             this.setState({ pronunciation: pronounceURL })
             // this.setState({ loading: false });
 
@@ -334,6 +475,21 @@ class QuestionPrompt extends Component {
                         <div className="row center-align">
                             <h2>{this.state.response}</h2>
                         </div>
+                        
+                        <div className="row center-align">
+
+                            {this.state.guessBank.map(letter => (
+                                <AnswerBtn
+                                    key={letter.id}
+                                    id={letter.id}
+                                    letter={letter.character}
+                                    handleLetterSubmit={this.handleLetterSubmit}
+                                >
+                                    {letter.character}
+                                </AnswerBtn>
+                            ))}
+                        </div>
+
                         <div className="row center-align" style={btnStyle}>
                             {this.state.letterBank.map(letter => (
                                 <FloatBtn
