@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import ls from 'local-storage';
 import Nav from "../components/Nav/nav";
 import API from "../utils/API";
+import StudentResults from "../components/StudentResults";
 
 class Results extends Component {
     state = {
         students: [],
         results: [],
-        activeUnit: []
+        activeUnit: [],
+        studentsAndResults: []
     }
 
     componentDidMount() {
@@ -36,29 +38,74 @@ class Results extends Component {
             for (let i = 0; i < numberofunits; i++) {
                 units.push(res.data[i].id);
             }
-            this.setState({activeUnit: units});
+            this.setState({ activeUnit: units });
+            // console.log(this.state.activeUnit);
+            this.getResults();
         })
+    }
+
+    getResults() {
+        API.getResults({
+            UserId: ls.get("teacherID"),
+            unitId: this.state.activeUnit
+        }).then(res => {
+            this.setState({ results: res.data });
+            // console.log(this.state.results);
+            this.makeResultsList();
+        })
+    }
+
+    makeResultsList() {
+        let length = this.state.students.length;
+        // console.log("Students: " + length);
+        // console.log(this.state.students);
+        let student = this.state.students;
+        let studentScores = [];
+        for (let i = 0; i < length; i++) {
+            let questions = [];
+            let results = this.state.results;
+            let questionsLength = this.state.results.length;
+            for (let j = 0; j < questionsLength; j++) {
+                // console.log(student.id[i]);
+                if (student[i].id === results[j].StudentId) {
+                    questions.push(results[j]);
+                }
+            }
+            // console.log(student[i].name);
+            let object = {
+                name: student[i].name,
+                // timeOnline: student.timeOnline[i],
+                timeOnline: 0,
+                questions: questions
+            }
+            studentScores.push(object);
+        }
+        this.setState({ studentsAndResults: studentScores });
+        console.log(this.state.studentsAndResults);
     }
 
     render() {
         return (
             <div>
                 <Nav />
-                    <div className = "row">
-                        <div className = "center-align col s6">
-                            <h3>Students</h3>
-                            <hr></hr>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Student</th>
-                                        <th>Time Online</th>
-                                        <th>Score</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
+                <div className="row">
+                    <h3 className = "center-align">Students</h3>
+                    <hr></hr>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Time Online</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* {this.state.studentsAndResults.map(student => (
+                               < 
+                            ))} */}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }

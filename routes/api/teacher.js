@@ -35,5 +35,8 @@ router.route("/removequestion")
 
 router.route("/activeunit")
   .post(teacherController.activeUnit);
+
+router.route("/getresults")
+  .post(teacherController.getResults);
   
 module.exports = router;
