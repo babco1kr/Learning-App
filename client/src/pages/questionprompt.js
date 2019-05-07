@@ -24,6 +24,7 @@ class QuestionPrompt extends Component {
         playing: false,
         letters: [],
         letterBank: [],
+        guessBank: [],
         response: [],
         guessCount: 0,
         random: [],
@@ -97,7 +98,7 @@ class QuestionPrompt extends Component {
                 }
                 this.setState({letterBank: running});
 
-                let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word +"--_us_1.mp3"
+                let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word.toLowerCase() +"--_us_1.mp3"
                 this.setState({ pronunciation: pronounceURL })
 
                 // API.sayWord({
@@ -243,7 +244,7 @@ class QuestionPrompt extends Component {
             }
             this.setState({letterBank: running});
 
-            let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word +"--_us_1.mp3"
+            let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word.toLowerCase() +"--_us_1.mp3"
             this.setState({ pronunciation: pronounceURL })
             // this.setState({ loading: false });
 
