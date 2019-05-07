@@ -2,7 +2,7 @@ import React from "react";
 
 export function FormBtn(props) {
     return (
-      <button className = "waves-effect waves-light btn-large" {...props}>
+      <button className = "btn-large" {...props}>
         {props.children}
       </button>
     );
@@ -10,8 +10,8 @@ export function FormBtn(props) {
 
   export function FloatBtn(props) {
     return (
-      <span onClick={() => props.handleLetterSubmit(props.letter)}>
-      <button className = "btn-floating btn-large waves-effect waves-light red">
+      <span onClick={() => props.handleLetterSubmit(props.letter, props.id)}>
+      <button className = "btn-floating btn-large red">
                   
         {props.children}
 

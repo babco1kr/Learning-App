@@ -7,7 +7,6 @@ import API from "../utils/API";
 import Nav from "../components/Nav/nav";
 
 import ls from 'local-storage';
-import soundfile from "../audio/audio.mp3";
 import ReactPlayer from 'react-player'
 
 const btnStyle = {
@@ -23,9 +22,11 @@ class QuestionPrompt extends Component {
         clicked: false,
         playing: false,
         letters: [],
+        letterBank: [],
         response: [],
         guessCount: 0,
         random: [],
+        pronunciation: ""
     }
 
     componentDidMount() {
@@ -68,6 +69,9 @@ class QuestionPrompt extends Component {
                 this.setState({ letters: arr });
                 console.log(this.state.letters);
 
+
+
+
                 let blanks = [];
                 for (let i = 0; i < this.state.letters.length; i++) {
                     blanks.push(" _ ");
@@ -81,14 +85,31 @@ class QuestionPrompt extends Component {
                 this.setState({ random: randomLetters });
                 console.log(this.state.random);
 
-                API.sayWord({
-                    word: this.state.questions[this.state.count].word,
-                    studentNumber: ls.get("stuNum"),
-                    school: ls.get("school")
-                })
-                    .then(res => {
-                        this.setState({ loading: false });
-                    })
+                let running = [];
+
+                for (let d = 0; d < randomLetters.length; d++) {
+                    let object = {
+                        id: d,
+                        character: randomLetters[d]
+                    };
+                    running.push(object);
+                }
+                this.setState({letterBank: running});
+
+                let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word +"--_us_1.mp3"
+                this.setState({ pronunciation: pronounceURL })
+
+                // API.sayWord({
+                //     word: this.state.questions[this.state.count].word,
+                //     studentNumber: ls.get("stuNum"),
+                //     school: ls.get("school")
+                // })
+                //     .then(res => {
+                //         this.setState({ loading: false });
+                //     })
+            })
+            .then(() =>{
+                this.setState({ loading: false });
             })
     }
 
@@ -122,9 +143,10 @@ class QuestionPrompt extends Component {
         }
     };
 
-    handleLetterSubmit = (letter) => {
+    handleLetterSubmit = (letter, id) => {
         // event.preventDefault();
         console.log(letter);
+        console.log(id);
 
         let currentAnswer = [];
         for (let j = 0; j < this.state.letters.length; j++) {
@@ -136,6 +158,18 @@ class QuestionPrompt extends Component {
                 currentAnswer.push(" " + letter + " ");
             }
         }
+
+        // to remove letters once selected
+        let tempLetterBank = [];
+
+         for (let l = 0; l < this.state.letterBank.length; l++) {
+             if (this.state.letterBank[l].id !== id) {
+                tempLetterBank.push(this.state.letterBank[l]);
+             }
+         }
+
+         this.setState({ letterBank: tempLetterBank });
+
         let upOne = this.state.guessCount + 1;
         console.log(currentAnswer);
         this.setState({ guessCount: upOne });
@@ -169,7 +203,9 @@ class QuestionPrompt extends Component {
             this.setState({ loading: true });
             this.setState({ clicked: false });
             this.setState({ playing: false });
-            this.setState({ guessCount: 0 })
+            this.setState({ guessCount: 0 });
+            this.setState({letterBank: []});
+            this.setState({ pronunciation: ""})
         })
         .then(() => {
             let currentWord = this.state.questions[this.state.count].word;
@@ -191,22 +227,43 @@ class QuestionPrompt extends Component {
             this.setState({ random: randomLetters });
             console.log(this.state.random);
 
-            API.sayWord({
-                word: this.state.questions[this.state.count].word,
-                studentNumber: ls.get("stuNum"),
-                school: ls.get("school")
-            })
-                .then(res => {
-                    this.setState({ loading: false });
-                })
-        })
+            let running = [];
 
+            for (let d = 0; d < randomLetters.length; d++) {
+                let object = {
+                    id: d,
+                    character: randomLetters[d]
+                };
+                running.push(object);
+            }
+            this.setState({letterBank: running});
+
+            let pronounceURL = "https://ssl.gstatic.com/dictionary/static/sounds/oxford/" + this.state.questions[this.state.count].word +"--_us_1.mp3"
+            this.setState({ pronunciation: pronounceURL })
+            // this.setState({ loading: false });
+
+            // API.sayWord({
+            //     word: this.state.questions[this.state.count].word,
+            //     studentNumber: ls.get("stuNum"),
+            //     school: ls.get("school")
+            // })
+            //     .then(res => {
+            //         this.setState({ loading: false });
+            //     })
+        })
+        .then(() =>{
+            this.setState({ loading: false });
+        })
 
     };
 
     ref = player => {
         this.player = player
     }
+
+    playAudio() {
+        this.refs.audioRef.play();
+      }
 
     render() {
         if (this.state.loading) {
@@ -215,20 +272,22 @@ class QuestionPrompt extends Component {
         else {
             return (
                 <div>
+                    <audio ref="audioRef" src={this.state.pronunciation} type="mp3"></audio>
                     <Nav />
                     <div className="container">
-                        <ReactPlayer
+                        {/* <ReactPlayer
                             ref={this.ref}
                             url={soundfile}
                             height={"10px"}
-                            playing={this.state.playing} />
+                            playing={this.state.playing} /> */}
                         <Prompt
                             question={this.state.questions[this.state.count].word}
                             image={this.state.questions[this.state.count].image}
                         >
                         </Prompt>
                         <FormBtn
-                            onClick={this.handleFormSubmit}
+                            // onClick={this.handleFormSubmit}
+                            onClick={this.playAudio.bind(this)}
                         >
                             SAY WORD
                         </FormBtn>
@@ -236,13 +295,14 @@ class QuestionPrompt extends Component {
                             <h2>{this.state.response}</h2>
                         </div>
                         <div className="row center-align" style={btnStyle}>
-                            {this.state.random.map(letter => (
+                            {this.state.letterBank.map(letter => (
                                 <FloatBtn
-                                    key={letter}
-                                    letter={letter}
+                                    key={letter.id}
+                                    id={letter.id}
+                                    letter={letter.character}
                                     handleLetterSubmit={this.handleLetterSubmit}
                                 >
-                                    {letter}
+                                    {letter.character}
                                 </FloatBtn>
                             ))}
                         </div>
