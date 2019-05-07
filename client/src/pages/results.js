@@ -62,17 +62,25 @@ class Results extends Component {
         let student = this.state.students;
         let studentScores = [];
         for (let i = 0; i < length; i++) {
-            let questions = [];
+            let questions = "";
             let results = this.state.results;
             let questionsLength = this.state.results.length;
             for (let j = 0; j < questionsLength; j++) {
                 // console.log(student.id[i]);
                 if (student[i].id === results[j].StudentId) {
-                    questions.push(results[j]);
+                    let answer;
+                    if (results[j].correct === false) {
+                        answer = results[j].answer;
+                    } else {
+                        answer = "Correct";
+                    }
+                    let currentQuestion = results[j].id + " " + answer;
+                    questions+= currentQuestion + " ";
                 }
             }
             // console.log(student[i].name);
             let object = {
+                id: student[i].id,
                 name: student[i].name,
                 // timeOnline: student.timeOnline[i],
                 timeOnline: 0,
@@ -100,9 +108,14 @@ class Results extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {this.state.studentsAndResults.map(student => (
-                               < 
-                            ))} */}
+                            {this.state.studentsAndResults.map(student => (
+                               <StudentResults
+                                key={student.id}
+                                name={student.name}
+                                timeOnline={student.timeOnline}
+                                questions={student.questions}
+                               />
+                            ))}
                         </tbody>
                     </table>
                 </div>
