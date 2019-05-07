@@ -84,6 +84,10 @@ export default {
 
     getActiveUnit: function(teacher) {
       return axios.post("/api/teacher/activeunit", teacher);
+    },
+
+    getResults: function(results) {
+      return axios.post("/api/teacher/getresults", results);
     }
 
 

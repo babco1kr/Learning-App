@@ -23,7 +23,7 @@ class TeacherHome extends Component {
         })
             .then(res => {
                 if (res.status === 200) {
-                    this.setState({ loading: false })
+                    this.setState({ loading: false });
                 } else {
                     this.props.history.push("/teacherlogin");
                     // const error = new Error(res.error);

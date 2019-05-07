@@ -1,4 +1,6 @@
 const db = require("../models");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
     createStudent: function(req, res) {
@@ -130,6 +132,23 @@ module.exports = {
                 teacherID: req.body.UserId,
                 school: req.body.school,
                 active: true
+            }
+        }).then(results => {
+            res.json(results);
+        })
+    },
+
+    getResults: function(req, res) {
+        let length = req.body.unitId.length;
+        let units = [];
+        for (let i = 0; i < length; i ++) {
+            units.push([{unitID: req.body.unitId[i]}]);
+        }
+        // console.log(units);
+        db.Score.findAll({
+            where: {
+                teacherID: req.body.UserId,
+                [Op.or]: units
             }
         }).then(results => {
             res.json(results);
