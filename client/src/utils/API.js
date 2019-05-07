@@ -37,6 +37,10 @@ export default {
       return axios.post("/api/student/start", input);
     },
 
+    logEnd: function(input) {
+      return axios.post("/api/student/end", input);
+    },
+
 
     addUnit: function(unitInfo) {
       return axios.post("/api/teacher/addUnit", unitInfo);

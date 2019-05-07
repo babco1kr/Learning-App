@@ -8,6 +8,8 @@ router.route("/")
 router.route("/start")
   .post(studentController.logStart);
 
+router.route("/end")
+  .post(studentController.logEnd);
 
 router.route("/lookup")
 .post(studentController.lookup);

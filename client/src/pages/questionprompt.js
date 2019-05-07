@@ -5,6 +5,7 @@ import { FormBtn, FloatBtn } from "../components/Form";
 import Prompt from "../components/Prompt"
 import API from "../utils/API";
 import Nav from "../components/Nav/nav";
+import moment from 'moment';
 
 import ls from 'local-storage';
 import ReactPlayer from 'react-player'
@@ -179,6 +180,10 @@ class QuestionPrompt extends Component {
 
     handleAnswerSubmit = event => {
         event.preventDefault();
+
+
+        if (this.state.count < this.state.questions.length - 1) {
+
         let word = this.state.questions[this.state.count].word.toUpperCase();
         console.log(word);
         let answerToLog = this.state.response.join("").replace(/\s/g, '');
@@ -254,6 +259,40 @@ class QuestionPrompt extends Component {
         .then(() =>{
             this.setState({ loading: false });
         })
+
+    }
+
+    // If there are no more questions, log answer and end time, and go to end page
+    else {
+        let word = this.state.questions[this.state.count].word.toUpperCase();
+        console.log(word);
+        let answerToLog = this.state.response.join("").replace(/\s/g, '');
+        console.log(answerToLog);
+        let ansCorrect = false;
+        if (word === answerToLog) {
+            ansCorrect = true;
+        }
+        API.logAnswer({
+            question: this.state.questions[this.state.count].word,
+            correct: ansCorrect,
+            answer: answerToLog,
+            questionID: this.state.questions[this.state.count].questionId,
+            teacherID: this.state.questions[this.state.count].teacherId,
+            unitID: this.state.questions[this.state.count].unitId,
+            StudentId: Number(ls.get("intStuNum"))
+        }).
+        then( res => {
+            API.logEnd({
+                studentNumber: ls.get("stuNum"),
+                school: ls.get("school"),
+                startTime: moment().format()}
+                )
+                .then(res => {
+                    this.props.history.push("/finish")
+                })
+                .catch(err => console.log(err));
+        })
+    }
 
     };
 
