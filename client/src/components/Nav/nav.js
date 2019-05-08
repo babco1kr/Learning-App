@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import ls from 'local-storage';
-
 import { Link } from "react-router-dom";
 
 class Nav extends Component {
-
-
 
   clear = () => {
     ls.set("intStuNum", "");
@@ -14,7 +11,6 @@ class Nav extends Component {
     ls.set("token", "");
     ls.set("teacherID", "");
   }
-
 
   render() {
     return (
