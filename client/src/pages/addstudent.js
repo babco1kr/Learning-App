@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ls from 'local-storage';
-import Nav from "../components/Nav/nav";
+import Nav from "../components/TeacherNav";
 import API from "../utils/API";
 import StudentList from "../components/StudentList";
 

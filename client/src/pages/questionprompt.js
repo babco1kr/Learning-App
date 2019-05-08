@@ -4,7 +4,7 @@ import { FormBtn, FloatBtn, AnswerBtn } from "../components/Form";
 // import { Link } from "react-router-dom";
 import Prompt from "../components/Prompt"
 import API from "../utils/API";
-import Nav from "../components/Nav/nav";
+import Nav from "../components/StudentNav";
 import moment from 'moment';
 
 import ls from 'local-storage';

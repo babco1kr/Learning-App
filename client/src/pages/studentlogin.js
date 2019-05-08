@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormBtn } from "../components/Form";
 import { Link } from "react-router-dom";
 import SchoolSelect from "../components/schoolSelect/schoolSelect";
-import Nav from "../components/Nav/nav";
+import Nav from "../components/StudentNav";
 import API from "../utils/API";
 import ls from 'local-storage';
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import ls from 'local-storage';
-import Nav from "../components/Nav/nav";
+import Nav from "../components/TeacherNav";
 import API from "../utils/API";
 import UnitButton from "../components/UnitButton";
 import SpellingList from "../components/SpellingList";
