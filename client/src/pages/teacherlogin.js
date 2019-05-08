@@ -4,7 +4,7 @@ import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { Link } from "react-router-dom";
 import { FormBtn } from "../components/Form";
 import API from "../utils/API";
-import Nav from "../components/Nav/nav";
+import Nav from "../components/StudentNav";
 import ls from 'local-storage'
 
 

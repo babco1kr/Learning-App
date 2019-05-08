@@ -3,7 +3,7 @@ import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { FormBtn } from "../components/Form";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import Nav from "../components/Nav/nav";
+import Nav from "../components/StudentNav";
 
 import M from "materialize-css";
 

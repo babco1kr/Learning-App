@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ls from 'local-storage';
 
-import Nav from "../components/Nav/nav";
+import Nav from "../components/TeacherNav";
 
 class TeacherHome extends Component {
     state = {
@@ -38,14 +38,6 @@ class TeacherHome extends Component {
         return (
             <div>
                 <Nav />
-                <div className = "container">
-                <Link to={"/addstudent"}>
-                <button className = "waves-effect waves-light btn-large">Add Student</button>
-                </Link>
-                <Link to={"/units"}>
-                <button className = "waves-effect waves-light btn-large">Units</button>
-                </Link>
-                </div>
             </div>
         )
     }

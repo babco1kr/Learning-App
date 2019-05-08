@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ls from 'local-storage';
-import Nav from "../components/Nav/nav";
+import Nav from "../components/TeacherNav";
 import API from "../utils/API";
 import StudentResults from "../components/StudentResults";
 
@@ -9,7 +9,8 @@ class Results extends Component {
         students: [],
         results: [],
         activeUnit: [],
-        studentsAndResults: []
+        studentsAndResults: [],
+        count: 1
     }
 
     componentDidMount() {
@@ -70,14 +71,18 @@ class Results extends Component {
                 if (student[i].id === results[j].StudentId) {
                     let answer;
                     if (results[j].correct === false) {
-                        answer = results[j].answer;
+                        answer = "❌" + results[j].answer;
                     } else {
                         answer = "✔️";
                     }
-                    let currentQuestion = results[j].id + " " + answer;
+                    let count = this.state.count;
+                    let currentQuestion = count + " " + answer;
                     questions+= currentQuestion + " ";
+                    count++;
+                    this.setState({count: count});
                 }
             }
+            this.setState({count: 1});
             // console.log(student[i].name);
             let object = {
                 id: student[i].id,
@@ -96,6 +101,7 @@ class Results extends Component {
         return (
             <div>
                 <Nav />
+                <div className="container">
                 <div className="row">
                     <h3 className = "center-align">Students</h3>
                     <hr></hr>
@@ -119,6 +125,7 @@ class Results extends Component {
                         </tbody>
                     </table>
                 </div>
+            </div>
             </div>
         )
     }
