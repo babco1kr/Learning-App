@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ls from 'local-storage';
 import Nav from "../components/TeacherNav";
 import API from "../utils/API";
+import Footer from "../components/Footer";
 import StudentResults from "../components/StudentResults";
 
 class Results extends Component {
@@ -77,12 +78,12 @@ class Results extends Component {
                     }
                     let count = this.state.count;
                     let currentQuestion = count + " " + answer;
-                    questions+= currentQuestion + " ";
+                    questions += currentQuestion + " ";
                     count++;
-                    this.setState({count: count});
+                    this.setState({ count: count });
                 }
             }
-            this.setState({count: 1});
+            this.setState({ count: 1 });
             // console.log(student[i].name);
             let object = {
                 id: student[i].id,
@@ -100,32 +101,39 @@ class Results extends Component {
     render() {
         return (
             <div>
+                <header>
                 <Nav />
+                </header>
+                <main>
                 <div className="container">
-                <div className="row">
-                    <h3 className = "center-align">Students</h3>
-                    <hr></hr>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Student</th>
-                                <th>Time Online</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.studentsAndResults.map(student => (
-                               <StudentResults
-                                key={student.id}
-                                name={student.name}
-                                timeOnline={student.timeOnline}
-                                questions={student.questions}
-                               />
-                            ))}
-                        </tbody>
-                    </table>
+                    <div className="content-area">
+                        <div className="row">
+                            <h3 className="center-align">Students</h3>
+                            <hr></hr>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Time Online</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.studentsAndResults.map(student => (
+                                        <StudentResults
+                                            key={student.id}
+                                            name={student.name}
+                                            timeOnline={student.timeOnline}
+                                            questions={student.questions}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                </main>
+                <Footer />
             </div>
         )
     }
