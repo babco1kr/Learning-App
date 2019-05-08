@@ -461,17 +461,21 @@ class QuestionPrompt extends Component {
                             url={soundfile}
                             height={"10px"}
                             playing={this.state.playing} /> */}
+                             <div className="row center-align" style={{ margin: "15px 0px 0px 0px"}}>
                         <Prompt
                             question={this.state.questions[this.state.count].word}
                             image={this.state.questions[this.state.count].image}
                         >
                         </Prompt>
+                        </div>
+                        <div className="row center-align">
                         <FormBtn
                             // onClick={this.handleFormSubmit}
                             onClick={this.playAudio.bind(this)}
                         >
                             SAY WORD
                         </FormBtn>
+                        </div>
                         <div className="row center-align">
                             <h2>{this.state.response}</h2>
                         </div>
