@@ -72,7 +72,7 @@ class Results extends Component {
                     if (results[j].correct === false) {
                         answer = results[j].answer;
                     } else {
-                        answer = "Correct";
+                        answer = "✔️";
                     }
                     let currentQuestion = results[j].id + " " + answer;
                     questions+= currentQuestion + " ";
