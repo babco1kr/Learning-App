@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ls from 'local-storage';
 import Nav from "../components/TeacherNav";
 import API from "../utils/API";
+import Footer from "../components/Footer";
 import StudentList from "../components/StudentList";
 
 class Addstudent extends Component {
@@ -20,7 +21,7 @@ class Addstudent extends Component {
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
     };
 
@@ -67,7 +68,7 @@ class Addstudent extends Component {
                 this.findStudents();
             })
         }
-        }
+    }
 
     removeStudent = id => {
         API.deleteStudent({
@@ -76,63 +77,69 @@ class Addstudent extends Component {
             this.findStudents();
         })
     }
-      
+
 
     render() {
         return (
             <div>
+                <header>
                 <Nav />
-                <div className = "container">
-                    <div className = "row">
-                        <div className = "center-align col s6">
-                            <h3>Current Students</h3>
-                            <hr></hr>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Student Number</th>
-                                        <th>Student Name</th>
-                                        <th>Remove Student</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.students.map(student => (
-                                        <StudentList 
-                                        key={student.id}
-                                        id={student.id}
-                                        studentNumber={student.studentNumber}
-                                        name={student.name}
-                                        removeStudent={this.removeStudent}
-                                        />
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className = "center-align col s6">
-                            <h3>Add Student</h3>
-                            <hr></hr>
-                            <div className ="row">
-                                <div className = "col s5">
-                                <label>
-                                Student ID:
-                                <input value = {this.state.studentID} onChange = {this.handleInputChange} type = "text" name = "studentID" id = "studentID"></input>
-                                </label>
-                                </div>
-                                <div className = "col s5">
-                                <label>
-                                Student Name:
-                                <input value = {this.state.studentName} onChange = {this.handleInputChange} type = "text" name = "studentName" id = "studentName"></input>
-                                </label>
-                                </div>
-                                <div className = "col s2">
-                                <button className = "waves-effect waves-light btn-large" type = "submit" onClick={this.handleFormSubmit}>Add</button>
+                </header>
+                <main>
+                <div className="container">
+                    <div className="content-area">
+                        <div className="row">
+                            <div className="center-align col s6">
+                                <h3>Current Students</h3>
+                                <hr></hr>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Student Number</th>
+                                            <th>Student Name</th>
+                                            <th>Remove Student</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.state.students.map(student => (
+                                            <StudentList
+                                                key={student.id}
+                                                id={student.id}
+                                                studentNumber={student.studentNumber}
+                                                name={student.name}
+                                                removeStudent={this.removeStudent}
+                                            />
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="center-align col s6">
+                                <h3>Add Student</h3>
+                                <hr></hr>
+                                <div className="row">
+                                    <div className="col s5">
+                                        <label>
+                                            Student ID:
+                                <input value={this.state.studentID} onChange={this.handleInputChange} type="text" name="studentID" id="studentID"></input>
+                                        </label>
+                                    </div>
+                                    <div className="col s5">
+                                        <label>
+                                            Student Name:
+                                <input value={this.state.studentName} onChange={this.handleInputChange} type="text" name="studentName" id="studentName"></input>
+                                        </label>
+                                    </div>
+                                    <div className="col s2">
+                                        <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleFormSubmit}>Add</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </main>
+                <Footer />
             </div>
-
         )
     }
 }

@@ -3,6 +3,7 @@ import { FormBtn } from "../components/Form";
 import { Link } from "react-router-dom";
 import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import Nav from "../components/StudentNav";
+import Footer from "../components/Footer";
 import API from "../utils/API";
 import ls from 'local-storage';
 
@@ -46,8 +47,9 @@ class StudentLogin extends Component {
             // Go to utils/API.js and run 
             API.checkStudent({
                 studentNumber: this.state.studentNumber,
-                school: this.state.schoolNumber.value}
-                )
+                school: this.state.schoolNumber.value
+            }
+            )
                 // .then(res => console.log("user confirmed"))
                 .then(res => {
                     console.log(res.data[0]);
@@ -58,7 +60,7 @@ class StudentLogin extends Component {
                         ls.set("intStuNum", res.data[0].id);
                         ls.set("stuNum", res.data[0].studentNumber);
                         ls.set("school", res.data[0].school);
-                      this.props.history.push("/studenthome");
+                        this.props.history.push("/studenthome");
                     }
                 })
                 .catch(err => console.log(err));
@@ -68,36 +70,41 @@ class StudentLogin extends Component {
     render() {
         return (
             <div>
+                <header>
                 <Nav />
+                </header>
+                <main>
                 <div className="container">
-                    <form>
-                        <SchoolSelect
-                            value={this.state.schoolNumber}
-                            name="schoolNumber"
-                            handleInputChange={this.handleSchoolChange.bind(this)}
-                        />
-                        <label>
-                            Student ID:
+                    <div className="content-area">
+                        <form>
+                            <SchoolSelect
+                                value={this.state.schoolNumber}
+                                name="schoolNumber"
+                                handleInputChange={this.handleSchoolChange.bind(this)}
+                            />
+                            <label>
+                                Student ID:
                     <input value={this.state.name} onChange={this.handleInputChange} type="text" name="studentNumber" id="studentNumber"></input>
-                        </label>
-                        <div className="center-align">
-
-                            <FormBtn
-                                disabled={!(this.state.studentNumber)}
-                                onClick={this.handleFormSubmit}
-                            >
-                                Submit
-                            </FormBtn>
-
-                            <Link to={"/signup"}>
-                                <button className="waves-effect waves-light btn-large" >Sign Up</button>
-                            </Link>
-                            <Link to={"/teacherLogin"}>
-                                <button className="waves-effect waves-light btn-large" >Teacher Login</button>
-                            </Link>
-                        </div>
-                    </form>
+                            </label>
+                            <div className="center-align">
+                                <FormBtn
+                                    disabled={!(this.state.studentNumber)}
+                                    onClick={this.handleFormSubmit}
+                                >
+                                    Submit
+                                </FormBtn>
+                                <Link to={"/signup"}>
+                                    <button className="waves-effect waves-light btn-large" >Sign Up</button>
+                                </Link>
+                                <Link to={"/teacherLogin"}>
+                                    <button className="waves-effect waves-light btn-large" >Teacher Login</button>
+                                </Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                </main>
+                <Footer />
             </div>
         );
     }

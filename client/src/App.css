@@ -1,1 +1,35 @@
+html {
+    background-color: #F6F9A6;
+}
 
+.content-area {
+    background-color: rgb(255,255,255, .5);
+    padding: 10px;
+    border: 1px white solid;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+nav {
+    background-color: #9EBAFC;
+}
+
+.btn, .btn-large {
+    background-color: #23B9B9;
+}
+
+.page-footer {
+    background-color: #9EBAFC;
+    min-width: 100%;
+    bottom: 0;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}

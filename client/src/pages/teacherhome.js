@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ls from 'local-storage';
+import Footer from "../components/Footer";
 
 import Nav from "../components/TeacherNav";
 
@@ -37,7 +38,17 @@ class TeacherHome extends Component {
     render() {
         return (
             <div>
+                <header>
                 <Nav />
+                </header>
+                <main>
+                <div className="container">
+                    <div className="content-area">
+                        <h1>Welcome Teacher</h1>
+                    </div>
+                </div>
+                </main>
+                <Footer />
             </div>
         )
     }

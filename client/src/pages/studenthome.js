@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import SchoolSelect from "../components/schoolSelect/schoolSelect";
 import { FormBtn } from "../components/Form";
-// import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 import API from "../utils/API";
 import Nav from "../components/StudentNav";
 import ls from 'local-storage';
@@ -20,19 +19,19 @@ class StudentHome extends Component {
 
     studentLoginCheck = () => {
 
-       API.checkStudentLogin({
+        API.checkStudentLogin({
             studentNumber: ls.get("stuNum"),
             school: ls.get("school")
-       })
-        .then(res => {
-            console.log(res);
-            if (res.data.length !== 0) {
-                this.setState({loading: false})
-            } else {
-                this.props.history.push("/")
-            }
         })
-        .catch(err => {console.log(err)})
+            .then(res => {
+                console.log(res);
+                if (res.data.length !== 0) {
+                    this.setState({ loading: false })
+                } else {
+                    this.props.history.push("/")
+                }
+            })
+            .catch(err => { console.log(err) })
     };
 
 
@@ -45,16 +44,17 @@ class StudentHome extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-            // Go to utils/API.js and run 
-            API.logStart({
-                studentNumber: ls.get("stuNum"),
-                school: ls.get("school"),
-                startTime: moment().format()}
-                )
-                .then(res => {
-                    this.props.history.push("/question");  
-                })
-                .catch(err => console.log(err));
+        // Go to utils/API.js and run 
+        API.logStart({
+            studentNumber: ls.get("stuNum"),
+            school: ls.get("school"),
+            startTime: moment().format()
+        }
+        )
+            .then(res => {
+                this.props.history.push("/question");
+            })
+            .catch(err => console.log(err));
     };
 
     render() {
@@ -64,15 +64,21 @@ class StudentHome extends Component {
         else {
             return (
                 <div>
+                    <header>
                     <Nav />
+                    </header>
+                    <main>
                     <div className="container">
-                        
-                    <FormBtn
-                            onClick={this.handleFormSubmit}
-                        >
-                           START
-                  </FormBtn>
+                        <div className="content-area">
+                            <FormBtn
+                                onClick={this.handleFormSubmit}
+                            >
+                                START
+                            </FormBtn>
+                        </div>
                     </div>
+                    </main>
+                    <Footer />
                 </div>
             )
         }

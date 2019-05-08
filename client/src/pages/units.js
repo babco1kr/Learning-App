@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 import ls from 'local-storage';
 import Nav from "../components/TeacherNav";
 import API from "../utils/API";
@@ -141,94 +141,101 @@ class Units extends Component {
     render() {
         return (
             <div>
+                <header>
                 <Nav />
+                </header>
+                <main>
                 <div className="container">
-                    <div className="row">
-                        <div className="center-align col s6">
-                            <h3>Units</h3>
-                            <hr></hr>
-                            <div className="row">
-                                <div className="col s10">
-                                    <label>
-                                        Unit Name:
-                                <input value={this.state.name} onChange={this.handleInputChange} type="text" name="name" id="unitName"></input>
-                                    </label>
-                                </div>
-                                <div className="col s2">
-                                    <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleUnitSubmit}>Add</button>
-                                </div>
-                            </div>
-                            <div className="row">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Unit Name</th>
-                                        <th>Active</th>
-                                        <th>Remove Unit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.units.map(unit => (
-                                        <UnitButton
-                                            key={unit.id}
-                                            id={unit.id}
-                                            name={unit.name}
-                                            active={unit.active}
-                                            changeActive={this.changeActive}
-                                            removeUnit={this.removeUnit}
-                                            selectUnit={this.selectUnit}
-                                        />
-                                    ))}
-                                    </tbody>
-                            </table>
-                            </div>
-                        </div>
-                        <div className="center-align col s6">
-                            <div className="row">
-                                <h3>Questions</h3>
+                    <div className="content-area">
+                        <div className="row">
+                            <div className="center-align col s6">
+                                <h3>Units</h3>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col s5">
+                                    <div className="col s10">
                                         <label>
-                                            Spelling Word:
-                                        <input value={this.state.question} onChange={this.handleInputChange} type="text" name="question" id="question"></input>
-                                        </label>
-                                    </div>
-                                    <div className="col s5">
-                                        <label>
-                                            Image Link:
-                                        <input value={this.state.imageLink} onChange={this.handleInputChange} type="text" name="imageLink" id="imageLink"></input>
+                                            Unit Name:
+                                <input value={this.state.name} onChange={this.handleInputChange} type="text" name="name" id="unitName"></input>
                                         </label>
                                     </div>
                                     <div className="col s2">
-                                        <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleQuestionSubmit}>Add</button>
+                                        <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleUnitSubmit}>Add</button>
                                     </div>
                                 </div>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Number</th>
-                                            <th>Word</th>
-                                            <th>Picture</th>
-                                            <th>Remove Question</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.state.questions.map(question => (
-                                            <SpellingList
-                                                key={question.id}
-                                                id={question.id}
-                                                question={question.question}
-                                                pictureLink={question.pictureLink}
-                                                removeQuestion={this.removeQuestion}
-                                            />
-                                        ))}
-                                    </tbody>
-                                </table>
+                                <div className="row">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Unit Name</th>
+                                                <th>Active</th>
+                                                <th>Remove Unit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.state.units.map(unit => (
+                                                <UnitButton
+                                                    key={unit.id}
+                                                    id={unit.id}
+                                                    name={unit.name}
+                                                    active={unit.active}
+                                                    changeActive={this.changeActive}
+                                                    removeUnit={this.removeUnit}
+                                                    selectUnit={this.selectUnit}
+                                                />
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="center-align col s6">
+                                <div className="row">
+                                    <h3>Questions</h3>
+                                    <hr></hr>
+                                    <div className="row">
+                                        <div className="col s5">
+                                            <label>
+                                                Spelling Word:
+                                        <input value={this.state.question} onChange={this.handleInputChange} type="text" name="question" id="question"></input>
+                                            </label>
+                                        </div>
+                                        <div className="col s5">
+                                            <label>
+                                                Image Link:
+                                        <input value={this.state.imageLink} onChange={this.handleInputChange} type="text" name="imageLink" id="imageLink"></input>
+                                            </label>
+                                        </div>
+                                        <div className="col s2">
+                                            <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleQuestionSubmit}>Add</button>
+                                        </div>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Number</th>
+                                                <th>Word</th>
+                                                <th>Picture</th>
+                                                <th>Remove Question</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.state.questions.map(question => (
+                                                <SpellingList
+                                                    key={question.id}
+                                                    id={question.id}
+                                                    question={question.question}
+                                                    pictureLink={question.pictureLink}
+                                                    removeQuestion={this.removeQuestion}
+                                                />
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </main>
+                <Footer />
             </div>
         )
     }

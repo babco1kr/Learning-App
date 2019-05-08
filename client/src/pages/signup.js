@@ -4,10 +4,10 @@ import { FormBtn } from "../components/Form";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import Nav from "../components/StudentNav";
+import Footer from "../components/Footer";
 
 import M from "materialize-css";
 
-// import ReactMaterialSelect from 'react-material-select'
 import 'react-material-select/lib/css/reactMaterialSelect.css';
 
 
@@ -58,14 +58,17 @@ class SignUp extends Component {
   render() {
     return (
       <div>
+        <header>
         <Nav />
+        </header>
+        <main>
         <div className="container">
           <form>
-          <SchoolSelect 
-                value={this.state.schoolNumber}
-                name="schoolNumber"
-                handleInputChange={this.handleSchoolChange.bind(this)}
-                />
+            <SchoolSelect
+              value={this.state.schoolNumber}
+              name="schoolNumber"
+              handleInputChange={this.handleSchoolChange.bind(this)}
+            />
             <label>
               Username:
                     <input value={this.state.name} onChange={this.handleInputChange} type="text" name="name" id="userName"></input>
@@ -83,7 +86,7 @@ class SignUp extends Component {
                 Sign Up
               </FormBtn>
               <Link to={"/teacherlogin"}>
-                <button className="waves-effect waves-light btn-large" type="submit">Admin</button>
+                <button className="waves-effect waves-light btn-large" type="submit">Teacher Login</button>
               </Link>
               <Link to={"/"}>
                 <button className="waves-effect waves-light btn-large">Student</button>
@@ -91,6 +94,8 @@ class SignUp extends Component {
             </div>
           </form>
         </div>
+        </main>
+        <Footer />
       </div>
     )
   }
