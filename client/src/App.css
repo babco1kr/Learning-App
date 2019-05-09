@@ -34,3 +34,7 @@ nav {
 main {
     flex: 1 0 auto;
 }
+
+.login {
+    width: 30%;
+}

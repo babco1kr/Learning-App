@@ -153,5 +153,21 @@ module.exports = {
         }).then(results => {
             res.json(results);
         })
+    },
+
+    findTotalQuestions: function(req, res) {
+        let length = req.body.unitId.length;
+        let units = [];
+        for (let i = 0; i < length; i ++) {
+            units.push([{UnitId: req.body.unitId[i]}]);
+        }
+        console.log(units);
+        db.Spelling.findAll({
+            where: {
+                [Op.or]: units
+            }
+        }).then(results => {
+            res.json(results);
+        })
     }
 }
