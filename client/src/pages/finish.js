@@ -54,9 +54,8 @@ class Finish extends Component {
         else {
             return (
                 <div>
-                    <header>
+                    <div className="page">
                     <Nav />
-                    </header>
                     <main>
                     <div className="container">
                         <div classNane="content-area">
@@ -65,6 +64,7 @@ class Finish extends Component {
                     </div>
                     </main>
                     <Footer />
+                </div>
                 </div>
             )
         }

@@ -16,15 +16,16 @@ nav {
 
 .btn, .btn-large {
     background-color: #23B9B9;
+    margin-left: 5px;
 }
 
 .page-footer {
     background-color: #9EBAFC;
     min-width: 100%;
-    bottom: 0;
+    /* bottom: 0; */
 }
 
-body {
+.page {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
