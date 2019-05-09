@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { FormBtn } from "../components/Form";
 import Footer from "../components/Footer";
 import API from "../utils/API";
 import Nav from "../components/StudentNav";
 import ls from 'local-storage';
-import moment from 'moment';
 
 class NoQuestions extends Component {
 
