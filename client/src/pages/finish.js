@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { FormBtn } from "../components/Form";
 import Footer from "../components/Footer";
 import API from "../utils/API";
 import Nav from "../components/StudentNav";
 import ls from 'local-storage';
-import moment from 'moment';
 
 class Finish extends Component {
 
@@ -55,16 +53,19 @@ class Finish extends Component {
             return (
                 <div>
                     <div className="page">
-                    <Nav />
-                    <main>
-                    <div className="container">
-                        <div classNane="content-area">
-                            ALL DONE
-                        </div>
+                        <Nav />
+                        <main>
+                            <div className="container">
+                                <div className="row center-align" style={{ margin: "15px 0px 0px 0px" }}>
+                                <img alt="celebration" className="img-fluid" src="https://media1.giphy.com/media/YTbZzCkRQCEJa/giphy.gif" style={{ margin: "0 auto" }} />
+                                </div>
+                                <div className="row center-align">
+                                    <h2>All Done! See You In Class!</h2>
+                                </div>
+                            </div>
+                        </main>
+                        <Footer />
                     </div>
-                    </main>
-                    <Footer />
-                </div>
                 </div>
             )
         }

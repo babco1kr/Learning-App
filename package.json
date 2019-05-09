@@ -29,7 +29,6 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
     "react-router-dom": "^5.0.0",
-    "sequelize": "^5.7.6",
-    "watson-developer-cloud": "^4.0.1"
+    "sequelize": "^5.7.6"
   }
 }

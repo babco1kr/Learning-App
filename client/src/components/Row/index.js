@@ -8,7 +8,7 @@ margin: 8px;
 border: 1px solid lightgrey;
 border-radius: 2px;
 text-align: center;
-min-height: 150px;
+min-height: 10px;
 `;
 const Title = styled.h5`
 padding: 8px;
@@ -16,6 +16,7 @@ padding: 8px;
 const LetterList = styled.div`
 padding 8px;
 transition: background-color 0.2s ease;
+min-height: 75px;
 background-color: ${props => (props.isDraggingOver ? "#f6f9a6" : "#fafcd2")}
 `
 

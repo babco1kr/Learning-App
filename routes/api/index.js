@@ -4,7 +4,7 @@ const userRoutes = require("./user");
 const studentRoutes = require("./student");
 const teacherRoutes = require("./teacher");
 
-const ttsRoutes = require("./texttospeech");
+// const ttsRoutes = require("./texttospeech");
 
 
 // sends to routes/api/user.js
@@ -16,7 +16,7 @@ router.use("/login", userRoutes);
 router.use("/student", studentRoutes);
 router.use("/teacher", teacherRoutes)
 
-router.use("/texttospeech", ttsRoutes)
+// router.use("/texttospeech", ttsRoutes)
 
 
 module.exports = router;
