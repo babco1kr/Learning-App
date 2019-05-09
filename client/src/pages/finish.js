@@ -4,12 +4,19 @@ import API from "../utils/API";
 import Nav from "../components/StudentNav";
 import ls from 'local-storage';
 
+const imgStyle = {
+    margin: '0 auto',
+    maxWidth: "300px",
+    height: "auto", 
+  };
+
 class Finish extends Component {
 
     state = {
         loading: true
     }
 
+    
     componentDidMount() {
 
         this.studentLoginCheck()
@@ -57,7 +64,7 @@ class Finish extends Component {
                         <main>
                             <div className="container">
                                 <div className="row center-align" style={{ margin: "15px 0px 0px 0px" }}>
-                                <img alt="celebration" className="img-fluid" src="https://media1.giphy.com/media/YTbZzCkRQCEJa/giphy.gif" style={{ margin: "0 auto" }} />
+                                <img alt="celebration" className="img-fluid" src="https://media1.giphy.com/media/YTbZzCkRQCEJa/giphy.gif" style={imgStyle} />
                                 </div>
                                 <div className="row center-align">
                                     <h2>All Done! See You In Class!</h2>
