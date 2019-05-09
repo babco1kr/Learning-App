@@ -82,9 +82,8 @@ class Addstudent extends Component {
     render() {
         return (
             <div>
-                <header>
+                <div className="page">
                 <Nav />
-                </header>
                 <main>
                 <div className="container">
                     <div className="content-area">
@@ -139,6 +138,7 @@ class Addstudent extends Component {
                 </div>
                 </main>
                 <Footer />
+            </div>
             </div>
         )
     }

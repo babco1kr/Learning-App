@@ -14,6 +14,7 @@ class Nav extends Component {
 
   render() {
     return (
+      <header>
       <nav>
         <div className="nav-wrapper">
           <a href="#" className="brand-logo">Logo</a>
@@ -26,6 +27,7 @@ class Nav extends Component {
           </ul>
         </div>
       </nav>
+      </header>
     )
   }
 

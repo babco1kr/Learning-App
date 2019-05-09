@@ -58,9 +58,8 @@ class SignUp extends Component {
   render() {
     return (
       <div>
-        <header>
+        <div className="page">
         <Nav />
-        </header>
         <main>
         <div className="container">
           <form>
@@ -96,6 +95,7 @@ class SignUp extends Component {
         </div>
         </main>
         <Footer />
+      </div>
       </div>
     )
   }
