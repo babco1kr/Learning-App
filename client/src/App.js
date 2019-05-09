@@ -9,7 +9,8 @@ import SignUp from "./pages/signup";
 import Units from "./pages/units";
 import QuestionPrompt from "./pages/questionprompt";
 import Results from "./pages/results";
-import Finish from "./pages/finish"
+import Finish from "./pages/finish";
+import NoQuestions from "./pages/noquestions"
 import "./App.css";
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
           <Route exact path ="/question" component = {QuestionPrompt} />
           <Route exact path ="/results" component = {Results} />
           <Route exact path ="/finish" component = {Finish} />
+          <Route exact path ="/noquestions" component = {NoQuestions} />
         </Switch>
       </div>
       </Router>

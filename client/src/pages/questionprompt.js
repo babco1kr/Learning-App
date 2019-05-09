@@ -7,7 +7,6 @@ import Nav from "../components/StudentNav";
 import moment from 'moment';
 
 import ls from 'local-storage';
-import ReactPlayer from 'react-player'
 
 const btnStyle = {
     margin: '5px',
@@ -34,33 +33,21 @@ class QuestionPrompt extends Component {
         this.getQuestions();
     }
 
-    // studentLoginCheck = () => {
-
-    //    API.checkStudentLogin({
-    //         studentNumber: ls.get("stuNum"),
-    //         school: ls.get("school")
-    //    })
-    //     .then(res => {
-    //         // console.log(res);
-    //         if (res.data.length !== 0) {
-    //             this.setState({loading: false})
-    //         } else {
-    //             this.props.history.push("/");
-    //         }
-    //     })
-    //     .catch(err => {console.log(err)})
-    // };
-
     getQuestions = () => {
+        //Get the active questions that the student has not already answered. 
         API.getQuestions({
             studentNumber: ls.get("stuNum"),
-            school: ls.get("school")
+            school: ls.get("school"),
+            intStuNum: ls.get("intStuNum")
         })
             .then(res => {
+                console.log(res.data);
                 if (res.data.length !== 0) {
                     this.setState({ questions: res.data });
                 } else {
-                    this.props.history.push("/");
+                    this.props.history.push("/noquestions");
+                    // needed so the rest of the function does not crash if there are no questions. 
+                    this.setState({ questions: [{questionId: 0, word:"", image: "", teacherId: "", unitId: ""}]});
                 }
             })
             .then(() => {
@@ -69,11 +56,6 @@ class QuestionPrompt extends Component {
                 let arr = wordToSplit.split("");
                 this.setState({ letters: arr });
                 console.log(this.state.letters);
-
-
-
-
-
                 let blanks = [];
                 for (let i = 0; i < this.state.letters.length; i++) {
                     blanks.push(" _ ");
