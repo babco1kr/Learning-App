@@ -116,17 +116,34 @@ class Units extends Component {
         API.findQuestions({
             UnitId: id
         }).then(res => {
-            this.setState({ questions: res.data });
+            let questions = res.data;
+            let length = res.data.length;
+            for(let i = 0; i < length; i++) {
+                if (!questions[i].pictureLink) {
+                    questions[i].pictureLink = "❌";
+                } else {
+                    questions[i].pictureLink = "✔️";
+                }
+            }
+            this.setState({questions: questions});
             this.setState({ unit: id })
         })
-        this.setState({ unit: id })
     }
 
     getQuestions() {
         API.findQuestions({
             UnitId: this.state.unit
         }).then(res => {
-            this.setState({ questions: res.data });
+            let questions = res.data;
+            let length = res.data.length;
+            for(let i = 0; i < length; i++) {
+                if (!questions[i].pictureLink) {
+                    questions[i].pictureLink = "❌";
+                } else {
+                    questions[i].pictureLink = "✔️";
+                }
+            }
+            this.setState({questions: questions});
         })
     }
 
@@ -162,7 +179,7 @@ class Units extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <table>
+                                    <table className="striped">
                                         <thead>
                                             <tr>
                                                 <th>Unit Name</th>
@@ -186,7 +203,7 @@ class Units extends Component {
                                     </table>
                                 </div>
                             </div>
-                            <div className="center-align col s6">
+                            <div className="center-align col s6 margin">
                                 <div className="row">
                                     <h3>Questions</h3>
                                     <hr></hr>
@@ -207,7 +224,7 @@ class Units extends Component {
                                             <button className="waves-effect waves-light btn-large" type="submit" onClick={this.handleQuestionSubmit}>Add</button>
                                         </div>
                                     </div>
-                                    <table>
+                                    <table className="striped">
                                         <thead>
                                             <tr>
                                                 <th>Number</th>
