@@ -97,7 +97,6 @@ module.exports = {
                             unitId.push(resultsTwo[j].dataValues.id)
 
                         }
-                        // let unitId = resultsTwo[0].dataValues.id;
                         console.log(unitId);
 
                         // get active questions
@@ -110,7 +109,6 @@ module.exports = {
                             }
                         })
                             .then(resultsThree => {
-                                // console.log(resultsThree);
                                 let arr = [];
                                 for (let i = 0; i < resultsThree.length; i++) {
                                     let word = resultsThree[i].dataValues.question;
@@ -124,8 +122,36 @@ module.exports = {
                                     let questionGroup = {questionId, word, image, teacherId, unitId};
                                     arr.push(questionGroup);
                                 }
-                                console.log(arr);
-                                res.status(200).json(arr)
+                                    //finds all the questions the student has already answered
+                                    db.Score.findAll({
+                                        where: {
+                                           StudentId: req.body.intStuNum,
+                                        }
+                                    }).then(resultsFour => {
+                                        console.log(resultsFour);
+                                        let answeredQuestions = [];
+                                        // get list of all answered questions
+                                        for (let j = 0; j < resultsFour.length; j++) {
+                                            answeredQuestions.push(resultsFour[j].dataValues.questionID);
+                                        };
+
+                                        // gets rid of dulicate questions (aka, student answered them twice)
+                                        var uniq = answeredQuestions.reduce(function(a,b){
+                                            if (a.indexOf(b) < 0 ) a.push(b);
+                                            return a;
+                                          },[]);
+                                          console.log(uniq);
+                                          console.log(arr);
+                                          for (let k = 0; k < arr.length; k++) {
+                                              console.log(arr[k].questionId);
+                                            if (uniq.indexOf(arr[k].questionId) !== -1) {
+                                                arr.splice(k, 1);
+                                                k--;
+                                            }
+                                          }
+                                          console.log(arr);
+                                          res.status(200).json(arr)
+                                    })
                             })
                             .catch(err => res.status(422).json(err));
                     })
