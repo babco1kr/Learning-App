@@ -1,10 +1,10 @@
-const router = require("express").Router();
+// const router = require("express").Router();
 
-const ttsController = require("../../controllers/ttsController");
-
-
-router.route("/")
-  .post(ttsController.sayWord);
+// const ttsController = require("../../controllers/ttsController");
 
 
-module.exports = router;
+// router.route("/")
+//   .post(ttsController.sayWord);
+
+
+// module.exports = router;

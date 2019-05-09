@@ -79,7 +79,8 @@ class QuestionPrompt extends Component {
                 //make sure the random order of letters does not match the actual word
                 let randomLetters = this.state.letters.sort(func);
                 function shuffle() {
-                    if (randomLetters.join("").toUpperCase === wordToSplit) {
+                    let randomLettersJoined = randomLetters.join("").toUpperCase();
+                    if (randomLettersJoined === wordToSplit) {
                         randomLetters = this.state.letters.sort(func);
                         shuffle();
                     }
@@ -319,7 +320,8 @@ class QuestionPrompt extends Component {
                 //make sure the random order of letters does not match the actual word
                 let randomLetters = this.state.letters.sort(func);
                 function shuffle() {
-                    if (randomLetters.join("").toUpperCase === wordToSplit) {
+                    let randomLettersJoined = randomLetters.join("").toUpperCase();
+                    if (randomLettersJoined === wordToSplit) {
                         randomLetters = this.state.letters.sort(func);
                         shuffle();
                     }

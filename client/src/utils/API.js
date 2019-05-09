@@ -78,9 +78,9 @@ export default {
       return axios.post("/api/student/getquestions", question);
     },
 
-    sayWord: function(question) {
-      return axios.post("/api/texttospeech", question);
-    },
+    // sayWord: function(question) {
+    //   return axios.post("/api/texttospeech", question);
+    // },
 
     logAnswer: function(input) {
       return axios.post("/api/student/loganswer", input);
