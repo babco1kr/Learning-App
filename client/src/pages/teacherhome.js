@@ -146,10 +146,13 @@ class TeacherHome extends Component {
                     <div className="content-area">
                         <div className="row">
                             <div className="col m4">
-                                Current students: {this.state.students.length}
+                                {/* Current students: {this.state.students.length} */}
+                                <h3 className="center-align">Current Students</h3>
+                                <h3 className="center-align">{this.state.students.length}</h3>
                             </div>
                             <div className="col m4">
-                                Active Unit(s): {this.state.units}
+                                <h3 className="center-align">Active Unit(s)</h3>
+                                <h3 className="center-align">{this.state.units}</h3>
                             </div>
                             <div className="col m4">
                                 Graph

@@ -109,7 +109,7 @@ class Results extends Component {
                         <div className="row">
                             <h3 className="center-align">Students</h3>
                             <hr></hr>
-                            <table>
+                            <table className="striped">
                                 <thead>
                                     <tr>
                                         <th>Student</th>
