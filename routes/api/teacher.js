@@ -38,5 +38,8 @@ router.route("/activeunit")
 
 router.route("/getresults")
   .post(teacherController.getResults);
+
+router.route("/allquestions")
+  .post(teacherController.findTotalQuestions);
   
 module.exports = router;

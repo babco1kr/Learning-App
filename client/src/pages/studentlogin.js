@@ -73,7 +73,7 @@ class StudentLogin extends Component {
                 <div className="page">
                 <Nav />
                 <main>
-                <div className="container">
+                <div className="login container">
                     <div className="content-area">
                         <form>
                             <SchoolSelect

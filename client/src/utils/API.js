@@ -92,6 +92,10 @@ export default {
 
     getResults: function(results) {
       return axios.post("/api/teacher/getresults", results);
+    },
+
+    findTotalQuestions: function(units) {
+      return axios.post("/api/teacher/allquestions", units);
     }
 
 

@@ -61,7 +61,8 @@ class SignUp extends Component {
         <div className="page">
         <Nav />
         <main>
-        <div className="container">
+        <div className="login container">
+        <div className="content-area">
           <form>
             <SchoolSelect
               value={this.state.schoolNumber}
@@ -92,6 +93,7 @@ class SignUp extends Component {
               </Link>
             </div>
           </form>
+        </div>
         </div>
         </main>
         <Footer />
