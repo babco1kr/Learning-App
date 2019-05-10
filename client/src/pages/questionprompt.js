@@ -70,10 +70,7 @@ class QuestionPrompt extends Component {
                 }
                 this.setState({ response: blanks });
 
-            }).then(() => {
-                let currentWord = this.state.questions[this.state.count].word;
-                let wordToSplit = currentWord.toUpperCase();
-
+            
                 //get random order for letters to appear
                 function func(a, b) {
                     return 0.5 - Math.random();
