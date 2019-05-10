@@ -49,7 +49,7 @@ class QuestionPrompt extends Component {
                     this.setState({ questions: res.data });
                 } else {
                     // needed so the rest of the function does not crash if there are no questions. 
-                    this.setState({ questions: [{ questionId: 0, word: "", image: "", teacherId: "", unitId: "" }] });
+                    this.setState({ questions: [{ questionId: 0, word: "null", image: "", teacherId: "", unitId: "" }] });
 
                     //send to noquestions page
                     this.props.history.push("/noquestions");
