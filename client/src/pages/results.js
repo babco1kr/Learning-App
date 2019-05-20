@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ls from 'local-storage';
+import moment from 'moment';
 import Nav from "../components/TeacherNav";
 import API from "../utils/API";
 import Footer from "../components/Footer";
@@ -33,15 +34,12 @@ class Results extends Component {
             UserId: ls.get("teacherID"),
             school: ls.get("school")
         }).then(res => {
-            // console.log("Working");
-            // console.log(res.data.length);
             let units = [];
             let numberofunits = res.data.length;
             for (let i = 0; i < numberofunits; i++) {
                 units.push(res.data[i].id);
             }
             this.setState({ activeUnit: units });
-            // console.log(this.state.activeUnit);
             this.getResults();
         })
     }
@@ -52,15 +50,12 @@ class Results extends Component {
             unitId: this.state.activeUnit
         }).then(res => {
             this.setState({ results: res.data });
-            // console.log(this.state.results);
             this.makeResultsList();
         })
     }
 
     makeResultsList() {
         let length = this.state.students.length;
-        // console.log("Students: " + length);
-        // console.log(this.state.students);
         let student = this.state.students;
         let studentScores = [];
         for (let i = 0; i < length; i++) {
@@ -68,7 +63,6 @@ class Results extends Component {
             let results = this.state.results;
             let questionsLength = this.state.results.length;
             for (let j = 0; j < questionsLength; j++) {
-                // console.log(student.id[i]);
                 if (student[i].id === results[j].StudentId) {
                     let answer;
                     if (results[j].correct === false) {
@@ -84,18 +78,26 @@ class Results extends Component {
                 }
             }
             this.setState({ count: 1 });
-            // console.log(student[i].name);
+            let start = moment(student[i].startTime);
+            let end = moment(student[i].endTime);
+            
+            let duration = moment.duration(end.diff(start));
+            let minutes = duration.asHours();
+            let timeOnline = moment(minutes).format('m hh');
+            console.log(timeOnline);
+            if (timeOnline === "Invalid date") {
+                timeOnline = 0;
+            }
+            // console.log(moment(minutes).format('hh'));
             let object = {
                 id: student[i].id,
                 name: student[i].name,
-                // timeOnline: student.timeOnline[i],
-                timeOnline: 0,
+                timeOnline: timeOnline,
                 questions: questions
             }
             studentScores.push(object);
         }
         this.setState({ studentsAndResults: studentScores });
-        console.log(this.state.studentsAndResults);
     }
 
     render() {
@@ -113,7 +115,7 @@ class Results extends Component {
                                 <thead>
                                     <tr>
                                         <th>Student</th>
-                                        <th>Time Online</th>
+                                        <th>Time Online (HH: MM)</th>
                                         <th>Score</th>
                                     </tr>
                                 </thead>
