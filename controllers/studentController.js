@@ -5,7 +5,6 @@ var axios = require("axios");
 
 module.exports = {
     login: function (req, res) {
-        // console.log(req.body);
         db.Student.findAll({
             where: {
                 studentNumber: req.body.studentNumber,
@@ -62,20 +61,16 @@ module.exports = {
             }
         })
             .then(results => {
-                // console.log(results);
                 if (!results) {
                     res.status(404).json(err)
                 } else {
                     res.status(200).json(results)
                 }
-            
             })
             .catch(err => res.status(422).json(err));
     },
 
     getQuestions: function(req, res) {
-        console.log("working");
-
         // get teacherId pertaining to the student
         db.Student.findAll({
             where: {
@@ -86,7 +81,7 @@ module.exports = {
             .then(results => {
                 var teacherId = results[0].dataValues.UserId;
 
-                // get which unit is active
+                // get which units are active based on teacherID and school
                 db.Unit.findAll({
                     where: {
                         teacherID: teacherId,
@@ -98,24 +93,22 @@ module.exports = {
                         let unitId = [];
                         for (let j = 0; j < resultsTwo.length; j++) {
                             unitId.push(resultsTwo[j].dataValues.id)
-
                         }
-                        console.log(unitId);
-
                         // get active questions
                         db.Spelling.findAll({
                             where: {
                                 teacherID: teacherId,
                                 school: req.body.school,
                                 UnitId: unitId
-                    
                             }
                         })
                             .then(resultsThree => {
                                 let arr = [];
                                 for (let i = 0; i < resultsThree.length; i++) {
+                                    //grab all necessary information to perform future tasks
                                     let word = resultsThree[i].dataValues.question;
                                     let image = resultsThree[i].dataValues.pictureLink;
+                                        //if teacher doesn't load image, assign a (very small) stock image
                                         if (!image) {
                                             image = "https://upload.wikimedia.org/wikipedia/en/4/48/Blank.JPG"
                                         }
@@ -131,7 +124,6 @@ module.exports = {
                                            StudentId: req.body.intStuNum,
                                         }
                                     }).then(resultsFour => {
-                                        // console.log(resultsFour);
                                         let answeredQuestions = [];
                                         // get list of all answered questions
                                         for (let j = 0; j < resultsFour.length; j++) {
@@ -143,16 +135,12 @@ module.exports = {
                                             if (a.indexOf(b) < 0 ) a.push(b);
                                             return a;
                                           },[]);
-                                        //   console.log(uniq);
-                                        //   console.log(arr);
                                           for (let k = 0; k < arr.length; k++) {
-                                              console.log(arr[k].questionId);
                                             if (uniq.indexOf(arr[k].questionId) !== -1) {
                                                 arr.splice(k, 1);
                                                 k--;
                                             }
                                           }
-                                        //   console.log(arr);
                                           res.status(200).json(arr)
                                     })
                             })
@@ -163,18 +151,17 @@ module.exports = {
     },
 
     logAnswer: function(req, res) {
-        console.log(req.body);
         db.Score.create(req.body)
         .then(results => res.json(results))
         .catch(err =>res.status(422).json(err));
     },
 
+    //call Merrian-Websiter dictionary API
     tts: function(req, res) {
-        // console.log(req.body);
-        let dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + req.body.word + "?key=" + `${process.env.MERRIANAPI}`;
+        let apiKey = process.env.MERRIANAPI;
+        let dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + req.body.word + "?key=" + apiKey;
         axios.get(dictionaryURL).then(
             response => {
-                console.log(response.data[0].hwi.prs[0].sound.audio);
                 res.json(response.data[0].hwi.prs[0].sound.audio);
             }
         );

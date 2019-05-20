@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormBtn, FloatBtn} from "../components/Form";
+import { FormBtn } from "../components/Form";
 import Footer from "../components/Footer";
 import Prompt from "../components/Prompt"
 import API from "../utils/API";
@@ -20,12 +20,8 @@ class QuestionPrompt extends Component {
         loading: true,
         questions: [],
         count: 0,
-        // clicked: false,
-        // playing: false,
         letters: [],
         letterBank: [],
-        // response: [],
-        // guessCount: 0,
         random: [],
         pronunciation: "",
         rows: {},
@@ -61,14 +57,6 @@ class QuestionPrompt extends Component {
                 let wordToSplit = currentWord.toUpperCase();
                 let arr = wordToSplit.split("");
                 this.setState({ letters: arr });
-
-
-                //set initial response to blanks
-                // let blanks = [];
-                // for (let i = 0; i < this.state.letters.length; i++) {
-                //     blanks.push(" _ ");
-                // }
-                // this.setState({ response: blanks });
             })
             .then(() => {
                 let currentWord = this.state.questions[this.state.count].word;
@@ -77,13 +65,11 @@ class QuestionPrompt extends Component {
                 function func(a, b) {
                     return 0.5 - Math.random();
                 }
-
                 //make sure the random order of letters does not match the actual word
                 let randomLetters = this.state.letters.sort(func);
                 let stateLetters = this.state.letters;
-                // console.log(randomLetters);
+                //function to shuffle letters for tiles, and make sure shuffle does not return original word
                 function shuffle() {
-                    // console.log(stateLetters);
                     let randomLettersJoined = randomLetters.join("").toUpperCase();
                     if (randomLettersJoined === wordToSplit) {
                         randomLetters = stateLetters.sort(func);
@@ -98,7 +84,7 @@ class QuestionPrompt extends Component {
 
                 //make an object to render the letter buttons
                 let running = {};
-                //needed to create rows
+                //needed to create rows for dnd
                 let letterIdArray = [];
                 for (let d = 0; d < randomLetters.length; d++) {
                     let numString = d.toString();
@@ -109,8 +95,6 @@ class QuestionPrompt extends Component {
                     letterIdArray.push("letter-" + numString);
                 }
                 this.setState({ letterBank: running });
-                console.log(this.state.letterBank);
-
 
                 let rowState = {
                     "row-2" : {
@@ -125,17 +109,17 @@ class QuestionPrompt extends Component {
                     },
                 }
                 this.setState({ rows: rowState });
-                console.log(this.state.rows);
             })
             .then(() => {
 
                 let wordPronounceAPI = this.state.questions[this.state.count].word.toLowerCase();
-                console.log(wordPronounceAPI);
                     API.tts({
                         word: wordPronounceAPI
                     })
                     .then(res => {
                         let merrianFile = res.data;
+                        // assign Merrian-Webster (MW) subdirectory.
+                        // Per Merrian-Webster dictionary docs, there are three excepts to subdirectory being first letter of word. 
                         let merrianSub;
                         if (merrianFile.indexOf("bix") === 0) {
                             merrianSub = "bix";
@@ -149,78 +133,9 @@ class QuestionPrompt extends Component {
                         else {
                             merrianSub = merrianFile.charAt(0);
                         }
-                        // console.log(merrianSub);
                         let pronounceURL = "https://media.merriam-webster.com/soundc11/" + merrianSub + "/" + merrianFile + ".wav";
                         this.setState({ pronunciation: pronounceURL })
                     });
-
-                
-
-                // create the link to get the audio file
-                // let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
-
-                // let one = wordPronounce[0];
-
-                // let three = [];
-                // if (wordPronounce.length >= 3) {
-                //     for (let q = 0; q < 3; q++) {
-                //         three.push(wordPronounce[q])
-                //     }
-                //     three = three.join("");
-                // }
-                // else if (wordPronounce.length === 2) {
-                //     for (let q = 0; q < 2; q++) {
-                //         three.push(wordPronounce[q])
-                //     }
-                //     three.push("_");
-                //     three = three.join("");
-                // }
-                // else if (wordPronounce.length === 1) {
-                //     for (let q = 0; q < 1; q++) {
-                //         three.push(wordPronounce[q])
-                //     }
-                //     three.push("__");
-                //     three = three.join("");
-                // }
-
-                // let five = [];
-                // if (wordPronounce.length >= 5) {
-                //     for (let q = 0; q < 5; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 4) {
-                //     for (let q = 0; q < 4; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("_");
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 3) {
-                //     for (let q = 0; q < 3; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("__");
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 2) {
-                //     for (let q = 0; q < 2; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("___");
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 1) {
-                //     for (let q = 0; q < 1; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("____");
-                //     five = five.join("");
-                // }
-
-                // let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/" + one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
-                // this.setState({ pronunciation: pronounceURL })
             })
             .then(() => {
                 //allow the entire page to load
@@ -235,61 +150,10 @@ class QuestionPrompt extends Component {
         });
     };
 
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     this.setState({ playing: false })
-    //     console.log(this.state.playing);
-    //     if (this.state.clicked === false) {
-    //         this.setState({ clicked: true });
-    //         this.setState({ playing: true });
-    //     }
-    //     else {
-    //         this.player.seekTo(0);
-    //         this.setState({ playing: true })
-    //     }
-    // };
-
-    // handleLetterSubmit = (letter, id) => {
-    //     // event.preventDefault();
-    //     console.log(letter);
-    //     console.log(id);
-
-    //     let currentAnswer = [];
-    //     for (let j = 0; j < this.state.letters.length; j++) {
-    //         if (j !== this.state.guessCount) {
-    //             currentAnswer.push(this.state.response[j]);
-    //         }
-
-    //         else {
-    //             currentAnswer.push(" " + letter + " ");
-    //         }
-    //     }
-
-    //     // to remove letters once selected
-    //     let tempLetterBank = [];
-
-    //     for (let l = 0; l < this.state.letterBank.length; l++) {
-    //         if (this.state.letterBank[l].id !== id) {
-    //             tempLetterBank.push(this.state.letterBank[l]);
-    //         }
-    //     }
-
-    //     this.setState({ letterBank: tempLetterBank });
-
-    //     let upOne = this.state.guessCount + 1;
-    //     console.log(currentAnswer);
-    //     this.setState({ guessCount: upOne });
-    //     this.setState({ response: currentAnswer });
-
-    // };
-
     handleAnswerSubmit = event => {
         event.preventDefault();
 
         if (this.state.count < this.state.questions.length - 1) {
-
-            console.log(this.state.rows);
-            console.log(this.state.letterBank);
 
             let answer = [];
             for (let a = 0; a < this.state.questions[this.state.count].word.length; a++) {
@@ -300,12 +164,10 @@ class QuestionPrompt extends Component {
                 }
             }
 
-            console.log(answer);
-   
             let word = this.state.questions[this.state.count].word.toUpperCase();
-            console.log(word);
+
             let answerToLog = answer.join("").replace(/\s/g, '');
-            console.log(answerToLog);
+
             let ansCorrect = false;
             if (word === answerToLog) {
                 ansCorrect = true;
@@ -334,15 +196,6 @@ class QuestionPrompt extends Component {
                 let wordToSplit = currentWord.toUpperCase();
                 let arr = wordToSplit.split("");
                 this.setState({ letters: arr });
-
-
-                //set initial response to blanks
-                // let blanks = [];
-                // for (let i = 0; i < this.state.letters.length; i++) {
-                //     blanks.push(" _ ");
-                // }
-                // this.setState({ response: blanks });
-
             })
             .then(() => {
                 let currentWord = this.state.questions[this.state.count].word;
@@ -355,9 +208,8 @@ class QuestionPrompt extends Component {
                 //make sure the random order of letters does not match the actual word
                 let randomLetters = this.state.letters.sort(func);
                 let stateLetters = this.state.letters;
-                // console.log(randomLetters);
+
                 function shuffle() {
-                    // console.log(stateLetters);
                     let randomLettersJoined = randomLetters.join("").toUpperCase();
                     if (randomLettersJoined === wordToSplit) {
                         randomLetters = stateLetters.sort(func);
@@ -383,8 +235,6 @@ class QuestionPrompt extends Component {
                     letterIdArray.push("letter-" + numString);
                 }
                 this.setState({ letterBank: running });
-                console.log(this.state.letterBank);
-
 
                 let rowState = {
                     "row-2" : {
@@ -399,13 +249,9 @@ class QuestionPrompt extends Component {
                     },
                 }
                 this.setState({ rows: rowState });
-                console.log(this.state.rows);
-
             })
             .then(() => {
-
                 let wordPronounceAPI = this.state.questions[this.state.count].word.toLowerCase();
-                console.log(wordPronounceAPI);
                     API.tts({
                         word: wordPronounceAPI
                     })
@@ -424,91 +270,17 @@ class QuestionPrompt extends Component {
                         else {
                             merrianSub = merrianFile.charAt(0);
                         }
-                        // console.log(merrianSub);
                         let pronounceURL = "https://media.merriam-webster.com/soundc11/" + merrianSub + "/" + merrianFile + ".wav";
                         this.setState({ pronunciation: pronounceURL })
                     });
-
-                
-
-                // create the link to get the audio file
-                // let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
-
-                // let one = wordPronounce[0];
-
-                // let three = [];
-                // if (wordPronounce.length >= 3) {
-                //     for (let q = 0; q < 3; q++) {
-                //         three.push(wordPronounce[q])
-                //     }
-                //     three = three.join("");
-                // }
-                // else if (wordPronounce.length === 2) {
-                //     for (let q = 0; q < 2; q++) {
-                //         three.push(wordPronounce[q])
-                //     }
-                //     three.push("_");
-                //     three = three.join("");
-                // }
-                // else if (wordPronounce.length === 1) {
-                //     for (let q = 0; q < 1; q++) {
-                //         three.push(wordPronounce[q])
-                //     }
-                //     three.push("__");
-                //     three = three.join("");
-                // }
-
-                // let five = [];
-                // if (wordPronounce.length >= 5) {
-                //     for (let q = 0; q < 5; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 4) {
-                //     for (let q = 0; q < 4; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("_");
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 3) {
-                //     for (let q = 0; q < 3; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("__");
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 2) {
-                //     for (let q = 0; q < 2; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("___");
-                //     five = five.join("");
-                // }
-                // else if (wordPronounce.length === 1) {
-                //     for (let q = 0; q < 1; q++) {
-                //         five.push(wordPronounce[q])
-                //     }
-                //     five.push("____");
-                //     five = five.join("");
-                // }
-
-                // let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/" + one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
-                // this.setState({ pronunciation: pronounceURL })
             })
             .then(() => {
                 //allow the entire page to load
                 this.setState({ loading: false });
             })
-
         }
-
         // If there are no more questions, log answer and end time, and go to end page
         else {
-            console.log(this.state.rows);
-            console.log(this.state.letterBank);
-
             let answer = [];
             for (let a = 0; a < this.state.questions[this.state.count].word.length; a++) {
                 for (let prop in this.state.letterBank)  {
@@ -517,13 +289,10 @@ class QuestionPrompt extends Component {
                     }
                 }
             }
-
-            console.log(answer);
-   
             let word = this.state.questions[this.state.count].word.toUpperCase();
-            console.log(word);
+
             let answerToLog = answer.join("").replace(/\s/g, '');
-            console.log(answerToLog);
+
             let ansCorrect = false;
             if (word === answerToLog) {
                 ansCorrect = true;
@@ -625,8 +394,6 @@ class QuestionPrompt extends Component {
         };
 
         this.setState(newState);
-        console.log(this.state.rows);
-        console.log(this.state.letterBank);
         return;
     };
 
@@ -659,16 +426,11 @@ class QuestionPrompt extends Component {
                                 </div>
                                 <div className="row center-align">
                                     <FormBtn
-                                        // onClick={this.handleFormSubmit}
                                         onClick={this.playAudio.bind(this)}
                                     >
                                         SAY WORD
-                        </FormBtn>
+                                    </FormBtn>
                                 </div>
-                                {/* <div className="row center-align">
-                                    <h2>{this.state.response}</h2>
-                                </div> */}
-
                             <DragDropContext
                                 onDragEnd={this.onDragEnd}
                             >
