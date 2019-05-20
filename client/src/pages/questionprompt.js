@@ -24,7 +24,7 @@ class QuestionPrompt extends Component {
         // playing: false,
         letters: [],
         letterBank: [],
-        response: [],
+        // response: [],
         // guessCount: 0,
         random: [],
         pronunciation: "",
@@ -64,13 +64,15 @@ class QuestionPrompt extends Component {
 
 
                 //set initial response to blanks
-                let blanks = [];
-                for (let i = 0; i < this.state.letters.length; i++) {
-                    blanks.push(" _ ");
-                }
-                this.setState({ response: blanks });
-
-            
+                // let blanks = [];
+                // for (let i = 0; i < this.state.letters.length; i++) {
+                //     blanks.push(" _ ");
+                // }
+                // this.setState({ response: blanks });
+            })
+            .then(() => {
+                let currentWord = this.state.questions[this.state.count].word;
+                let wordToSplit = currentWord.toUpperCase();
                 //get random order for letters to appear
                 function func(a, b) {
                     return 0.5 - Math.random();
@@ -78,10 +80,13 @@ class QuestionPrompt extends Component {
 
                 //make sure the random order of letters does not match the actual word
                 let randomLetters = this.state.letters.sort(func);
+                let stateLetters = this.state.letters;
+                // console.log(randomLetters);
                 function shuffle() {
+                    // console.log(stateLetters);
                     let randomLettersJoined = randomLetters.join("").toUpperCase();
                     if (randomLettersJoined === wordToSplit) {
-                        randomLetters = this.state.letters.sort(func);
+                        randomLetters = stateLetters.sort(func);
                         shuffle();
                     }
                     else {
@@ -195,7 +200,6 @@ class QuestionPrompt extends Component {
             })
     }
 
-
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -305,13 +309,16 @@ class QuestionPrompt extends Component {
 
 
                 //set initial response to blanks
-                let blanks = [];
-                for (let i = 0; i < this.state.letters.length; i++) {
-                    blanks.push(" _ ");
-                }
-                this.setState({ response: blanks });
+                // let blanks = [];
+                // for (let i = 0; i < this.state.letters.length; i++) {
+                //     blanks.push(" _ ");
+                // }
+                // this.setState({ response: blanks });
 
-
+            })
+            .then(() => {
+                let currentWord = this.state.questions[this.state.count].word;
+                let wordToSplit = currentWord.toUpperCase();
                 //get random order for letters to appear
                 function func(a, b) {
                     return 0.5 - Math.random();
@@ -319,10 +326,13 @@ class QuestionPrompt extends Component {
 
                 //make sure the random order of letters does not match the actual word
                 let randomLetters = this.state.letters.sort(func);
+                let stateLetters = this.state.letters;
+                // console.log(randomLetters);
                 function shuffle() {
+                    // console.log(stateLetters);
                     let randomLettersJoined = randomLetters.join("").toUpperCase();
                     if (randomLettersJoined === wordToSplit) {
-                        randomLetters = this.state.letters.sort(func);
+                        randomLetters = stateLetters.sort(func);
                         shuffle();
                     }
                     else {
