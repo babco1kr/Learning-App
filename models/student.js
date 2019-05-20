@@ -15,12 +15,10 @@ module.exports = function (sequelize, DataTypes) {
         },
         startTime: {
             type: DataTypes.STRING,
-            // allowNull: false,
             default: null
         },
         endTime: {
             type: DataTypes.STRING,
-            // allowNull: false,
             default: null
         }
     });

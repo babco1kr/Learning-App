@@ -12,16 +12,16 @@ router.route("/end")
   .post(studentController.logEnd);
 
 router.route("/lookup")
-.post(studentController.lookup);
+  .post(studentController.lookup);
 
 router.route("/getquestions")
-.post(studentController.getQuestions);
+  .post(studentController.getQuestions);
 
 router.route("/loganswer")
-.post(studentController.logAnswer);
+  .post(studentController.logAnswer);
 
 router.route("/tts")
-.post(studentController.tts);
+  .post(studentController.tts);
 
 
 module.exports = router;

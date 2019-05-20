@@ -4,7 +4,6 @@ const Op = Sequelize.Op;
 
 module.exports = {
     createStudent: function(req, res) {
-        console.log(req.body);
         db.Student.create(req.body)
         .then(results => res.json(results))
         .catch(err =>res.status(422).json(err));
@@ -21,21 +20,18 @@ module.exports = {
     },
 
     addUnit: function(req, res) {
-        console.log(req.body);
         db.Unit.create(req.body)
         .then(results => res.json(results))
         .catch(err => res.status(422).json(err));
     },
 
     addSpelling: function(req, res) {
-        console.log(req.body);
         db.Spelling.create(req.body)
         .then(results => res.json(results))
         .catch(err => res.status(422).json(err));
     },
 
     findUnits: function(req, res) {
-        console.log(req.body);
         db.Unit.findAll({
             where: {
                 teacherID: req.body.teacherID,
@@ -144,7 +140,6 @@ module.exports = {
         for (let i = 0; i < length; i ++) {
             units.push([{unitID: req.body.unitId[i]}]);
         }
-        // console.log(units);
         db.Score.findAll({
             where: {
                 teacherID: req.body.UserId,
@@ -161,7 +156,6 @@ module.exports = {
         for (let i = 0; i < length; i ++) {
             units.push([{UnitId: req.body.unitId[i]}]);
         }
-        console.log(units);
         db.Spelling.findAll({
             where: {
                 [Op.or]: units

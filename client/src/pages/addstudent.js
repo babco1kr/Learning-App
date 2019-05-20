@@ -40,7 +40,6 @@ class Addstudent extends Component {
                     this.props.history.push("/teacherlogin");
                 }
             })
-            // .then(data => { console.log(data) })
             .catch(err => { console.log(err) })
     };
 
