@@ -123,12 +123,12 @@ class TeacherHome extends Component {
                     label: 'Students Finished',
                     data: [this.state.complete, this.state.incomplete],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
+                        'rgb(0, 0, 255, .75)',
+                        'rgb(255, 0, 0, .75)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
+                        'rgb(0, 0, 255, 1)',
+                        'rgb(255, 0, 0, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -155,7 +155,7 @@ class TeacherHome extends Component {
                                 <h3 className="center-align">{this.state.units}</h3>
                             </div>
                             <div className="col m4">
-                                Graph
+                            <h3 className="center-align">Completion Graph</h3>
                                 <canvas id="myChart" width="400" height="400"></canvas>
                             </div>
                         </div>
