@@ -126,73 +126,101 @@ class QuestionPrompt extends Component {
                 }
                 this.setState({ rows: rowState });
                 console.log(this.state.rows);
+            })
+            .then(() => {
 
+                let wordPronounceAPI = this.state.questions[this.state.count].word.toLowerCase();
+                console.log(wordPronounceAPI);
+                    API.tts({
+                        word: wordPronounceAPI
+                    })
+                    .then(res => {
+                        let merrianFile = res.data;
+                        let merrianSub;
+                        if (merrianFile.indexOf("bix") === 0) {
+                            merrianSub = "bix";
+                        }
+                        else if (merrianFile.indexOf("gg") === 0) {
+                            merrianSub = "gg";
+                        }
+                        else if (!isNaN(merrianFile.charAt(0))) {
+                            merrianSub = "number";
+                        }
+                        else {
+                            merrianSub = merrianFile.charAt(0);
+                        }
+                        // console.log(merrianSub);
+                        let pronounceURL = "https://media.merriam-webster.com/soundc11/" + merrianSub + "/" + merrianFile + ".wav";
+                        this.setState({ pronunciation: pronounceURL })
+                    });
+
+                
 
                 // create the link to get the audio file
-                let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
+                // let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
 
-                let one = wordPronounce[0];
+                // let one = wordPronounce[0];
 
-                let three = [];
-                if (wordPronounce.length >= 3) {
-                    for (let q = 0; q < 3; q++) {
-                        three.push(wordPronounce[q])
-                    }
-                    three = three.join("");
-                }
-                else if (wordPronounce.length === 2) {
-                    for (let q = 0; q < 2; q++) {
-                        three.push(wordPronounce[q])
-                    }
-                    three.push("_");
-                    three = three.join("");
-                }
-                else if (wordPronounce.length === 1) {
-                    for (let q = 0; q < 1; q++) {
-                        three.push(wordPronounce[q])
-                    }
-                    three.push("__");
-                    three = three.join("");
-                }
+                // let three = [];
+                // if (wordPronounce.length >= 3) {
+                //     for (let q = 0; q < 3; q++) {
+                //         three.push(wordPronounce[q])
+                //     }
+                //     three = three.join("");
+                // }
+                // else if (wordPronounce.length === 2) {
+                //     for (let q = 0; q < 2; q++) {
+                //         three.push(wordPronounce[q])
+                //     }
+                //     three.push("_");
+                //     three = three.join("");
+                // }
+                // else if (wordPronounce.length === 1) {
+                //     for (let q = 0; q < 1; q++) {
+                //         three.push(wordPronounce[q])
+                //     }
+                //     three.push("__");
+                //     three = three.join("");
+                // }
 
-                let five = [];
-                if (wordPronounce.length >= 5) {
-                    for (let q = 0; q < 5; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 4) {
-                    for (let q = 0; q < 4; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("_");
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 3) {
-                    for (let q = 0; q < 3; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("__");
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 2) {
-                    for (let q = 0; q < 2; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("___");
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 1) {
-                    for (let q = 0; q < 1; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("____");
-                    five = five.join("");
-                }
+                // let five = [];
+                // if (wordPronounce.length >= 5) {
+                //     for (let q = 0; q < 5; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 4) {
+                //     for (let q = 0; q < 4; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("_");
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 3) {
+                //     for (let q = 0; q < 3; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("__");
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 2) {
+                //     for (let q = 0; q < 2; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("___");
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 1) {
+                //     for (let q = 0; q < 1; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("____");
+                //     five = five.join("");
+                // }
 
-                let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/" + one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
-                this.setState({ pronunciation: pronounceURL })
+                // let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/" + one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
+                // this.setState({ pronunciation: pronounceURL })
             })
             .then(() => {
                 //allow the entire page to load
@@ -373,72 +401,101 @@ class QuestionPrompt extends Component {
                 this.setState({ rows: rowState });
                 console.log(this.state.rows);
 
+            })
+            .then(() => {
+
+                let wordPronounceAPI = this.state.questions[this.state.count].word.toLowerCase();
+                console.log(wordPronounceAPI);
+                    API.tts({
+                        word: wordPronounceAPI
+                    })
+                    .then(res => {
+                        let merrianFile = res.data;
+                        let merrianSub;
+                        if (merrianFile.indexOf("bix") === 0) {
+                            merrianSub = "bix";
+                        }
+                        else if (merrianFile.indexOf("gg") === 0) {
+                            merrianSub = "gg";
+                        }
+                        else if (!isNaN(merrianFile.charAt(0))) {
+                            merrianSub = "number";
+                        }
+                        else {
+                            merrianSub = merrianFile.charAt(0);
+                        }
+                        // console.log(merrianSub);
+                        let pronounceURL = "https://media.merriam-webster.com/soundc11/" + merrianSub + "/" + merrianFile + ".wav";
+                        this.setState({ pronunciation: pronounceURL })
+                    });
+
+                
 
                 // create the link to get the audio file
-                let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
+                // let wordPronounce = this.state.questions[this.state.count].word.toLowerCase().split("");
 
-                let one = wordPronounce[0];
+                // let one = wordPronounce[0];
 
-                let three = [];
-                if (wordPronounce.length >= 3) {
-                    for (let q = 0; q < 3; q++) {
-                        three.push(wordPronounce[q])
-                    }
-                    three = three.join("");
-                }
-                else if (wordPronounce.length === 2) {
-                    for (let q = 0; q < 2; q++) {
-                        three.push(wordPronounce[q])
-                    }
-                    three.push("_");
-                    three = three.join("");
-                }
-                else if (wordPronounce.length === 1) {
-                    for (let q = 0; q < 1; q++) {
-                        three.push(wordPronounce[q])
-                    }
-                    three.push("__");
-                    three = three.join("");
-                }
+                // let three = [];
+                // if (wordPronounce.length >= 3) {
+                //     for (let q = 0; q < 3; q++) {
+                //         three.push(wordPronounce[q])
+                //     }
+                //     three = three.join("");
+                // }
+                // else if (wordPronounce.length === 2) {
+                //     for (let q = 0; q < 2; q++) {
+                //         three.push(wordPronounce[q])
+                //     }
+                //     three.push("_");
+                //     three = three.join("");
+                // }
+                // else if (wordPronounce.length === 1) {
+                //     for (let q = 0; q < 1; q++) {
+                //         three.push(wordPronounce[q])
+                //     }
+                //     three.push("__");
+                //     three = three.join("");
+                // }
 
-                let five = [];
-                if (wordPronounce.length >= 5) {
-                    for (let q = 0; q < 5; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 4) {
-                    for (let q = 0; q < 4; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("_");
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 3) {
-                    for (let q = 0; q < 3; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("__");
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 2) {
-                    for (let q = 0; q < 2; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("___");
-                    five = five.join("");
-                }
-                else if (wordPronounce.length === 1) {
-                    for (let q = 0; q < 1; q++) {
-                        five.push(wordPronounce[q])
-                    }
-                    five.push("____");
-                    five = five.join("");
-                }
+                // let five = [];
+                // if (wordPronounce.length >= 5) {
+                //     for (let q = 0; q < 5; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 4) {
+                //     for (let q = 0; q < 4; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("_");
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 3) {
+                //     for (let q = 0; q < 3; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("__");
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 2) {
+                //     for (let q = 0; q < 2; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("___");
+                //     five = five.join("");
+                // }
+                // else if (wordPronounce.length === 1) {
+                //     for (let q = 0; q < 1; q++) {
+                //         five.push(wordPronounce[q])
+                //     }
+                //     five.push("____");
+                //     five = five.join("");
+                // }
 
-                let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/" + one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
-                this.setState({ pronunciation: pronounceURL })
+                // let pronounceURL = "https://dictionary.cambridge.org/us/media/english/us_pron/" + one + "/" + three + "/" + five + "/" + this.state.questions[this.state.count].word.toLowerCase() + ".mp3";
+                // this.setState({ pronunciation: pronounceURL })
             })
             .then(() => {
                 //allow the entire page to load
@@ -586,7 +643,7 @@ class QuestionPrompt extends Component {
         else {
             return (
                 <div>
-                    <audio ref="audioRef" src={this.state.pronunciation} type="mp3"></audio>
+                    <audio ref="audioRef" src={this.state.pronunciation} type="wav"></audio>
                     <header>
                         <Nav />
                     </header>

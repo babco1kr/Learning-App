@@ -20,5 +20,8 @@ router.route("/getquestions")
 router.route("/loganswer")
 .post(studentController.logAnswer);
 
+router.route("/tts")
+.post(studentController.tts);
+
 
 module.exports = router;

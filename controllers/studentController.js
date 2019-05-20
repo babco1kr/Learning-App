@@ -1,4 +1,7 @@
 const db = require("../models");
+var axios = require("axios");
+
+
 
 module.exports = {
     login: function (req, res) {
@@ -128,7 +131,7 @@ module.exports = {
                                            StudentId: req.body.intStuNum,
                                         }
                                     }).then(resultsFour => {
-                                        console.log(resultsFour);
+                                        // console.log(resultsFour);
                                         let answeredQuestions = [];
                                         // get list of all answered questions
                                         for (let j = 0; j < resultsFour.length; j++) {
@@ -140,8 +143,8 @@ module.exports = {
                                             if (a.indexOf(b) < 0 ) a.push(b);
                                             return a;
                                           },[]);
-                                          console.log(uniq);
-                                          console.log(arr);
+                                        //   console.log(uniq);
+                                        //   console.log(arr);
                                           for (let k = 0; k < arr.length; k++) {
                                               console.log(arr[k].questionId);
                                             if (uniq.indexOf(arr[k].questionId) !== -1) {
@@ -149,7 +152,7 @@ module.exports = {
                                                 k--;
                                             }
                                           }
-                                          console.log(arr);
+                                        //   console.log(arr);
                                           res.status(200).json(arr)
                                     })
                             })
@@ -166,6 +169,14 @@ module.exports = {
         .catch(err =>res.status(422).json(err));
     },
 
-
-
+    tts: function(req, res) {
+        // console.log(req.body);
+        let dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + req.body.word + "?key=" + `${process.env.MERRIANAPI}`;
+        axios.get(dictionaryURL).then(
+            response => {
+                console.log(response.data[0].hwi.prs[0].sound.audio);
+                res.json(response.data[0].hwi.prs[0].sound.audio);
+            }
+        );
+    }
 }

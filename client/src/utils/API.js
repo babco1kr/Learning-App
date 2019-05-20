@@ -96,6 +96,10 @@ export default {
 
     findTotalQuestions: function(units) {
       return axios.post("/api/teacher/allquestions", units);
+    },
+    
+    tts: function(word) {
+      return axios.post("api/student/tts", word)
     }
 
 
