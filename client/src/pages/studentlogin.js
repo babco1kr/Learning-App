@@ -37,7 +37,6 @@ class StudentLogin extends Component {
                 "Authorization": "Bearer " + ls.get("token")
             }
         })
-            // .then(res => res.json())
             .catch(err => { console.log(err) })
     };
 
@@ -50,7 +49,6 @@ class StudentLogin extends Component {
                 school: this.state.schoolNumber.value
             }
             )
-                // .then(res => console.log("user confirmed"))
                 .then(res => {
                     console.log(res.data[0]);
                     if (res.data.length === 0) {

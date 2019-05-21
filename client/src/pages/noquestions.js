@@ -40,11 +40,6 @@ class NoQuestions extends Component {
         });
     };
 
-    handleFormSubmit = event => {
-        event.preventDefault();
-        //...
-    };
-
     render() {
         if (this.state.loading) {
             return null
@@ -56,11 +51,14 @@ class NoQuestions extends Component {
                     <Nav />
                     </header>
                     <main>
-                    <div className="container">
-                        <div classNane="content-area">
-                            No Questions To Answer
+                        <div className="container">
+                            <div className="row center-align">
+                                <div className="content-area">
+                                    <h2>You have no questions to answer.</h2>
+                                    <h2>See you in class!</h2>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </main>
                     <Footer />
                 </div>

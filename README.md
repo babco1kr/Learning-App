@@ -33,6 +33,39 @@ Under "Scores," teachers can see how well each student has done. It lists the st
 
 ![teacher-scores](/images/teacherScores.jpeg)
 
+---
+
+## Student Experience
+
+After a student logs in, they are presented with a screen welcoming them by name and instructions to click a button to begin their assignment. 
+
+![student-welcome](/images/studentWelcome.gif)
+
+Once they click "Start", they will be presented with their first word assignment. The student is presented with a shuffled set of letter tiles which they drag and drop into the answer box to form their answer.
+
+Each word includes a "Say Word" button that pronounces the word the student needs to spell. At the teachers discretion, some words also include an image or gif.
+
+Clicking the "Submit" button saves the students answer and present them with the next question. If the are no more questions, an appropriate message loads. The completion time reported to the teacher is measured from when the student clicks "Start" to when they click "Submit" on the final question. 
+
+![student-run-through](/images/studentRunThrough.gif)
+
+---
+
+## Select Technologies Used
+* [React](https://reactjs.org/) - a JavaScript library for building user interfaces.
+* [Node.js](https://nodejs.org/en/) - an open source server enviroment.
+* [MySQL](https://www.npmjs.com/package/mysql) - a relational database system.
+* [Sequelize.js](http://docs.sequelizejs.com/) - a promise-based Node.js ORM. 
+* [Express](https://www.npmjs.com/package/express) - a web framework for Node.js.
+* [Axios](https://www.npmjs.com/package/axios) - a promise based HTTP client for the browser and Node.js.
+* [bcrypt](https://www.npmjs.com/package/bcrypt) - a password hashing Node.js library.
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - for implementation of JSON Web Tokens.
+* [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) - a drag and drop library for React.
+* [Chart.js](https://www.chartjs.org/) - a JavaScript charting library. 
+* [Materialize](https://materializecss.com/) - a CSS framework.
+
+---
+
 ## Creators
 * **Kyle Babcock**
 * **Jordan Werre**
