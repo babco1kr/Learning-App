@@ -162,7 +162,8 @@ module.exports = {
         let dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + req.body.word + "?key=" + apiKey;
         axios.get(dictionaryURL).then(
             response => {
-                res.json(response.data[0].hwi.prs[0].sound.audio);
+                let dictLength = response.data[0].hwi.prs.length - 1;
+                res.json(response.data[0].hwi.prs[dictLength].sound.audio);
             }
         );
     }

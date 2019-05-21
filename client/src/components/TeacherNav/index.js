@@ -17,7 +17,7 @@ class Nav extends Component {
       <header>
       <nav>
         <div className="nav-wrapper">
-          <a href="/teacherhome" className="brand-logo">Logo</a>
+          <a href="/teacherhome" className="brand-logo">Learning App</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
               <Link to={"/addstudent"}>
