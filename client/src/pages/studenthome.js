@@ -66,9 +66,8 @@ class StudentHome extends Component {
         else {
             return (
                 <div>
-                    <header>
+                    <div className="page">
                     <Nav />
-                    </header>
                     <main>
                     <div className="container">
                         <div className="row center-align">
@@ -85,6 +84,7 @@ class StudentHome extends Component {
                     </div>
                     </main>
                     <Footer />
+                </div>
                 </div>
             )
         }

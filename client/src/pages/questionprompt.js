@@ -410,10 +410,9 @@ class QuestionPrompt extends Component {
         else {
             return (
                 <div>
+                    <div className="page">
                     <audio ref="audioRef" src={this.state.pronunciation} type="wav"></audio>
-                    <header>
                         <Nav />
-                    </header>
                     <main>
                         <div className="container">
                             <div className="content-area">
@@ -452,6 +451,7 @@ class QuestionPrompt extends Component {
                         </div>
                     </main>
                     <Footer />
+                </div>
                 </div>
             )
         }
