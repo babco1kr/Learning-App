@@ -66,7 +66,6 @@ class Units extends Component {
                 teacherID: ls.get("teacherID"),
                 school: ls.get("school")
             }).then(res => {
-                console.log("Unit Added");
                 this.setState({ unit: "" });
                 this.setState({ subject: 1 });
                 this.setState({ name: "" });
@@ -111,8 +110,6 @@ class Units extends Component {
     }
 
     selectUnit = id => {
-        console.log("ID: " + id)
-
         API.findQuestions({
             UnitId: id
         }).then(res => {

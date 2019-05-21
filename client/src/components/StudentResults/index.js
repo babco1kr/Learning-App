@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.css";
 
 function StudentResults(props) {
     return (

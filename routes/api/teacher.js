@@ -6,7 +6,6 @@ router.route("/")
   .post(teacherController.createStudent);
 
 router.route("/lookup")
-    //sends to controllers/teacherController.js
   .post(teacherController.findStudents);
 
 router.route("/addUnit")

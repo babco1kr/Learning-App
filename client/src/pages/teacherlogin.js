@@ -39,7 +39,6 @@ class TeacherLogin extends Component {
         "Authorization": "Bearer " + ls.get("token")
       }
     })
-      // .then(res => res.json())
       .catch(err => { console.log(err) })
   };
 
@@ -52,16 +51,12 @@ class TeacherLogin extends Component {
         password: this.state.password,
         school: this.state.schoolNumber.value
       })
-        // .then(res => console.log("user confirmed"))
         .then(res => {
           console.log(res)
           ls.set("token", res.data.token);
           ls.set("teacherID", res.data.teacherId);
           ls.set("school", res.data.schoolId);
           this.props.history.push("/teacherhome");
-          // return <Redirect to="/teacherhome" />;
-          // this.setToken();
-          // API.login(res);
         })
         .catch(err => console.log(err));
     }

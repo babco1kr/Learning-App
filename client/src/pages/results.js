@@ -83,12 +83,10 @@ class Results extends Component {
             
             let duration = moment.duration(end.diff(start));
             let minutes = duration.asHours();
-            let timeOnline = moment(minutes).format('m hh');
-            console.log(timeOnline);
+            let timeOnline = moment(minutes).format('m:hh');
             if (timeOnline === "Invalid date") {
                 timeOnline = 0;
             }
-            // console.log(moment(minutes).format('hh'));
             let object = {
                 id: student[i].id,
                 name: student[i].name,

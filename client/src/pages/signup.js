@@ -40,7 +40,6 @@ class SignUp extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // console.log(this.state.schoolNumber.value);
     if (this.state.name && this.state.password && this.state.schoolNumber) {
       // Go to utils/API.js and run saveUser. 
       API.saveUser({

@@ -26,7 +26,6 @@ const checkToken = (req, res, next) => {
 
 
 router.get("/user/data", checkToken, (req, res) => {
-  console.log("working");
   //verify the JWT token generated for the user
   jwt.verify(req.token, `${process.env.JWT_SECRET}`, (err, authorizedData) => {
       if(err){

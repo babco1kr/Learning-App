@@ -4,7 +4,6 @@ import API from "../utils/API";
 import Footer from "../components/Footer";
 import Chart from "chart.js";
 import Nav from "../components/TeacherNav";
-// const ctx = "myChart";
 
 class TeacherHome extends Component {
     state = {
@@ -56,15 +55,12 @@ class TeacherHome extends Component {
             UserId: ls.get("teacherID"),
             school: ls.get("school")
         }).then(res => {
-            // console.log("Working");
-            // console.log(res.data.length);
             let units = [];
             let numberofunits = res.data.length;
             for (let i = 0; i < numberofunits; i++) {
                 units.push(res.data[i].id);
             }
             this.setState({ units: units });
-            // console.log(this.state.units);
             this.findNumberofQuestions();
         })
     }
@@ -84,7 +80,6 @@ class TeacherHome extends Component {
             unitId: this.state.units
         }).then(res => {
             this.setState({ results: res.data });
-            console.log(this.state.results);
             this.makeChartInfo();
         })
     }
@@ -105,7 +100,6 @@ class TeacherHome extends Component {
             } else {
                 incomplete++;
             }
-            console.log(complete);
         }
         this.setState({complete: complete});
         this.setState({incomplete: incomplete});
@@ -146,7 +140,6 @@ class TeacherHome extends Component {
                     <div className="content-area">
                         <div className="row">
                             <div className="col m4">
-                                {/* Current students: {this.state.students.length} */}
                                 <h3 className="center-align">Current Students</h3>
                                 <h3 className="center-align">{this.state.students.length}</h3>
                             </div>
