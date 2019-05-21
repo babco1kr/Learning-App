@@ -9,7 +9,8 @@ import moment from 'moment';
 class StudentHome extends Component {
 
     state = {
-        loading: true
+        loading: true,
+        name: ""
     }
 
     componentDidMount() {
@@ -24,8 +25,9 @@ class StudentHome extends Component {
             school: ls.get("school")
         })
             .then(res => {
-                console.log(res);
                 if (res.data.length !== 0) {
+                    let loadName = res.data[0].name;
+                    this.setState({ name: loadName});
                     this.setState({ loading: false })
                 } else {
                     this.props.history.push("/")
@@ -69,12 +71,16 @@ class StudentHome extends Component {
                     </header>
                     <main>
                     <div className="container">
-                        <div className="content-area">
-                            <FormBtn
-                                onClick={this.handleFormSubmit}
-                            >
-                                START
-                            </FormBtn>
+                        <div className="row center-align">
+                            <div className="content-area">
+                            <h2>Welcome {this.state.name}!</h2>
+                            <h3>Please click the button below to begin.</h3>
+                                <FormBtn
+                                    onClick={this.handleFormSubmit}
+                                >
+                                    START
+                                </FormBtn>
+                            </div>
                         </div>
                     </div>
                     </main>

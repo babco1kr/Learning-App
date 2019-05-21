@@ -52,7 +52,6 @@ class TeacherLogin extends Component {
         school: this.state.schoolNumber.value
       })
         .then(res => {
-          console.log(res)
           ls.set("token", res.data.token);
           ls.set("teacherID", res.data.teacherId);
           ls.set("school", res.data.schoolId);
