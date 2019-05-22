@@ -33,7 +33,7 @@ class QuestionPrompt extends Component {
     }
 
     getQuestions = () => {
-        //Get the active questions that the student has not already answered. 
+        //Get the active questions that the student has not already answered & log start time (if applicable)
         API.getQuestions({
             studentNumber: ls.get("stuNum"),
             school: ls.get("school"),
@@ -41,9 +41,11 @@ class QuestionPrompt extends Component {
             startTime: moment().format()
         })
             .then(res => {
-                console.log(res.data);
+                //if questions exist
                 if (res.data.length !== 0) {
+                    //set an array of all the questions
                     this.setState({ questions: res.data });
+                //if no questions are left
                 } else {
                     // needed so the rest of the function does not crash if there are no questions. 
                     this.setState({ questions: [{ questionId: 0, word: "null", image: "", teacherId: "", unitId: "" }] });
@@ -85,7 +87,7 @@ class QuestionPrompt extends Component {
 
                 //make an object to render the letter buttons
                 let running = {};
-                //needed to create rows for dnd
+                //needed to create rows for dnd. will be an array of objects
                 let letterIdArray = [];
                 for (let d = 0; d < randomLetters.length; d++) {
                     let numString = d.toString();
@@ -97,6 +99,7 @@ class QuestionPrompt extends Component {
                 }
                 this.setState({ letterBank: running });
 
+                //set rows with letter tiles in "available letters"
                 let rowState = {
                     "row-2" : {
                         id: "row-2",
@@ -113,14 +116,15 @@ class QuestionPrompt extends Component {
             })
             .then(() => {
 
+                //get the word pronunciation
                 let wordPronounceAPI = this.state.questions[this.state.count].word.toLowerCase();
                     API.tts({
                         word: wordPronounceAPI
                     })
                     .then(res => {
                         let merrianFile = res.data;
-                        // assign Merrian-Webster (MW) subdirectory.
-                        // Per Merrian-Webster dictionary docs, there are three excepts to subdirectory being first letter of word. 
+                        // assign Merriam-Webster subdirectory.
+                        // Per Merriam-Webster dictionary docs, there are three exceptions to subdirectory being first letter of word. 
                         let merrianSub;
                         if (merrianFile.indexOf("bix") === 0) {
                             merrianSub = "bix";
@@ -153,12 +157,13 @@ class QuestionPrompt extends Component {
 
     handleAnswerSubmit = event => {
         event.preventDefault();
-
+        //if there are more questions to answer
         if (this.state.count < this.state.questions.length - 1) {
-
+            //get the answer out of the tile order
             let answer = [];
             for (let a = 0; a < this.state.questions[this.state.count].word.length; a++) {
                 for (let prop in this.state.letterBank)  {
+                    //check the letterIds to find what letter is represented in each tile
                     if (this.state.rows["row-2"].letterIds[a] === this.state.letterBank[prop].id) {
                         answer.push(this.state.letterBank[prop].character);
                     }
@@ -169,11 +174,13 @@ class QuestionPrompt extends Component {
 
             let answerToLog = answer.join("").replace(/\s/g, '');
 
+            //check if answer is true or false
             let ansCorrect = false;
             if (word === answerToLog) {
                 ansCorrect = true;
             }
 
+            //log the answer
             API.logAnswer({
                 question: this.state.questions[this.state.count].word,
                 correct: ansCorrect,
@@ -182,21 +189,22 @@ class QuestionPrompt extends Component {
                 teacherID: this.state.questions[this.state.count].teacherId,
                 unitID: this.state.questions[this.state.count].unitId,
                 StudentId: Number(ls.get("intStuNum"))
-            }).
-                then(res => {
-                    let nextCount = this.state.count + 1;
-                    this.setState({ count: nextCount });
-                    this.setState({ loading: true });
-                    this.setState({ letterBank: [] });
-                    this.setState({ pronunciation: "" })
-                    this.setState({ rows: {} })
-                })
-                .then(() => {
-                // set this.state.letters to array of letters for the first word
-                let currentWord = this.state.questions[this.state.count].word;
-                let wordToSplit = currentWord.toUpperCase();
-                let arr = wordToSplit.split("");
-                this.setState({ letters: arr });
+            }).then(res => {
+                //go to the next question
+                let nextCount = this.state.count + 1;
+                this.setState({ count: nextCount });
+                this.setState({ loading: true });
+                this.setState({ letterBank: [] });
+                this.setState({ pronunciation: "" })
+                this.setState({ rows: {} })
+            })
+            .then(() => {
+            //follow the steps set in getQuestions to generate next question
+            // set this.state.letters to array of letters for the first word
+            let currentWord = this.state.questions[this.state.count].word;
+            let wordToSplit = currentWord.toUpperCase();
+            let arr = wordToSplit.split("");
+            this.setState({ letters: arr });
             })
             .then(() => {
                 let currentWord = this.state.questions[this.state.count].word;
@@ -306,19 +314,17 @@ class QuestionPrompt extends Component {
                 teacherID: this.state.questions[this.state.count].teacherId,
                 unitID: this.state.questions[this.state.count].unitId,
                 StudentId: Number(ls.get("intStuNum"))
-            }).
-                then(res => {
-                    API.logEnd({
-                        studentNumber: ls.get("stuNum"),
-                        school: ls.get("school"),
-                        startTime: moment().format()
-                    }
-                    )
-                        .then(res => {
-                            this.props.history.push("/finish")
-                        })
-                        .catch(err => console.log(err));
+            }).then(res => {
+                API.logEnd({
+                    studentNumber: ls.get("stuNum"),
+                    school: ls.get("school"),
+                    startTime: moment().format()
+                }
+                ).then(res => {
+                    this.props.history.push("/finish")
                 })
+                .catch(err => console.log(err));
+            })
         }
 
     };
@@ -333,11 +339,13 @@ class QuestionPrompt extends Component {
 
     onDragEnd = result => {
         const { destination, source, draggableId } = result;
-
+        
+        //if they didn't drag the tile to a readable destination
         if (!destination) {
             return;
         }
 
+        //if they didn't drag the tile anywhere (just clicked a tile)
         if (
             destination.droppableId === source.droppableId &&
             destination.index === source.index
@@ -348,16 +356,19 @@ class QuestionPrompt extends Component {
         const start = this.state.rows[source.droppableId];
         const finish = this.state.rows[destination.droppableId];
 
+        //if they moved the letter to somewhere in the same row
         if (start === finish) {
             const newLetterIds = Array.from(start.letterIds);
             newLetterIds.splice(source.index, 1);
             newLetterIds.splice(destination.index, 0, draggableId);
-    
+            
+            //takes "start" and changes letterIds
             const newRow = {
                 ...start,
                 letterIds: newLetterIds,
             };
-    
+            
+            //updates this.state.rows
             const newState = {
                 ...this.state,
                 rows: {
@@ -398,9 +409,8 @@ class QuestionPrompt extends Component {
         return;
     };
 
-
-
     render() {
+        // show simple loading screen while page loads
         if (this.state.loading) {
             return (
                 <div {...this.props} ref={this.props.innerRef}>
