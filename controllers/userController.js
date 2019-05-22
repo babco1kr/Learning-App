@@ -3,13 +3,15 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 module.exports = {
+    //create a new teacher from sign-up page
     create: function(req, res) {
 
+        //salt and encrypt new password
         bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(req.body.password, salt, function(err, hash) {
-                console.log(hash);
                 req.body.password = hash;
 
+                //save user to database
                 db.User
                 .create(req.body)
                 .then(results => res.json(results))
@@ -18,9 +20,10 @@ module.exports = {
         });
       },
 
+      //check if teacher logged in correctly and issue json web token
       lookUp: function(req, res) {
         let currentUser;
-        // res.json(req.body);
+        //find user
         db.User.findAll({
           where: {
             name: req.body.name,
@@ -28,8 +31,7 @@ module.exports = {
           }
         }).then(user => {
           currentUser = user[0].dataValues;
-          console.log(currentUser);
-          // console.log(user[0].dataValues.password);
+          //compare password provided vs database
          return bcrypt.compare(req.body.password, user[0].dataValues.password); 
       }).then(results => {
         if(!results) {
@@ -37,7 +39,9 @@ module.exports = {
             message: "Incorrect Login Credentials"
           })
         }
+        //issue json webtoken
         const token = jwt.sign({name: currentUser.name, teacherId: currentUser.id}, `${process.env.JWT_SECRET}`, {expiresIn: '1h'});
+        //json webtoken as well as name, teacherId, and schoolId to be saved in local storage.
         res.status(200).json({
           token: token,
           name: currentUser.name,
@@ -54,7 +58,7 @@ module.exports = {
   },
 
   getProfile: function(req, res) {
-    //req.body.data.token gets you the token out of the req.
+    //verify the json web token
     let decoded = jwt.verify(req.body.data.token, `${process.env.JWT_SECRET}`)
 
     db.User.findAll({
@@ -74,8 +78,6 @@ module.exports = {
     .catch(err => {
       res.send("error: " + err);
     });
-
-
 
     const checkToken = (req, res, next) => {
       const header = req.headers['authorization'];

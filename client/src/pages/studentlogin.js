@@ -50,7 +50,6 @@ class StudentLogin extends Component {
             }
             )
                 .then(res => {
-                    console.log(res.data[0]);
                     if (res.data.length === 0) {
                         console.log("login failed")
                     }

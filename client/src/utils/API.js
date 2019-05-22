@@ -10,11 +10,9 @@ export default {
       return axios.post("/api/user/lookup", userData);
     },
 
-
     checkStudent: function(input) {
       return axios.post("/api/student/", input);
     },
-
 
     checkStudentLogin: function(input) {
       return axios.post("/api/student/lookup", input);
@@ -28,7 +26,6 @@ export default {
       return axios.post("/api/teacher", studentData);
     },
 
-  
     findStudents: function(teacherInfo) {
       return axios.post("/api/teacher/lookup", teacherInfo)
     },
@@ -40,7 +37,6 @@ export default {
     logEnd: function(input) {
       return axios.post("/api/student/end", input);
     },
-
 
     addUnit: function(unitInfo) {
       return axios.post("/api/teacher/addUnit", unitInfo);
@@ -78,10 +74,6 @@ export default {
       return axios.post("/api/student/getquestions", question);
     },
 
-    // sayWord: function(question) {
-    //   return axios.post("/api/texttospeech", question);
-    // },
-
     logAnswer: function(input) {
       return axios.post("/api/student/loganswer", input);
     },
@@ -101,6 +93,4 @@ export default {
     tts: function(word) {
       return axios.post("api/student/tts", word)
     }
-
-
   };

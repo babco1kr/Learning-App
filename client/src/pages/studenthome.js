@@ -20,6 +20,7 @@ class StudentHome extends Component {
 
     studentLoginCheck = () => {
 
+        //check with student logged in
         API.checkStudentLogin({
             studentNumber: ls.get("stuNum"),
             school: ls.get("school")

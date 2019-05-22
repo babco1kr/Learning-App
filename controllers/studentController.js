@@ -1,9 +1,8 @@
 const db = require("../models");
 var axios = require("axios");
 
-
-
 module.exports = {
+    //finds student matching school & id number
     login: function (req, res) {
         db.Student.findAll({
             where: {
@@ -35,6 +34,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    //update end time for given student
     logEnd: function (req, res) {
         db.Student.update({
             endTime: req.body.startTime
@@ -54,6 +54,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    //lookup what student is logged in, used as very asic form of "authentication"
     lookup: function(req, res) {
         db.Student.findAll({
             where: {
@@ -91,6 +92,7 @@ module.exports = {
                     }
                 })
                     .then(resultsTwo => {
+                        //push all active units into an array, which will be used to find questions
                         let unitId = [];
                         for (let j = 0; j < resultsTwo.length; j++) {
                             unitId.push(resultsTwo[j].dataValues.id)
@@ -132,12 +134,12 @@ module.exports = {
                                         };
 
                                         // gets rid of dulicate questions (aka, student answered them twice)
-                                        
                                         var uniq = answeredQuestions.reduce(function(a,b){
                                             if (a.indexOf(b) < 0 ) a.push(b);
                                             return a;
                                           },[]);
 
+                                          //array of the ID's for all already answered questions - used to check if student has already begun assignment
                                           let matchedIDs = [];
                                           for (let k = 0; k < arr.length; k++) {
                                             if (uniq.indexOf(arr[k].questionId) !== -1) {
@@ -169,25 +171,27 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    //log students answer
     logAnswer: function(req, res) {
         db.Score.create(req.body)
         .then(results => res.json(results))
         .catch(err =>res.status(422).json(err));
     },
 
-    //call Merrian-Websiter dictionary API
+    //call Merriam-Webster dictionary API
     tts: function(req, res) {
         let apiKey = process.env.MERRIANAPI;
         let dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + req.body.word + "?key=" + apiKey;
         axios.get(dictionaryURL).then(
             response => {
-                //find how many pronunciations Merriam-Websiter provides
+                //find how many pronunciations Merriam-Webster provides
                 let dictLength = response.data[0].hwi.prs.length;
                 let soundFile;
                 for (let i = 0; i < dictLength; i++) {
-                    //find the first pronunciation with an audio file
+                    //find the first pronunciation with an audio file and set that as the audio for the question
                     if (typeof response.data[0].hwi.prs[i].sound !== "undefined") {
                         soundFile = response.data[0].hwi.prs[i].sound.audio;
+                        //stop for loop once audio file found
                         break;
                     }
                 }

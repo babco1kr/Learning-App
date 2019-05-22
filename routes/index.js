@@ -19,10 +19,10 @@ const checkToken = (req, res, next) => {
     req.token = token;
     next();
   } else {
-    //If header is undefined return Forbidden (403)
-    res.sendStatus(403)
+      //If header is undefined return Forbidden (403)
+      res.sendStatus(403)
   }
-  }
+}
 
 
 router.get("/user/data", checkToken, (req, res) => {

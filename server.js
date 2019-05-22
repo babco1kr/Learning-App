@@ -9,7 +9,6 @@ var db = require("./models");
 
 require('dotenv').config()
 
-
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -23,8 +22,8 @@ app.use(routes);
 
 //middleware for jwt
 app.use(cookieParser());
+
 // Send every other request to the React app
-// Define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });

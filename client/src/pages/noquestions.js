@@ -22,7 +22,6 @@ class NoQuestions extends Component {
             school: ls.get("school")
         })
             .then(res => {
-                console.log(res);
                 if (res.data.length !== 0) {
                     this.setState({ loading: false })
                 } else {
