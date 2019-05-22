@@ -20,6 +20,7 @@ class Results extends Component {
         this.getActiveResults();
     }
 
+    // Finds all the students for this teacher
     findStudents() {
         API.findStudents({
             UserId: ls.get("teacherID"),
@@ -29,6 +30,7 @@ class Results extends Component {
         })
     }
 
+    // Finds the current active unit to get the correct results
     getActiveResults() {
         API.getActiveUnit({
             UserId: ls.get("teacherID"),
@@ -44,6 +46,7 @@ class Results extends Component {
         })
     }
 
+    // Finds all scores for questions that match this teacher
     getResults() {
         API.getResults({
             UserId: ls.get("teacherID"),
@@ -54,14 +57,18 @@ class Results extends Component {
         })
     }
 
+    // Goes through all of the results and checks for matching student ID's, if they match they get pushed to an array and then later an object is made
+    // containing the student ID, their time online, calculated below, and all of their results to be passed through a component
     makeResultsList() {
         let length = this.state.students.length;
         let student = this.state.students;
         let studentScores = [];
+        // For loop for all of the students
         for (let i = 0; i < length; i++) {
             let questions = "";
             let results = this.state.results;
             let questionsLength = this.state.results.length;
+            // For loop that checks all results against the student ID
             for (let j = 0; j < questionsLength; j++) {
                 if (student[i].id === results[j].StudentId) {
                     let answer;
@@ -78,9 +85,9 @@ class Results extends Component {
                 }
             }
             this.setState({ count: 1 });
+            // Calculating their time online with some moment
             let start = moment(student[i].startTime);
             let end = moment(student[i].endTime);
-            
             let duration = moment.duration(end.diff(start));
             let minutesOnline = duration.asMinutes();
             let hours;
@@ -99,6 +106,7 @@ class Results extends Component {
                 minutes = (minutes).toLocaleString(undefined, {minimumIntegerDigits: 2});
                 timeOnline = hours + ":" + minutes;
             }
+            // Creating an object out of all the info we created and pushing it to an array
             let object = {
                 id: student[i].id,
                 name: student[i].name,
@@ -107,6 +115,7 @@ class Results extends Component {
             }
             studentScores.push(object);
         }
+        // The array of student objects is set to be passed through a component
         this.setState({ studentsAndResults: studentScores });
     }
 

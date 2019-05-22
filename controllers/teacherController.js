@@ -3,12 +3,14 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 module.exports = {
+    // Makes a new student in the database
     createStudent: function(req, res) {
         db.Student.create(req.body)
         .then(results => res.json(results))
         .catch(err =>res.status(422).json(err));
     },
 
+    // Finds all students based of the teachers ID and the school ID
     findStudents: function(req, res) {
         db.Student.findAll({
             where: {
@@ -19,18 +21,21 @@ module.exports = {
         .catch(err => res.status(422).json(err));
     },
 
+    // Adds unit to database
     addUnit: function(req, res) {
         db.Unit.create(req.body)
         .then(results => res.json(results))
         .catch(err => res.status(422).json(err));
     },
 
+    // Adds spelling word to the database
     addSpelling: function(req, res) {
         db.Spelling.create(req.body)
         .then(results => res.json(results))
         .catch(err => res.status(422).json(err));
     },
 
+    // Finds all units based on the teacher ID and school ID
     findUnits: function(req, res) {
         db.Unit.findAll({
             where: {
@@ -42,6 +47,7 @@ module.exports = {
         }).catch(err => res.status(422).json(err));
     },
 
+    // Changes the active state for the Unit clicked
     updateActive: function(req, res) {
         let newState;
         db.Unit.findAll({
@@ -51,6 +57,7 @@ module.exports = {
                 school: req.body.school
             }
         }).then(results => {
+            // Checks the current state of active
             if (results[0].dataValues.active) {
                 newState = false;
             } else {
@@ -70,6 +77,7 @@ module.exports = {
         })
     },
 
+    // Removes Student from the database and all results attatched to that student
     deleteStudent: function(req, res) {
         db.Score.destroy({
             where: {
@@ -86,6 +94,7 @@ module.exports = {
         })
     },
 
+    // Removes Unit from the database
     deleteUnit: function(req, res) {
         db.Spelling.destroy({
             where: {
@@ -102,6 +111,7 @@ module.exports = {
         })
     },
 
+    // Finds all questions in based on the unit ID
     findQuestions: function(req, res) {
         db.Spelling.findAll({
             where: {
@@ -112,6 +122,7 @@ module.exports = {
         })
     },
 
+    // Deletes a question from the database
     deleteQuestion: function(req, res) {
         db.Spelling.destroy({
             where: {
@@ -122,6 +133,7 @@ module.exports = {
         })
     },
 
+    // Finds all units that are currently active for that teacher
     activeUnit: function(req, res) {
         db.Unit.findAll({
             where: {
@@ -134,6 +146,7 @@ module.exports = {
         })
     },
 
+    // Finds all scores for students belonging to that teacher and for only active units
     getResults: function(req, res) {
         let length = req.body.unitId.length;
         let units = [];
@@ -150,6 +163,7 @@ module.exports = {
         })
     },
 
+    // Finds all the questions for the active units for checking to see who has completed the assignment
     findTotalQuestions: function(req, res) {
         let length = req.body.unitId.length;
         let units = [];
