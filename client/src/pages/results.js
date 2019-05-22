@@ -82,10 +82,22 @@ class Results extends Component {
             let end = moment(student[i].endTime);
             
             let duration = moment.duration(end.diff(start));
-            let minutes = duration.asHours();
-            let timeOnline = moment(minutes).format('m:hh');
-            if (timeOnline === "Invalid date") {
-                timeOnline = 0;
+            let minutesOnline = duration.asMinutes();
+            let hours;
+            let minutes;
+            let timeOnline;
+            if (!student[i].endTime) {
+                timeOnline = "0:00"
+            } else if(minutesOnline > 60) {
+                hours = Math.floor(minutesOnline/60);
+                minutes = Math.floor(minutesOnline % 60);
+                minutes = (minutes).toLocaleString(undefined, {minimumIntegerDigits: 2});
+                timeOnline = hours + ":" + minutes;
+            } else {
+                hours = 0;
+                minutes = Math.floor(minutesOnline % 60);
+                minutes = (minutes).toLocaleString(undefined, {minimumIntegerDigits: 2});
+                timeOnline = hours + ":" + minutes;
             }
             let object = {
                 id: student[i].id,
