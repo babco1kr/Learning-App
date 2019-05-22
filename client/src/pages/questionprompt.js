@@ -37,7 +37,8 @@ class QuestionPrompt extends Component {
         API.getQuestions({
             studentNumber: ls.get("stuNum"),
             school: ls.get("school"),
-            intStuNum: ls.get("intStuNum")
+            intStuNum: ls.get("intStuNum"),
+            startTime: moment().format()
         })
             .then(res => {
                 console.log(res.data);
