@@ -5,7 +5,7 @@ function Footer() {
         <footer className="page-footer">
           <div className="footer-copyright">
             <div className="container">
-            © 2019 Copyright Text
+            © 2019 Learning App
             </div>
           </div>
         </footer>

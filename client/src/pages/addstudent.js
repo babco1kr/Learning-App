@@ -43,6 +43,7 @@ class Addstudent extends Component {
             .catch(err => { console.log(err) })
     };
 
+    // Finds students that belong to this teacher to display on the page
     findStudents() {
         API.findStudents({
             UserId: ls.get("teacherID"),
@@ -52,9 +53,9 @@ class Addstudent extends Component {
         })
     }
 
+    // Adds Student to the database by attatching it to the teacher for reference later
     handleFormSubmit = event => {
         event.preventDefault();
-        // Need to add user to student table
         if (this.state.studentID && this.state.studentName) {
             API.addStudent({
                 studentNumber: this.state.studentID,
@@ -69,6 +70,7 @@ class Addstudent extends Component {
         }
     }
 
+    // Removes student from the database
     removeStudent = id => {
         API.deleteStudent({
             id: id

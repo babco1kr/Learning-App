@@ -30,6 +30,7 @@ class Units extends Component {
         });
     };
 
+    // Finding all the units that belong to this teacher
     getUnits() {
         API.findUnits({
             teacherID: ls.get("teacherID"),
@@ -57,6 +58,7 @@ class Units extends Component {
             .catch(err => { console.log(err) })
     };
 
+    // Adds Unit to the database and attatches it to this teacher
     handleUnitSubmit = event => {
         event.preventDefault();
         if (this.state.name && this.state.subject) {
@@ -74,6 +76,7 @@ class Units extends Component {
         }
     }
 
+    // Adds a question into the current unit selected
     handleQuestionSubmit = event => {
         event.preventDefault();
         if (this.state.question && this.state.unit) {
@@ -91,6 +94,7 @@ class Units extends Component {
         }
     }
 
+    // Selecting an active unit and will swap its active status
     changeActive = id => {
         API.updateActive({
             unitId: id,
@@ -101,6 +105,7 @@ class Units extends Component {
         })
     }
 
+    // Removes unit from database
     removeUnit = id => {
         API.deleteUnit({
             id: id
@@ -109,12 +114,14 @@ class Units extends Component {
         })
     }
 
+    // When selecting a unit, it will set this as the current unit and find all questions for this unit to display
     selectUnit = id => {
         API.findQuestions({
             UnitId: id
         }).then(res => {
             let questions = res.data;
             let length = res.data.length;
+            
             for(let i = 0; i < length; i++) {
                 if (!questions[i].pictureLink) {
                     questions[i].pictureLink = "❌";
@@ -127,12 +134,14 @@ class Units extends Component {
         })
     }
 
+    // Finding questions for the current unit. This one is for use on calling when submitting a new question
     getQuestions() {
         API.findQuestions({
             UnitId: this.state.unit
         }).then(res => {
             let questions = res.data;
             let length = res.data.length;
+            // If question has a picture it displays ✔️ and if it doesnt it displays ❌
             for(let i = 0; i < length; i++) {
                 if (!questions[i].pictureLink) {
                     questions[i].pictureLink = "❌";
@@ -144,6 +153,7 @@ class Units extends Component {
         })
     }
 
+    // Removes questions from database
     removeQuestion = id => {
         API.deleteQuestion({
             id: id

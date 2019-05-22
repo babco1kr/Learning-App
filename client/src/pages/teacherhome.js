@@ -50,6 +50,7 @@ class TeacherHome extends Component {
         })
     }
 
+    // Gets the number of the active Units for display
     getActiveResults() {
         API.getActiveUnit({
             UserId: ls.get("teacherID"),
@@ -65,6 +66,7 @@ class TeacherHome extends Component {
         })
     }
 
+    // Setting the number of questions for checking the students who have completed the active questions
     findNumberofQuestions() {
         API.findTotalQuestions({
             unitId: this.state.units
@@ -74,6 +76,7 @@ class TeacherHome extends Component {
         })
     }
 
+    // Finding results for the active units
     getResults() {
         API.getResults({
             UserId: ls.get("teacherID"),
@@ -84,6 +87,7 @@ class TeacherHome extends Component {
         })
     }
 
+    // Creating Info for a chart by counting the number of complete questions per student
     makeChartInfo() {
         let studentLength = this.state.students.length;
         let questionsLength = this.state.results.length;
@@ -107,6 +111,7 @@ class TeacherHome extends Component {
     
     }
 
+    // Makes a chart with the info we generated
     createChart() {
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
