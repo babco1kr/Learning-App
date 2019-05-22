@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import API from "../utils/API";
 import Nav from "../components/StudentNav";
 import ls from 'local-storage';
-import moment from 'moment';
+// import moment from 'moment';
 
 class StudentHome extends Component {
 
@@ -46,17 +46,8 @@ class StudentHome extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        // Go to utils/API.js and run 
-        API.logStart({
-            studentNumber: ls.get("stuNum"),
-            school: ls.get("school"),
-            startTime: moment().format()
-        }
-        )
-            .then(res => {
-                this.props.history.push("/question");
-            })
-            .catch(err => console.log(err));
+
+        this.props.history.push("/question");
     };
 
     render() {

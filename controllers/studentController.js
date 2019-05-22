@@ -17,7 +17,8 @@ module.exports = {
 
     logStart: function (req, res) {
         db.Student.update({
-            startTime: req.body.startTime
+            startTime: req.body.startTime,
+            endTime: ""
         }, {
                 where: {
                     studentNumber: req.body.studentNumber,
@@ -131,16 +132,34 @@ module.exports = {
                                         };
 
                                         // gets rid of dulicate questions (aka, student answered them twice)
+                                        
                                         var uniq = answeredQuestions.reduce(function(a,b){
                                             if (a.indexOf(b) < 0 ) a.push(b);
                                             return a;
                                           },[]);
+
+                                          let matchedIDs = [];
                                           for (let k = 0; k < arr.length; k++) {
                                             if (uniq.indexOf(arr[k].questionId) !== -1) {
+                                                matchedIDs.push(arr[k].questionId);
                                                 arr.splice(k, 1);
                                                 k--;
                                             }
                                           }
+
+                                          //if questions exist and student hasn't answered any, log a new start time. 
+                                          if (arr.length !== 0 && matchedIDs.length === 0) {
+                                            db.Student.update({
+                                                startTime: req.body.startTime,
+                                                endTime: null
+                                            }, {
+                                                    where: {
+                                                        studentNumber: req.body.studentNumber,
+                                                        school: req.body.school
+                                                    }
+                                                })
+                                        }
+
                                           res.status(200).json(arr)
                                     })
                             })
@@ -162,8 +181,17 @@ module.exports = {
         let dictionaryURL = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + req.body.word + "?key=" + apiKey;
         axios.get(dictionaryURL).then(
             response => {
-                let dictLength = response.data[0].hwi.prs.length - 1;
-                res.json(response.data[0].hwi.prs[dictLength].sound.audio);
+                //find how many pronunciations Merriam-Websiter provides
+                let dictLength = response.data[0].hwi.prs.length;
+                let soundFile;
+                for (let i = 0; i < dictLength; i++) {
+                    //find the first pronunciation with an audio file
+                    if (typeof response.data[0].hwi.prs[i].sound !== "undefined") {
+                        soundFile = response.data[0].hwi.prs[i].sound.audio;
+                        break;
+                    }
+                }
+                res.json(soundFile);
             }
         );
     }
